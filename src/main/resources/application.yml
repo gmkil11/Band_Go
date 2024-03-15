@@ -1,0 +1,53 @@
+
+server:
+  port: 3000
+
+spring:
+  # ??? ??
+  profiles:
+    active: dev
+
+
+  # ?????? ??
+  datasource:
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: BandGo
+    password: _aA123456
+
+  # JPA ??
+  jpa:
+    properties:
+      hibernate:
+        # ???? ?? ?? ??
+        show_sql: true
+        # ?? ?? ???? ??? ??? ?? ???
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddlAuto: update
+
+  # ?? ??? ??
+  servlet:
+    multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 40MB
+
+  # ?? ?? ??(CSS, JS, ???)
+  web:
+    resources:
+      staticLocations: file:src/main/resources/static/
+
+  # ??? ??? ??
+  devtools:
+    livereload:
+      enabled: true
+
+  # ???? ??
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
+
+  flyway:
+    enabled: true
