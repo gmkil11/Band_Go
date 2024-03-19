@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="content">
+    <input type="button" value="login" id="login" />
+
+
+    <script>
+        const supabaseUrl = 'https://kzoqorcgyatwmoafkfcb.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6b3FvcmNneWF0d21vYWZrZmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4NDg3MDQsImV4cCI6MjAyNjQyNDcwNH0.sOC91NnK94dqgloyKq5LKqH9nwyVrrUXgQJJn0whyZg';
+        const client = supabase.createClient(supabaseUrl, supabaseKey);
+
+
+        async function signInWithKaKao() {
+            const { data, error } = await client.auth.signInWithOAuth({
+                provider: "kakao",
+                options: {
+                    redirectTo: "http://localhost:8080",
+                },
+            });
+        }
+        document
+            .querySelector("#login")
+            .addEventListener("click", signInWithKaKao);
+    </script>
+
+    <input type="button" value="logout" id="logout" />
+    <script>
+        async function checkLogin() {
+            const authInfo = await client.auth.getSession();
+            const session = authInfo.data.session;
+            document.querySelector("#login").style.display = "none";
+            document.querySelector("#logout").style.display = "none";
+            if (session === null) {
+                document.querySelector("#login").style.display = "inline";
+            } else {
+                document.querySelector("#logout").style.display = "inline";
+            }
+        }
+        checkLogin();
+    </script>
+
+    <script>
+        async function signOut() {
+            const { error } = await client.auth.signOut();
+            checkLogin();
+        }
+        document.querySelector("#logout").addEventListener("click", signOut);
+    </script>
+</th:block>
+
+
+</html>
