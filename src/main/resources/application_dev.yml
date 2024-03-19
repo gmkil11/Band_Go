@@ -2,27 +2,6 @@
 server:
   port: 8080
 
-
-  # 데이터베이스 설정
-  datasource:
-    driverClassName: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:xe
-    username: BANDGO
-    password: _aA123456
-
-  # JPA 설정
-  jpa:
-    properties:
-      hibernate:
-        # 실행되는 쿼리 콘솔 출력
-        show_sql: true
-        # 콘솔 창에 출력되는 쿼리를 가독성 좋게 포매팅
-        format_sql: true
-        use_sql_comments: true
-        dialect: org.hibernate.dialect.OracleDialect
-    hibernate:
-      ddlAuto: update
-
   # 파일 업로드 설정
   servlet:
     multipart:
