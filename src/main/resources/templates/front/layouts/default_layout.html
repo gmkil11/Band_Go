@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const supabaseUrl = 'https://kzoqorcgyatwmoafkfcb.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6b3FvcmNneWF0d21vYWZrZmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4NDg3MDQsImV4cCI6MjAyNjQyNDcwNH0.sOC91NnK94dqgloyKq5LKqH9nwyVrrUXgQJJn0whyZg';
+        const client = supabase.createClient(supabaseUrl, supabaseKey);
+
+        console.log(client);
+    </script>
 </head>
 <th:block th:replace="~{front/fragments/header :: headerFragment}"></th:block>
 <body>

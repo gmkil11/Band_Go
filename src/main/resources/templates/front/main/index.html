@@ -4,20 +4,14 @@
       layout:decorate="~{front/layouts/default_layout}">
 
 <th:block layout:fragment="content">
+
     <input type="button" value="login_by_kakao" id="login" />
-
-
     <script>
-        const supabaseUrl = 'https://kzoqorcgyatwmoafkfcb.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6b3FvcmNneWF0d21vYWZrZmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4NDg3MDQsImV4cCI6MjAyNjQyNDcwNH0.sOC91NnK94dqgloyKq5LKqH9nwyVrrUXgQJJn0whyZg';
-        const client = supabase.createClient(supabaseUrl, supabaseKey);
-
-
         async function signInWithKaKao() {
             const { data, error } = await client.auth.signInWithOAuth({
                 provider: "kakao",
                 options: {
-                    redirectTo: "http://localhost:8080",
+                    redirectTo: "http://localhost:8080/",
                 },
             });
         }
@@ -49,7 +43,10 @@
         }
         document.querySelector("#logout").addEventListener("click", signOut);
     </script>
+
+    <input type="button" th:onclick="|window.location.href='@{/signup}'|" value="sign up">
 </th:block>
+
 
 
 </html>

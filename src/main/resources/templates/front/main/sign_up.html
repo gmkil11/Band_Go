@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="content">
+    <form >
+
+        <div>
+            <input type="text" id="name" placeholder="이름을 입력하세요">
+        </div>
+        <div>
+            <input type="email" id="email" placeholder="이메일을 입력하세요">
+        </div>
+        <div>
+            <input type="password" id="password" placeholder="비밀번호를 입력하세요">
+        </div>
+        <div>
+            <input type="password" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요">
+            <span id="passwordMatchMsg"></span>
+        </div>
+        <div>
+            <input type="text" id="phone" placeholder="전화번호를 입력하세요">
+        </div>
+        <button id="signupBtn">회원가입</button>
+    </form>
+
+    <script>
+        const phoneInput = document.getElementById('phone');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordMatchMessage = document.getElementById('passwordMatchMsg');
+        const signupBtn = document.getElementById('signupBtn');
+
+        function validatePassword() {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                passwordMatchMessage.textContent = '비밀번호가 일치하지 않습니다.';
+            } else {
+                passwordMatchMessage.textContent = '';
+            }
+        }
+
+        confirmPasswordInput.addEventListener('input', validatePassword)
+
+        async function signUp() {
+            const { data, error } = await supabase.auth.signUp({
+                email: emailInput.value,
+                password: passwordInput.value,
+                options: {
+                    data: {
+                        name: nameInput.value,
+                        phone: phoneInput.value,
+                    }
+                }
+            });
+
+            if (error) {
+                console.error('회원가입에 실패했습니다:', error.message);
+            } else {
+                console.log('회원가입이 완료되었습니다:', data);
+                // 회원가입 성공 시 다음 페이지로 이동하거나 다른 동작을 수행할 수 있습니다.
+            }
+        }
+
+        signupBtn.addEventListener('click', signUp);
+
+    </script>
+</th:block>
+
+</html>
