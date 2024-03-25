@@ -18,7 +18,7 @@ public class MainController {
 
     @GetMapping("/signup")
     public String signUp(Model model) {
-        return "front/main/singup";
+        return "front/main/sign_up";
     }
 
 

@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>회원가입</title>
+  <script src=""
 </head>
 <body>
 <form id="signupForm">
@@ -21,46 +22,5 @@
   <button type="submit">회원가입</button>
 </form>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-  const supabaseUrl = 'https://kzoqorcgyatwmoafkfcb.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6b3FvcmNneWF0d21vYWZrZmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4NDg3MDQsImV4cCI6MjAyNjQyNDcwNH0.sOC91NnK94dqgloyKq5LKqH9nwyVrrUXgQJJn0whyZg';
-  const supabase = createClient(supabaseUrl, supabaseKey);
-
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const confirmPasswordInput = document.getElementById('confirmPassword');
-  const passwordMatchMessage = document.getElementById('passwordMatchMsg');
-  const signupForm = document.getElementById('signupForm');
-
-  function validatePassword() {
-    if (passwordInput.value !== confirmPasswordInput.value) {
-      passwordMatchMessage.textContent = '비밀번호가 일치하지 않습니다.';
-    } else {
-      passwordMatchMessage.textContent = '';
-    }
-  }
-
-  confirmPasswordInput.addEventListener('input', validatePassword);
-
-  signupForm.addEventListener('submit', async function(event) {
-    event.preventDefault();
-    validatePassword(); // 비밀번호 일치 여부 검증
-
-    if (passwordInput.value === confirmPasswordInput.value) {
-      const { user, error } = await supabase.auth.signUp({
-        email: emailInput.value,
-        password: passwordInput.value
-      });
-
-      if (error) {
-        console.error('회원가입에 실패했습니다:', error.message);
-      } else {
-        console.log('회원가입이 완료되었습니다:', user);
-        // 회원가입 성공 시 다음 페이지로 이동하거나 다른 동작을 수행할 수 있습니다.
-      }
-    }
-  });
-</script>
 </body>
 </html>
