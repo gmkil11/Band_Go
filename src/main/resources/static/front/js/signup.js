@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 password: passwordInput.value,
                 options: {
                     data: {
-                        name: nameInput.value,
+                        first_name: nameInput.value,
                         phone: phoneInput.value,
                     }
                 }
