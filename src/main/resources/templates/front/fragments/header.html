@@ -1,9 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+
+
 <th:block th:fragment="headerFragment">
+
+    <th:block layout:fragment="addJs">
+        <script th:src="@{/front/js/main.js}"></script>
+    </th:block>
+
     <header>
         <h1>헤더영역</h1>
-        <h2>로그인 정보 기능</h2>
+        <div id="user-info">
+
+        </div>
     </header>
 </th:block>
 </html>
