@@ -21,5 +21,11 @@ public class MainController {
         return "front/main/sign_up";
     }
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "front/main/login";
+    }
+
+
 
 }

@@ -1,0 +1,103 @@
+/*로그인 및 회원가입 페이지에 사용되는 CSS 입니다.*/
+.logoBox {
+    cursor: pointer;
+}
+
+.member-style {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    height: 100vh;
+}
+
+.member-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: left;
+}
+
+.member-box button {
+    display: flex;
+    height: 48px;
+    padding: 16px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    color: #000000;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: -0.24px;
+    transition: all 0.5s;
+    width: 360px;
+}
+
+.member-box button:first-of-type {
+    background: #000000;
+    color: #fff;
+}
+
+.member-box button:nth-of-type(2) {
+    background: #FEE500;
+    color: #000000;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.member-box button img {
+    height: 22px;
+    width: 22px;
+}
+
+.rows {
+    display: flex;
+    align-items: center;
+    background: #FFF;
+    border-radius: 5px;
+    border: #000 solid 1px;
+    width: 360px;
+}
+
+.rows input {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background: #FFF;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: -0.24px;
+    padding: 16px 16px 16px 16px;
+    border: none;
+    outline: none;
+}
+.rows input::placeholder {
+    color: #9F9F9F;
+}
+
+.rows img {
+    margin-left: 20px;
+
+}
+
+form .rows:nth-child(5) img {
+    margin-left: 23px;
+    margin-right: 3px;
+}
+
+.forgot_info {
+    color: #9F9F9F;
+}
+
+.forgot_info a{
+    text-decoration: none;
+    color: #9F9F9F;
+}

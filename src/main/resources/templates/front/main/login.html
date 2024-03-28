@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="addCss">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/account.css}">
+</th:block>
+
+<th:block layout:fragment="addJs">
+
+</th:block>
+
+<!--Body 영역-->
+<main layout:fragment="content" class="member-style">
+  <div class="logoBox" th:onclick="|window.location.href='@{/}'|">
+    <img th:src="@{/img/logo.svg}" alt="logo">
+  </div>
+  <form method="post" th:action="@{/member/login}" autocomplete="off" class="member-box">
+    <input th:if="${redirectURL != null}" type="hidden" name="redirectURL" th:value="${redirectURL}">
+    <div class="rows" th:classappend="${session.NotBlank_email} ? 'error-box' : ''">
+      <img th:src="@{/img/icons/email.svg}">
+      <input type="text" name="email" placeholder="이메일을 입력해주세요." >
+    </div>
+    <div class="rows" th:classappend="${session.NotBlank_password} ? 'error-box' : ''">
+      <img th:src="@{/img/icons/password.svg}" >
+      <input type="password" name="password" placeholder="비밀번호를 입력해주세요." >
+    </div>
+    <button type="submit" >로그인</button>
+    <div class="forgot_info">
+      <a class="button-text" href="#">아이디 찾기</a>
+      <span class="button-text">|</span>
+      <a class="button-text" href="#">비밀번호 찾기</a>
+    </div>
+    <button type="button"  th:onclick="" >
+      <img th:src="@{/img/icons/kakako_login_symbol.svg}">
+      카카오 로그인
+    </button>
+    <button type="button" th:onclick="|window.location.href='@{/signup}'|">회원가입</button>
+  </form>
+</main>
+
+</html>

@@ -1,0 +1,13 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 34" width="36" height="34">
+	<title>국문</title>
+	<defs>
+		<image width="36" height="35" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAjCAYAAAD8BaggAAAAAXNSR0IArs4c6QAAAmNJREFUWEfNmEtIVUEYx38S9jB6QIs2bnJrFlELoUgMhLYJuhOlRdJGatemTQ/BHiq4clMQ0d2EEaKudBWkUQlaQgRR9KIgkqAHgtH8Y47Y7Zwzc865j/PB5cK93/znd+bOfN9/bg05i5qEPPXAQeAA0ATsAnYAu63OJ2AZ+AIsAvPAHKDPvcIXqBU4CxzyUv0/6aEBHwIeuMa7gI4C54FGl5Dn90+BS8BsVH4UUANwATjmOVHStEngIvCmeGAY0GHgDlCbdJaE+T+BDkCrthbFQIK5DWxKKJ42/TvQbg/AX431QNon48DmtOopx30D2oC364EEMQ3sSSmaddhzs9GPmwO0GqzQANCVVTXj+GvAoIC22d9wY0bBrMNVTPcJqAfoz6pWovHdAioALSUSzCpTEJDKuQphHuKJgF5V4ahHPfxXAal8l7sq+67+soAeAbIVeYh5Ad2wRSkPQGMCOmktQR6ATgloq2lwC8CWKhOpp+0NWsc5oK/KQHKUVwOg7XZz670aoeaqjv+P/ZB5v1tBLxQ8eKj9CL48Yqr2rQoWShm0E8CzACDMwu63rlFXnHLGD6DTZWEDAN2zRgCtWDnivjX5H4rFXdcgmTaZt1LFDDAMPI4SdAGVwiu9B+7ZvfnO9WQuIFdb+WgM3mtrX3baa7Su0p+trdGK6Eh7RxzQBuAFUBei9hu4aVzCZeCX92weiXFAzcbjjoVoyK702nbjMUWylDig4nayCoyaFbsCrCSbxj87DmjKbEbVJMVL85fKaVM3lvyl02VGAWmDBpNfN1clvSoScSt0Bpiwq1MRGE3yBwsvX+7yWN1VAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<g id="국문">
+		<g id="Large and Narrow (600px X 90px)">
+			<use id="-e-Shape 2 copy 4" href="#img1" transform="matrix(1,0,0,1,0,-1)"/>
+		</g>
+	</g>
+</svg>

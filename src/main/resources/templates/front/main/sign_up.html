@@ -4,13 +4,14 @@
       layout:decorate="~{front/layouts/default_layout}">
 
 <th:block layout:fragment="addCss">
-
+    <link rel="stylesheet" type="text/css" th:href="@{/front/css/account.css}">
 </th:block>
 
 <th:block layout:fragment="addJs">
     <script th:src="@{/front/js/signup.js}"></script>
 </th:block>
 
+<!--Body 영역-->
 <th:block layout:fragment="content">
 
     <form id="signupForm">
