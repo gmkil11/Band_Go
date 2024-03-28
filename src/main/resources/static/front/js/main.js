@@ -12,5 +12,4 @@ window.onload = async function() {
         console.log('session is none');
     }
 
-
 }
