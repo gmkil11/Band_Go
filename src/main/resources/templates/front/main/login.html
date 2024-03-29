@@ -8,7 +8,7 @@
 </th:block>
 
 <th:block layout:fragment="addJs">
-
+  <script th:src="@{/front/js/login.js}"></script>
 </th:block>
 
 <!--Body 영역-->
@@ -16,15 +16,15 @@
   <div class="logoBox" th:onclick="|window.location.href='@{/}'|">
     <img th:src="@{/img/logo.svg}" alt="logo">
   </div>
-  <form method="post" th:action="@{/member/login}" autocomplete="off" class="member-box">
+  <form autocomplete="off" class="member-box" id="loginForm">
     <input th:if="${redirectURL != null}" type="hidden" name="redirectURL" th:value="${redirectURL}">
     <div class="rows" th:classappend="${session.NotBlank_email} ? 'error-box' : ''">
       <img th:src="@{/img/icons/email.svg}">
-      <input type="text" name="email" placeholder="이메일을 입력해주세요." >
+      <input type="text" name="email" placeholder="이메일을 입력해주세요." id="email">
     </div>
     <div class="rows" th:classappend="${session.NotBlank_password} ? 'error-box' : ''">
       <img th:src="@{/img/icons/password.svg}" >
-      <input type="password" name="password" placeholder="비밀번호를 입력해주세요." >
+      <input type="password" name="password" placeholder="비밀번호를 입력해주세요." id="password">
     </div>
     <button type="submit" >로그인</button>
     <div class="forgot_info">
