@@ -37,6 +37,7 @@
     letter-spacing: -0.24px;
     transition: all 0.5s;
     width: 360px;
+    cursor: pointer;
 }
 
 .member-box button:first-of-type {
