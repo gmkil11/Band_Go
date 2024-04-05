@@ -5,6 +5,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log("로그인 페이지 진입.")
 
+    async function signInWithKaKao() {
+        const { data, error } = await client.auth.signInWithOAuth({
+            provider: "kakao",
+            options: {
+                redirectTo: "http://localhost:8080/",
+            },
+        });
+    }
+    document
+        .querySelector("#login_by_kakao")
+        .addEventListener("click", signInWithKaKao, console.log("카카오로그인 시도"));
+
+
     loginForm.addEventListener('submit', async function(event ) {
         event.preventDefault();
         console.log(email.value, password.value);
