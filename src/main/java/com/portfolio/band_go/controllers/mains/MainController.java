@@ -26,6 +26,9 @@ public class MainController {
         return "front/main/login";
     }
 
-
+    @GetMapping("/findRoom")
+    public String findRoom(Model model)  {
+        return "front/main/find_room";
+    }
 
 }
