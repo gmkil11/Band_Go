@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
                     console.log(response); // 검색 결과 확인
-                    // 여기서 검색 결과를 활용하여 원하는 작업 수행
+                    // 여기서 검색 결과를 활용하여 원하는 작업 수행!
                 } else {
                     console.error('Request failed with status:', xhr.status);
                 }
