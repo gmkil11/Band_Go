@@ -6,3 +6,24 @@
 body{ margin: 0;  }
 
 main { height: 100%; }
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.header img {
+    height: 35px;
+}
+
+.leftContent {
+    display: flex;
+    gap: 20px;
+}
+
+.rightContent a{
+    text-decoration: none;
+    color: #000;
+}

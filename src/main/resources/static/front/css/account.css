@@ -63,7 +63,7 @@
     align-items: center;
     background: #FFF;
     border-radius: 5px;
-    border: #000 solid 1px;
+    border: #000 solid 0.5px;
     width: 360px;
 }
 
@@ -101,4 +101,64 @@ form .rows:nth-child(5) img {
 .forgot_info a{
     text-decoration: none;
     color: #9F9F9F;
+}
+
+/* 체크박스 시작 */
+.agree{
+    display: none;
+
+}
+
+.agree + label{
+    cursor: pointer;
+
+}
+
+.agree + label > span{
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.checkbox-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox {
+    width:17px;
+    height:17px;
+    border:1px solid #000;
+    content:"";
+    display:inline-block;
+    border-radius: 4px;
+    vertical-align:middle;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.checked {
+    content: "";
+    width: 17px;
+    height: 17px;
+    background-color: #1DC078;
+    border-color: #000;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-image: url('../../img/icons/check.svg');
+    transition: all 0.3s;
+}
+
+
+.allAgreeText{
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 32px; /* 200% */
+}
+
+.agreeText{
+    font-size: 1.2rem;
+    font-weight: 100;
+    line-height: 32px; /* 200% */
 }

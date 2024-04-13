@@ -11,10 +11,17 @@
         <script th:src="@{/front/js/main.js}"></script>
     </th:block>
 
-    <header>
-        <h1>헤더영역</h1>
-        <div id="user-info">
-
+    <header class="header">
+        <div class="leftContent">
+            <img th:src="@{/img/icons/menu.svg}" alt="menu">
+            <a th:href="@{/}">
+                <img th:src="@{/img/logo.svg}" alt="logo">
+            </a>
+        </div>
+        <div class="rightContent">
+            <a th:href="@{/login}">로그인</a>
+            |
+            <a th:href="@{/signup}">회원가입</a>
         </div>
     </header>
 </th:block>

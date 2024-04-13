@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{front/layouts/default_layout}">
+      layout:decorate="~{front/layouts/login_layout}">
 
 <th:block layout:fragment="addCss">
     <link rel="stylesheet" type="text/css" th:href="@{/front/css/account.css}">
@@ -13,27 +13,67 @@
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
-
-    <form id="signupForm">
-
-        <div>
-            <input type="text" id="name" placeholder="이름을 입력하세요">
+    <form id="signupForm"  class="member-box">
+        <div class="logoBox" th:onclick="|window.location.href='@{/}'|">
+            <img th:src="@{/img/logo.svg}" alt="logo">
         </div>
-        <div>
-            <input type="email" id="email" placeholder="이메일을 입력하세요">
+        <div class="rows">
+            <img th:src="@{/img/icons/people.svg}">
+            <input type="text" id="name" placeholder="회원명을 입력하세요">
         </div>
-        <div>
-            <input type="password" id="password" placeholder="비밀번호를 입력하세요">
+        <div class="rows">
+            <img th:src="@{/img/icons/email.svg}">
+            <input type="email" id="email" placeholder="사용하실 이메일을 입력해주세요">
         </div>
-        <div>
-            <input type="password" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요">
+        <div class="rows">
+            <img th:src="@{/img/icons/password.svg}">
+            <input type="password" id="password" placeholder="비밀번호를 입력해주세요">
+        </div>
+        <div class="rows">
+            <img th:src="@{/img/icons/passwordCheck.svg}">
+            <input type="password" id="confirmPassword" placeholder="비밀번호를 다시 입력해주세요">
             <span id="passwordMatchMsg"></span>
         </div>
-        <div>
-            <input type="text" id="phone" placeholder="전화번호를 입력하세요">
+        <div class="rows">
+            <img th:src="@{/img/icons/mobile.svg}">
+            <input type="text" id="phone" placeholder="전화번호를 입력해주세요">
         </div>
         <button type="submit" id="submitButton">회원가입</button>
+
     </form>
+
+    <div class="agreeBox">
+        <div class="checkbox-container">
+            <input type="checkbox" class="agree allAgree" id="selectAll" name="agree" >
+            <label id="checkboxAll" class="checkbox" for="selectAll"></label>
+            <label for="selectAll" class="allAgreeText" >모두 확인하였으며 동의합니다.</label>
+        </div>
+        <hr>
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="ageAgree" class="agree"  name="ageAgree" value="true">
+            <label id="checkbox1" class="checkbox" for="ageAgree"></label>
+            <label for="ageAgree" class="agreeText" >만 14세 이상 이용동의</label>
+        </div>
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="termsOfUser" class="agree"  name="termsOfUser" value="true" >
+            <label id="checkbox2" class="checkbox" for="termsOfUser"></label>
+            <label for="termsOfUser" class="agreeText" >밴드할까 이용약관 동의</label>
+        </div>
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="privacy" class="agree"  name="privacy" value="true" >
+            <label id="checkbox3" class="checkbox" for="privacy"></label>
+            <label for="privacy" class="agreeText" >개인정보 수집 및 이용 동의</label>
+        </div>
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="thirdPartyAgree" class="agree"  name="thirdPartyAgree"  value="true" >
+            <label id="checkbox4" class="checkbox" for="thirdPartyAgree"></label>
+            <label for="thirdPartyAgree" class="agreeText" >개인정보 제3자 제공 동의</label>
+        </div>
+    </div>
 
 
 </th:block>
