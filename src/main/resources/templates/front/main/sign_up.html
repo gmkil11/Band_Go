@@ -9,6 +9,7 @@
 
 <th:block layout:fragment="addJs">
     <script th:src="@{/front/js/signup.js}"></script>
+    <script th:src="@{/front/js/checkbox.js}"></script>
 </th:block>
 
 <!--Body 영역-->
@@ -40,40 +41,62 @@
         </div>
         <button type="submit" id="submitButton">회원가입</button>
 
+
+        <div class="agreeBox">
+            <div class="checkbox-container">
+                <input type="checkbox" class="agree allAgree" id="selectAll" name="agree" onclick='toggleAll(this); toggleCheckbox();'>
+                <label id="checkboxAll" class="checkbox" for="selectAll"></label>
+                <label for="selectAll" class="allAgreeText" >모두 확인하였으며 동의합니다.</label>
+            </div>
+            <hr>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="ageAgree" class="agree"  name="ageAgree" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
+                <label id="checkbox1" class="checkbox" for="ageAgree"></label>
+                <label for="ageAgree" class="agreeText" >만 14세 이상 이용동의</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="termsOfUser" class="agree"  name="termsOfUser" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
+                <label id="checkbox2" class="checkbox" for="termsOfUser"></label>
+                <label for="termsOfUser" class="agreeText" >밴드할래 이용약관 동의</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="privacy" class="agree"  name="privacy" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
+                <label id="checkbox3" class="checkbox" for="privacy"></label>
+                <label for="privacy" class="agreeText" >개인정보 수집 및 이용 동의</label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="thirdPartyAgree" class="agree"  name="thirdPartyAgree"  value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
+                <label id="checkbox4" class="checkbox" for="thirdPartyAgree"></label>
+                <label for="thirdPartyAgree" class="agreeText" >개인정보 제3자 제공 동의</label>
+            </div>
+        </div>
+
     </form>
+    <script>
+        let emailError = document.getElementsByName("email");
+        let passwordError = document.getElementsByName("password");
+        let confirmPasswordError = document.getElementsByName("confirmPassword");
+        let userNmError = document.getElementsByName("userNm");
+        let mobileError = document.getElementsByName("mobile");
 
-    <div class="agreeBox">
-        <div class="checkbox-container">
-            <input type="checkbox" class="agree allAgree" id="selectAll" name="agree" >
-            <label id="checkboxAll" class="checkbox" for="selectAll"></label>
-            <label for="selectAll" class="allAgreeText" >모두 확인하였으며 동의합니다.</label>
-        </div>
-        <hr>
+        function addErrorBorder(errors, className) {
+            errors.forEach(function (error) {
+                if (error.textContent !== "") {
+                    error.closest(".rows").classList.add(className);
+                }
+            });
+        }
 
-        <div class="checkbox-container">
-            <input type="checkbox" id="ageAgree" class="agree"  name="ageAgree" value="true">
-            <label id="checkbox1" class="checkbox" for="ageAgree"></label>
-            <label for="ageAgree" class="agreeText" >만 14세 이상 이용동의</label>
-        </div>
-
-        <div class="checkbox-container">
-            <input type="checkbox" id="termsOfUser" class="agree"  name="termsOfUser" value="true" >
-            <label id="checkbox2" class="checkbox" for="termsOfUser"></label>
-            <label for="termsOfUser" class="agreeText" >밴드할까 이용약관 동의</label>
-        </div>
-
-        <div class="checkbox-container">
-            <input type="checkbox" id="privacy" class="agree"  name="privacy" value="true" >
-            <label id="checkbox3" class="checkbox" for="privacy"></label>
-            <label for="privacy" class="agreeText" >개인정보 수집 및 이용 동의</label>
-        </div>
-
-        <div class="checkbox-container">
-            <input type="checkbox" id="thirdPartyAgree" class="agree"  name="thirdPartyAgree"  value="true" >
-            <label id="checkbox4" class="checkbox" for="thirdPartyAgree"></label>
-            <label for="thirdPartyAgree" class="agreeText" >개인정보 제3자 제공 동의</label>
-        </div>
-    </div>
+        addErrorBorder(emailError, 'error');
+        addErrorBorder(passwordError, 'error');
+        addErrorBorder(confirmPasswordError, 'error');
+        addErrorBorder(userNmError, 'error');
+        addErrorBorder(mobileError, 'error');
+    </script>
 
 
 </th:block>

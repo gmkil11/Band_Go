@@ -142,7 +142,7 @@ form .rows:nth-child(5) img {
     content: "";
     width: 17px;
     height: 17px;
-    background-color: #1DC078;
+    background-color: #000;
     border-color: #000;
     background-repeat: no-repeat;
     background-position: 50%;
