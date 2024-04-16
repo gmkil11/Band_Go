@@ -23,9 +23,15 @@
       <img th:src="@{/img/icons/email.svg}">
       <input type="text" name="email" placeholder="이메일을 입력해주세요." id="email">
     </div>
+    <div class="error-box">
+
+    </div>
     <div class="rows" th:classappend="${session.NotBlank_password} ? 'error-box' : ''">
       <img th:src="@{/img/icons/password.svg}" >
       <input type="password" name="password" placeholder="비밀번호를 입력해주세요." id="password">
+    </div>
+    <div>
+
     </div>
     <button type="submit" >로그인</button>
     <!--계정 찾기 기능 추가 예정-->

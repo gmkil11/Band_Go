@@ -12,18 +12,18 @@ window.onload = async function() {
     dropdown1.addEventListener("click", function() {
         if (dropdownContent1.style.display === "block") {
             dropdownContent1.style.display = "none";
-            console.log("알림버튼 클릭");
         } else {
             dropdownContent1.style.display = "block";
+            dropdownContent2.style.display = "none";
         }
     });
 
     dropdown2.addEventListener("click", function() {
         if (dropdownContent2.style.display === "block") {
             dropdownContent2.style.display = "none";
-            console.log("마이페이지버튼 클릭");
         } else {
             dropdownContent2.style.display = "block";
+            dropdownContent1.style.display = "none";
         }
     });
 

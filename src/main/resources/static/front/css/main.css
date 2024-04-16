@@ -38,3 +38,37 @@ main { height: 100%; }
     cursor: pointer;
     height: 35px;
 }
+
+.dropdown_content1{
+    position: absolute;
+    display: none;
+    margin-top: 5px;
+    width: 100px;
+    border: #9F9F9F;
+    border-radius: 5%;
+    box-shadow: 4px 4px 10px rgba(0 0 0 / 25%);
+    animation: fade-in 1s ease;
+    padding: 10px;
+}
+
+.dropdown_content2{
+    position: absolute;
+    display: none;
+    margin-top: 5px;
+    width: 100px;
+    right: 5px;
+    border: #9F9F9F;
+    border-radius: 5%;
+    box-shadow: 4px 4px 10px rgba(0 0 0 / 25%);
+    animation: fade-in 0.5s ease;
+    padding: 10px;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
