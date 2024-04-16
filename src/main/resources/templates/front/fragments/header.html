@@ -19,12 +19,27 @@
             </a>
         </div>
         <div class="rightContent">
-            <a th:href="@{/login}">로그인</a>
-            |
-            <a th:href="@{/signup}">회원가입</a>
-        </div>
-        <div>
+            <div id="loggedIn">
+                <!-- 로그인 되어 있을 때 표시할 내용 -->
+                <img th:src="@{/img/icons/alert.svg}" class="dropdown_bar1">
+                <div class="dropdown_content1">
+                    <a href="#"><div>· 하위 링크 1</div></a>
+                    <a href="#"><div>· 하위 링크 2</div></a>
+                    <a href="#"><div>· 하위 링크 3</div></a>
+                </div>
 
+                <img th:src="@{img/icons/my_profile.svg}" class="dropdown_bar2">
+                <div class="dropdown_content2">
+                    <a href="#"><div>· 마이페이지</div></a>
+                    <a href="#"><div>· 로그아웃</div></a>
+                </div>
+            </div>
+            <div id="NotLoggedIn">
+                <!-- 로그인 되어 있지 않을 때 표시할 내용 -->
+                <a th:href="@{/login}">로그인</a>
+                |
+                <a th:href="@{/signup}">회원가입</a>
+            </div>
         </div>
     </header>
 </th:block>

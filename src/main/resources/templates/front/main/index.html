@@ -27,10 +27,14 @@
             const session = authInfo.data.session;
             document.querySelector("#login").style.display = "none";
             document.querySelector("#logout").style.display = "none";
+            document.querySelector("#loggedIn").style.display = "none";
+            document.querySelector("#NotLoggedIn").style.display = "none";
             if (session === null) {
                 document.querySelector("#login").style.display = "inline";
+                document.querySelector("#NotLoggedIn").style.display = "inline";
             } else {
                 document.querySelector("#logout").style.display = "inline";
+                document.querySelector("#loggedIn").style.display = "inline";
             }
         }
         checkLogin();

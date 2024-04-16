@@ -1,5 +1,6 @@
 package com.portfolio.band_go.controllers.mains;
 
+import com.portfolio.band_go.services.MemberInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,8 @@ public class MainController {
 
     @GetMapping
     public String index(Model model){
+
+
 
         return"front/main/index";
     }

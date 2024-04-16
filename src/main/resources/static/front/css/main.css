@@ -28,3 +28,13 @@ main { height: 100%; }
     text-decoration: none;
     color: #000000;
 }
+
+#loggedIn {
+    display: flex;
+}
+
+#loggedIn img{
+    margin-left: 25px;
+    cursor: pointer;
+    height: 35px;
+}

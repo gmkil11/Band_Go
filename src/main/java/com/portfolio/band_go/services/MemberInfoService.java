@@ -1,5 +1,10 @@
 package com.portfolio.band_go.services;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
 /**
  * 회원 기능
  * - 그룹 기능
@@ -13,7 +18,11 @@ package com.portfolio.band_go.services;
  *      - 프로필 설정
  *
  */
-public class Member {
+
+@Service
+public class MemberInfoService {
+
+
     /* 회원 그룹 기능 추가 */
     /* 회원 정보 GET 기능 */
 }
