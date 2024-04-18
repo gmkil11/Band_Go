@@ -1,7 +1,6 @@
 /*로그인 및 회원가입 페이지에 사용되는 CSS 입니다.*/
 .logoBox {
     cursor: pointer;
-    margin-bottom: 30px;
 }
 
 .member-style {
@@ -10,7 +9,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 48px;
+    gap: 30px;
     height: 100vh;
 }
 
@@ -104,6 +103,20 @@ form .rows:nth-child(5) img {
     color: #9F9F9F;
 }
 
+.not_found_email {
+    padding: 0px;
+    background: white;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    display: block;
+    transition: 0.3s all;
+}
+
+.not_found_email_span {
+    display: none;
+}
+
 /* 체크박스 시작 */
 
 .agreeBox{
@@ -176,7 +189,7 @@ form .rows:nth-child(5) img {
 }
 
 .email_error_box {
-    /*display: none;*/
+    display: none;
 }
 
 .pw_input_error{
@@ -184,5 +197,5 @@ form .rows:nth-child(5) img {
 }
 
 .pw_error_box {
-    /*display: none;*/
+    display: none;
 }

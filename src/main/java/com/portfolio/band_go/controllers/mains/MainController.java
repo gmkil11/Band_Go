@@ -1,5 +1,6 @@
 package com.portfolio.band_go.controllers.mains;
 
+import com.portfolio.band_go.Exceptions.MemberException;
 import com.portfolio.band_go.services.MemberInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ public class MainController {
 
     @GetMapping("/login")
     public String login(Model model) {
+        model.addAttribute(new MemberException("에러"));
+
         return "front/main/login";
     }
 

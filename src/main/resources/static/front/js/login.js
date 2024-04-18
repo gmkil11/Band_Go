@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     const password = document.getElementById('password');
     const passwordInputBox = document.querySelector(".pw_input_error");
     const pwErrorBox = document.querySelector(".pw_error_box");
+    const notFoundEmail = document.querySelector(".not_found_email");
+    const notFoundEmailSpan = document.querySelector(".not_found_email_span");
+
 
     const authInfo = await client.auth.getSession();
     const session = authInfo.data.session;
@@ -78,7 +81,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             if (error) {
                 console.error('로그인에 실패했습니다:', error.message);
-                alert("아이디와 비밀번호가 잘못되었습니다.")
+                notFoundEmail.style.display= "block"
+                notFoundEmail.style.color = "black"
+                notFoundEmail.style.background = "orange"
+                notFoundEmail.style.padding = "20px"
+                notFoundEmailSpan.style.display = "block"
             } else {
                 console.log('로그인이 완료되었습니다:', data);
                 window.location.href = "http://localhost:8080";
