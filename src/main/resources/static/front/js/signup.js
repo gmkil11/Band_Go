@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+
     confirmPasswordInput.addEventListener('input', validatePassword);
 
     signupForm.addEventListener('submit', async function(event) {

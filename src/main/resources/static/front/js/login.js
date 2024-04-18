@@ -43,19 +43,27 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         if (emailValue === "" || passwordValue === "") {
             if (emailValue === "") {
-                // 이매일 재입력시 해당 에러 스타일 삭제하기
                 console.log("이메일이 입력되지 않았습니다.");
                 if (emailInputBox) {
                     emailInputBox.style.border = '1px solid darkred';
                     emailErrorBox.style.display = 'block';
                 }
+            } else {
+                if (emailInputBox) {
+                    emailInputBox.style.border = '1px solid black';
+                    emailErrorBox.style.display = 'none';
+                }
             }
             if (passwordValue === "") {
-                // 패스워드 재입력시 해당 에러 스타일 삭제하기
                 console.log("비밀번호가 입력되지 않았습니다.");
                 if (passwordInputBox) {
                     passwordInputBox.style.border = '1px solid darkred';
                     pwErrorBox.style.display = 'block';
+                }
+            } else {
+                if (passwordInputBox) {
+                    passwordInputBox.style.border = '1px solid black';
+                    pwErrorBox.style.display = 'none';
                 }
             }
             return; // 입력값이 없을 경우 함수 종료
@@ -70,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             if (error) {
                 console.error('로그인에 실패했습니다:', error.message);
-                // 로그인 실패 시 처리 (예: 오류 메시지 표시)
+                alert("아이디와 비밀번호가 잘못되었습니다.")
             } else {
                 console.log('로그인이 완료되었습니다:', data);
                 window.location.href = "http://localhost:8080";

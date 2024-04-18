@@ -1,6 +1,7 @@
 /*로그인 및 회원가입 페이지에 사용되는 CSS 입니다.*/
 .logoBox {
     cursor: pointer;
+    margin-bottom: 30px;
 }
 
 .member-style {
@@ -79,6 +80,7 @@
     padding: 16px 16px 16px 16px;
     border: none;
     outline: none;
+    width: 360px;
 }
 .rows input::placeholder {
     color: #9F9F9F;
@@ -90,8 +92,7 @@
 }
 
 form .rows:nth-child(5) img {
-    margin-left: 23px;
-    margin-right: 3px;
+    margin-left: 20px;
 }
 
 .forgot_info {
@@ -104,6 +105,12 @@ form .rows:nth-child(5) img {
 }
 
 /* 체크박스 시작 */
+
+.agreeBox{
+    margin-top: 30px;
+    width: 360px;
+}
+
 .agree{
     display: none;
 
@@ -117,11 +124,12 @@ form .rows:nth-child(5) img {
 .agree + label > span{
     vertical-align: middle;
     padding-left: 10px;
+    cursor: pointer;
 }
+
 
 .checkbox-container{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
@@ -168,7 +176,7 @@ form .rows:nth-child(5) img {
 }
 
 .email_error_box {
-    display: none;
+    /*display: none;*/
 }
 
 .pw_input_error{
@@ -176,5 +184,5 @@ form .rows:nth-child(5) img {
 }
 
 .pw_error_box {
-    display: none;
+    /*display: none;*/
 }
