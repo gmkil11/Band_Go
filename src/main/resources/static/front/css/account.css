@@ -1,6 +1,7 @@
 /*로그인 및 회원가입 페이지에 사용되는 CSS 입니다.*/
 .logoBox {
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .member-style {

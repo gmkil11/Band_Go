@@ -18,24 +18,24 @@
         <div class="logoBox" th:onclick="|window.location.href='@{/}'|">
             <img th:src="@{/img/logo.svg}" alt="logo">
         </div>
-        <div class="rows username_error_box">
+        <div class="rows name_input_box">
             <img th:src="@{/img/icons/people.svg}">
             <input type="text" id="name" placeholder="회원명을 입력하세요">
         </div>
-        <div class="rows email_error_box">
+        <div class="rows email_input_box">
             <img th:src="@{/img/icons/email.svg}">
             <input type="email" id="email" placeholder="사용하실 이메일을 입력해주세요">
         </div>
-        <div class="rows pw_error_box">
+        <div class="rows pw_input_box">
             <img th:src="@{/img/icons/password.svg}">
             <input type="password" id="password" placeholder="비밀번호를 입력해주세요">
         </div>
-        <div class="rows pwCheck_error_box">
+        <div class="rows pwCheck_input_box">
             <img th:src="@{/img/icons/passwordCheck.svg}">
             <input type="password" id="confirmPassword" placeholder="비밀번호를 다시 입력해주세요">
             <span id="passwordMatchMsg"></span>
         </div>
-        <div class="rows mobile_error_box">
+        <div class="rows mobile_input_box">
             <img th:src="@{/img/icons/mobile.svg}">
             <input type="text" id="phone" placeholder="전화번호를 입력해주세요">
         </div>
