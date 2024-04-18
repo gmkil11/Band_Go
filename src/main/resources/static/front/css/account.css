@@ -163,11 +163,18 @@ form .rows:nth-child(5) img {
     line-height: 32px; /* 200% */
 }
 
-.id_input_error{
+.email_input_error{
 
+}
 
+.email_error_box {
+    display: none;
 }
 
 .pw_input_error{
 
+}
+
+.pw_error_box {
+    display: none;
 }

@@ -19,20 +19,20 @@
   <!--Form 영역-->
   <form autocomplete="off" class="member-box" id="loginForm">
     <input th:if="${redirectURL != null}" type="hidden" name="redirectURL" th:value="${redirectURL}">
-    <div class="rows id_input_error" th:classappend="${session.NotBlank_email} ? 'error-box' : ''">
+    <div class="rows email_input_error" th:classappend="${session.NotBlank_email} ? 'error-box' : ''">
       <img th:src="@{/img/icons/email.svg}">
       <input type="text" name="email" placeholder="이메일을 입력해주세요." id="email">
     </div>
-    <div>
-      <span>에러 메세지</span>
+    <div class="email_error_box">
+      <span>이메일이 입력되지 않았습니다.</span>
     </div>
 
     <div class="rows pw_input_error" th:classappend="${session.NotBlank_password} ? 'error-box' : ''">
       <img th:src="@{/img/icons/password.svg}" >
       <input type="password" name="password" placeholder="비밀번호를 입력해주세요." id="password">
     </div>
-    <div>
-      <span>에러 메세지</span>
+    <div class="pw_error_box">
+      <span>비밀번호가 입력되지 않았습니다.</span>
     </div>
     <button type="submit" >로그인</button>
     <!--계정 찾기 기능 추가 예정-->

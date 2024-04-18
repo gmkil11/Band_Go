@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const loginForm = document.getElementById('loginForm');
     const email = document.getElementById('email');
-    const emailInputBox = document.getElementsByClassName("id_input_error");
+    const emailInputBox = document.querySelector(".email_input_error");
+    const emailErrorBox = document.querySelector(".email_error_box");
     const password = document.getElementById('password');
-    const passwordInputBox = document.getElementsByClassName("pw_input_error");
+    const passwordInputBox = document.querySelector(".pw_input_error");
+    const pwErrorBox = document.querySelector(".pw_error_box");
 
     const authInfo = await client.auth.getSession();
     const session = authInfo.data.session;
@@ -41,10 +43,20 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         if (emailValue === "" || passwordValue === "") {
             if (emailValue === "") {
+                // 이매일 재입력시 해당 에러 스타일 삭제하기
                 console.log("이메일이 입력되지 않았습니다.");
+                if (emailInputBox) {
+                    emailInputBox.style.border = '1px solid darkred';
+                    emailErrorBox.style.display = 'block';
+                }
             }
             if (passwordValue === "") {
+                // 패스워드 재입력시 해당 에러 스타일 삭제하기
                 console.log("비밀번호가 입력되지 않았습니다.");
+                if (passwordInputBox) {
+                    passwordInputBox.style.border = '1px solid darkred';
+                    pwErrorBox.style.display = 'block';
+                }
             }
             return; // 입력값이 없을 경우 함수 종료
         }
