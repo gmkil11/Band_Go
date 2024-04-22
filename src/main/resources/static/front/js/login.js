@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         } catch (error) {
             console.error('로그인 요청 중 오류 발생:', error.message);
             // 로그인 요청 자체에 오류가 발생한 경우 처리
+
         }
     });
 
