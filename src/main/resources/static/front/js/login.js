@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 console.log('로그인이 완료되었습니다:', data);
                 window.location.href = "http://localhost:8080";
                 // 로그인 성공 시 처리 (예: 페이지 이동)
+
             }
 
         } catch (error) {
