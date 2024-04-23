@@ -161,6 +161,7 @@ form .rows:nth-child(5) img {
 }
 
 .checked {
+
     content: "";
     width: 17px;
     height: 17px;

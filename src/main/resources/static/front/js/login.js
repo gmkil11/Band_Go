@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 notFoundEmail.style.padding = "20px"
                 notFoundEmailSpan.style.display = "block"
 
+
             } else {
                 console.log('로그인이 완료되었습니다:', data);
                 window.location.href = "http://localhost:8080";
