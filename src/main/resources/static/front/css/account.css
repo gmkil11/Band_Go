@@ -158,10 +158,10 @@ form .rows:nth-child(5) img {
     vertical-align:middle;
     transition: all 0.3s;
     cursor: pointer;
+
 }
 
 .checked {
-
     content: "";
     width: 17px;
     height: 17px;
