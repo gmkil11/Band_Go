@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
 
             if (error) {
+
                 console.error('로그인에 실패했습니다:', error.message);
                 notFoundEmail.style.display= "block"
                 notFoundEmail.style.color = "black"
