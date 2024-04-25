@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const { data, error } = await client.auth.signInWithPassword({
                 email: emailValue,
                 password: passwordValue
+
             });
 
             if (error) {
