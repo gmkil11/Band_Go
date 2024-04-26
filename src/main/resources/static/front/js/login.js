@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     /*로그인 되어있을 시 메인페이지로 리다이렉션*/
     if (session != null) {
         window.location.href = "http://localhost:8080"
+
     }
 
 
