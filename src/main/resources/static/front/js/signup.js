@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.getElementById('email');
     const emailInputBox = document.querySelector(".email_input_box");
     const phoneInput = document.getElementById('phone')
-    const phoneInputBox = document.querySelector(".phone_input_box");
+    const phoneInputBox = document.querySelector(".mobile_input_box");
     const passwordInput = document.getElementById('password');
-    const passwordInputBox = document.querySelector(".password_input_box");
+    const passwordInputBox = document.querySelector(".pw_input_box");
     const confirmPasswordInput = document.getElementById('confirmPassword');
     const pwCheckInputBox = document.querySelector(".pwCheck_input_box");
     const passwordMatchMessage = document.getElementById('passwordMatchMsg');
@@ -39,40 +39,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (nameInput.value === "" || emailInput.value === "" || passwordInput.value === "" || confirmPasswordInput.value === "" || phoneInput.value === "" ){
             if(nameInput.value === "") {
-                if (emailInputBox) {
-                    nameInputBox.style.border = 'darkred solid 1px';
-                    console.log("사용자명 입력")
-                } else {
-                    nameInputBox.style.border = 'black solid 1px'
-                }
-            } if (emailInput.value === "") {
-                if(emailInput) {
-                    emailInputBox.style.border = 'darkred solid 1px';
-                    console.log("이메일 입력")
-                } else {
-                    emailInputBox.style.border = 'black solid 1px';
-                }
-            } if (passwordInput.value === "") {
-                if (passwordInputBox) {
-                    passwordInputBox.style.border = 'darkred solid 1px';
-                    console.log("비밀번호 입력")
-                } else {
-                    passwordInputBox.style.border = 'black solid 1px';
-                }
-            } if (confirmPasswordInput.value === "") {
-                if (pwCheckInputBox) {
-                    pwCheckInputBox.style.border = 'darkred solid 1px';
-                    console.log("비밀번호 확인 입력")
-                } else {
-                    pwCheckInputBox.style.border = 'black solid 1px';
-                }
-            } if (phoneInput.value === "") {
-                if (phoneInputBox) {
-                    console.log("휴대전화 입력")
-                    phoneInputBox.style.border = 'darkred solid 1px';
-                } else {
-                    phoneInputBox.style.border = 'black solid 1px'
-                }
+                nameInputBox.style.border = 'darkred solid 1px';
+                console.log("사용자명 입력안됨")
+            } else {
+                console.log("사용자명 입력되었음!")
+                nameInputBox.style.border = 'black solid 1px';
+            }
+
+            if (emailInput.value === "") {
+                emailInputBox.style.border = 'darkred solid 1px';
+                console.log("이메일 입력안됨")
+            } else {
+                console.log("이메일 입력되었음!")
+                emailInputBox.style.border = 'black solid 1px';
+            }
+
+            if (passwordInput.value === "") {
+                passwordInputBox.style.border = 'darkred solid 1px';
+                console.log("비밀번호 입력안됨")
+            } else {
+                console.log("비밀번호 입력되었음!")
+                passwordInputBox.style.border = 'black solid 1px';
+            }
+
+            if (confirmPasswordInput.value === "") {
+                pwCheckInputBox.style.border = 'darkred solid 1px';
+                console.log("비밀번호 확인 입력안됨")
+            } else {
+                console.log("비밀번호 확인 입력되었음!")
+                pwCheckInputBox.style.border = 'black solid 1px';
+            }
+
+            if (phoneInput.value === "") {
+                console.log("휴대전화 입력안됨")
+                phoneInputBox.style.border = 'darkred solid 1px';
+            } else {
+                console.log("휴대전화 입력되었음!")
+                phoneInputBox.style.border = 'black solid 1px'
             }
 
         }
