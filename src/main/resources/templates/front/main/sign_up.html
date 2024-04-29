@@ -18,13 +18,16 @@
         <div class="logoBox" th:onclick="|window.location.href='@{/}'|">
             <img th:src="@{/img/logo.svg}" alt="logo">
         </div>
+        <div class="error_box">
+            <span class="error_box_span"></span>
+        </div>
         <div class="rows name_input_box">
             <img th:src="@{/img/icons/people.svg}">
             <input type="text" id="name" placeholder="회원명을 입력하세요">
         </div>
         <div class="rows email_input_box">
             <img th:src="@{/img/icons/email.svg}">
-            <input type="email" id="email" placeholder="사용하실 이메일을 입력해주세요">
+            <input type="email" id="email" placeholder="이메일을 입력해주세요">
         </div>
         <div class="rows pw_input_box">
             <img th:src="@{/img/icons/password.svg}">
