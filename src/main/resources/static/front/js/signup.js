@@ -24,7 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
+    function validateCheckbox() {
+        if (signupForm.querySelector('.unchecked')) {
+            console.log('체크박스가 체크되지 않았습니다.');
+            return false;
+        } else {
+            console.log('모든 체크박스가 체크되었습니다.');
+            return true;
+        }
+    }
 
 
 
@@ -85,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
 
-        if (!signupForm.querySelector('.error') && passwordInput.value === confirmPasswordInput.value) {
+        if (validateCheckbox() && !signupForm.querySelector('.error') && passwordInput.value === confirmPasswordInput.value) {
             const { user, error } = await client.auth.signUp({
 
                 email: emailInput.value,

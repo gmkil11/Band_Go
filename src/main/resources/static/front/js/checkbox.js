@@ -47,26 +47,34 @@ function toggleCheckbox() {
 
     if (agreeCheckbox1.checked) {
         checkbox1.classList.add('checked');
+        checkbox1.classList.remove('unchecked')
     } else {
         checkbox1.classList.remove('checked');
+        checkbox1.classList.add('unchecked')
     }
 
     if (agreeCheckbox2.checked) {
         checkbox2.classList.add('checked');
+        checkbox2.classList.remove('unchecked')
     } else {
         checkbox2.classList.remove('checked');
+        checkbox2.classList.add('unchecked')
     }
 
     if (agreeCheckbox3.checked) {
         checkbox3.classList.add('checked');
+        checkbox3.classList.remove('unchecked')
     } else {
         checkbox3.classList.remove('checked');
+        checkbox3.classList.add('unchecked')
     }
 
     if (agreeCheckbox4.checked) {
         checkbox4.classList.add('checked');
+        checkbox4.classList.remove('unchecked')
     } else {
         checkbox4.classList.remove('checked');
+        checkbox4.classList.add('unchecked')
     }
 
 }
