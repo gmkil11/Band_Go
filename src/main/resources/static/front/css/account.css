@@ -202,3 +202,7 @@ form .rows:nth-child(5) img {
 .pw_error_box {
     display: none;
 }
+
+.error {
+    border: darkred solid 1px;
+}

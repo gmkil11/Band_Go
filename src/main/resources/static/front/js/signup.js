@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validatePassword() {
         if (passwordInput.value !== confirmPasswordInput.value) {
-            passwordMatchMessage.textContent = '비밀번호가 일치하지 않습니다.';
+            passwordMatchMessage.textContent = '❌';
         } else {
-            passwordMatchMessage.textContent = '';
+            passwordMatchMessage.textContent = '✅';
         }
     }
 
@@ -36,51 +36,56 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         validatePassword(); // 비밀번호 일치 여부 검증
 
+        // 에러 클래스가 있는지 확인하고, 있으면 회원가입을 막음
+        if (signupForm.querySelector('.error')) {
+            console.log('에러가 있으므로 회원가입을 실행하지 않습니다.');
+            return;
+        }
 
         if (nameInput.value === "" || emailInput.value === "" || passwordInput.value === "" || confirmPasswordInput.value === "" || phoneInput.value === "" ){
             if(nameInput.value === "") {
-                nameInputBox.style.border = 'darkred solid 1px';
+                nameInputBox.classList.add('error');
                 console.log("사용자명 입력안됨")
             } else {
                 console.log("사용자명 입력되었음!")
-                nameInputBox.style.border = 'black solid 1px';
+                nameInputBox.classList.remove('error');
             }
 
             if (emailInput.value === "") {
-                emailInputBox.style.border = 'darkred solid 1px';
+                emailInputBox.classList.add('error');
                 console.log("이메일 입력안됨")
             } else {
                 console.log("이메일 입력되었음!")
-                emailInputBox.style.border = 'black solid 1px';
+                emailInputBox.classList.remove('error');
             }
 
             if (passwordInput.value === "") {
-                passwordInputBox.style.border = 'darkred solid 1px';
+                passwordInputBox.classList.add('error');
                 console.log("비밀번호 입력안됨")
             } else {
                 console.log("비밀번호 입력되었음!")
-                passwordInputBox.style.border = 'black solid 1px';
+                passwordInputBox.classList.remove('error');
             }
 
             if (confirmPasswordInput.value === "") {
-                pwCheckInputBox.style.border = 'darkred solid 1px';
+                pwCheckInputBox.classList.add('error');
                 console.log("비밀번호 확인 입력안됨")
             } else {
                 console.log("비밀번호 확인 입력되었음!")
-                pwCheckInputBox.style.border = 'black solid 1px';
+                pwCheckInputBox.classList.remove('error');
             }
 
             if (phoneInput.value === "") {
                 console.log("휴대전화 입력안됨")
-                phoneInputBox.style.border = 'darkred solid 1px';
+                phoneInputBox.classList.add('error');
             } else {
                 console.log("휴대전화 입력되었음!")
-                phoneInputBox.style.border = 'black solid 1px'
+                phoneInputBox.classList.remove('error');
             }
 
         }
 
-        if (passwordInput.value === confirmPasswordInput.value) {
+        if (!signupForm.querySelector('.error') && passwordInput.value === confirmPasswordInput.value) {
             const { user, error } = await client.auth.signUp({
 
                 email: emailInput.value,
