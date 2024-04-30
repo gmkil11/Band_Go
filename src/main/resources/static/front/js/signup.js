@@ -15,33 +15,51 @@ document.addEventListener('DOMContentLoaded', function() {
     const signupButton = document.getElementById('submitButton');
     const errorBox = document.querySelector(".error_box");
     const errorBoxSpan = document.querySelector(".error_box_span");
-
+    const agreeBox = document.querySelector(".agreeBox");
 
 
     async function checkDuplicateUserName() {
         try {
-            const { data: users, error } = await client
-                .from('users')
-                .select('user_name')
-            console.log(users)
+            if (nameInput.value === "") {
+                nameInputBox.classList.add('error');
+                console.log("사용자명 입력안됨");
+                return false; // 사용자명이 입력되지 않은 경우 false를 반환하여 함수 종료
+            } else {
 
-            if (error) {
-                console.error('중복 확인 중 오류가 발생했습니다:', error.message);
-                return false;
+                let {data: users, error} = await client
+                    .from('users')
+                    .select('user_name')
+                    .eq('user_name', nameInput.value);
+
+                console.log('users:', JSON.stringify(users));
+
+                if (error) {
+                    console.error('중복 확인 중 오류가 발생했습니다:', error.message);
+                    return false;
+                }
+
+                if (users && users.length > 0) {
+                    showErrorBox(); // 에러박스 표시
+                    errorBoxSpan.textContent = "이미 존재하는 회원명입니다.";
+                    nameInputBox.classList.add('error');
+                    console.log('이미 존재하는 회원명입니다.');
+                    return false;
+                }
+
+                console.log('사용 가능한 회원명입니다.');
+                nameInputBox.classList.remove('error');
+                hideErrorBox(); // 에러박스 숨김
+                return true;
             }
-
-            if (users && users.length > 0) {
-                console.log('이미 존재하는 회원명입니다.');
-                return false;
-            }
-
-            console.log('사용 가능한 회원명입니다.');
-            return true;
         } catch (error) {
             console.error('중복 확인 중 오류가 발생했습니다:', error.message);
             return false;
         }
     }
+
+
+
+
 
 
     function validatePassword() {
@@ -53,17 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (validatePasswordFormat()) {
             console.log('정규화된 비밀번호입니다.')
-            errorBox.style.color = "white"
-            errorBox.style.background = "white"
-            errorBox.style.padding = "0px"
-            errorBoxSpan.style.display = "none"
+            hideErrorBox();
         } else {
             console.log('정규회되지 않은 비밀번호입니다.')
+            showErrorBox();
             errorBoxSpan.textContent = "최소 8글자 이상, 영문 대소문자, 숫자, 특수문자 중 최소 한 글자 이상 포함되어야합니다.";
-            errorBox.style.color = "black"
-            errorBox.style.background = "orange"
-            errorBox.style.padding = "20px"
-            errorBoxSpan.style.display = "block"
         }
     }
 
@@ -76,30 +88,20 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateCheckbox() {
         if (signupForm.querySelector('.unchecked')) {
             console.log('체크박스가 체크되지 않았습니다.');
+            agreeBox.classList.add('error');
+            agreeBox.style.border = 'none';
+            showErrorBox();
             errorBoxSpan.textContent = "체크박스 항목을 확인해주세요.";
-            errorBox.style.color = "black"
-            errorBox.style.background = "orange"
-            errorBox.style.padding = "20px"
-            errorBoxSpan.style.display = "block"
             return false;
         } else {
             console.log('모든 체크박스가 체크되었습니다.');
-            errorBox.style.color = "white"
-            errorBox.style.background = "white"
-            errorBox.style.padding = "0px"
-            errorBoxSpan.style.display = "none"
+            agreeBox.classList.remove('error');
+            hideErrorBox();
             return true;
         }
     }
 
     function validateNullInput() {
-        if (nameInput.value === "") {
-            nameInputBox.classList.add('error');
-            console.log("사용자명 입력안됨");
-        } else {
-            console.log("사용자명 입력되었음!");
-            nameInputBox.classList.remove('error');
-        }
 
         if (emailInput.value === "") {
             emailInputBox.classList.add('error');
@@ -134,18 +136,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function showErrorBox() {
+        console.log("showErrorBox 함수가 호출되었습니다.");
+        errorBox.style.color = "black";
+        errorBox.style.background = "orange";
+        errorBox.style.padding = "20px";
+        errorBoxSpan.style.display = "block";
+    }
+
+    function hideErrorBox() {
+        console.log("hideErrorBox 함수가 호출되었습니다.");
+        errorBox.style.color = "white";
+        errorBox.style.background = "white";
+        errorBox.style.padding = "0px";
+        errorBoxSpan.style.display = "none";
+    }
 
     confirmPasswordInput.addEventListener('input', validatePassword);
 
     signupForm.addEventListener('submit', async function(event) {
         signupButton.setAttribute('type', ''); // 버튼 타입을 null로 변경
         event.preventDefault();
-        checkDuplicateUserName();
         validatePassword(); // 비밀번호 일치 여부 검증
         validateNullInput(); // 인풋 null 여부 검증
+        validateCheckbox(); // 체크박스 검증
+        await checkDuplicateUserName();
 
 
-        if (validateCheckbox() && !signupForm.querySelector('.error') && passwordInput.value === confirmPasswordInput.value) {
+        if (!signupForm.querySelector('.error') && passwordInput.value === confirmPasswordInput.value) {
             const { user, error } = await client.auth.signUp({
 
                 email: emailInput.value,
@@ -176,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 회원가입 성공 시 다음 페이지로 이동하거나 다른 동작을 수행할 수 있습니다.
                 signupButton.setAttribute('type', 'submit'); // 버튼 타입을 submit으로 변경
             }
+        } else {
+            console.log('error 항목이 존재합니다.')
         }
     });
 });

@@ -79,27 +79,6 @@
         </div>
 
     </form>
-    <script>
-        let emailError = document.getElementsByName("email");
-        let passwordError = document.getElementsByName("password");
-        let confirmPasswordError = document.getElementsByName("confirmPassword");
-        let userNmError = document.getElementsByName("userNm");
-        let mobileError = document.getElementsByName("mobile");
-
-        function addErrorBorder(errors, className) {
-            errors.forEach(function (error) {
-                if (error.textContent !== "") {
-                    error.closest(".rows").classList.add(className);
-                }
-            });
-        }
-
-        addErrorBorder(emailError, 'error');
-        addErrorBorder(passwordError, 'error');
-        addErrorBorder(confirmPasswordError, 'error');
-        addErrorBorder(userNmError, 'error');
-        addErrorBorder(mobileError, 'error');
-    </script>
 
 
 </th:block>
