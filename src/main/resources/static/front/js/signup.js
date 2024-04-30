@@ -18,14 +18,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    async function validateUserName() {
-        const {
-            data: { user },
-        } = await client.auth.getUser()
-        let metadata = user.user_metadata
-        console.log(user)
+    async function checkDuplicateUserName() {
+        try {
+            const { data: users, error } = await client
+                .from('users')
+                .select('user_name')
+            console.log(users)
 
+            if (error) {
+                console.error('중복 확인 중 오류가 발생했습니다:', error.message);
+                return false;
+            }
+
+            if (users && users.length > 0) {
+                console.log('이미 존재하는 회원명입니다.');
+                return false;
+            }
+
+            console.log('사용 가능한 회원명입니다.');
+            return true;
+        } catch (error) {
+            console.error('중복 확인 중 오류가 발생했습니다:', error.message);
+            return false;
+        }
     }
+
 
     function validatePassword() {
         if (passwordInput.value !== confirmPasswordInput.value) {
@@ -123,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     signupForm.addEventListener('submit', async function(event) {
         signupButton.setAttribute('type', ''); // 버튼 타입을 null로 변경
         event.preventDefault();
-        validateUserName();
+        checkDuplicateUserName();
         validatePassword(); // 비밀번호 일치 여부 검증
         validateNullInput(); // 인풋 null 여부 검증
 
