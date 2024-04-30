@@ -18,6 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+    async function validateUserName() {
+        const {
+            data: { user },
+        } = await client.auth.getUser()
+        let metadata = user.user_metadata
+        console.log(user)
+
+    }
 
     function validatePassword() {
         if (passwordInput.value !== confirmPasswordInput.value) {
@@ -115,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     signupForm.addEventListener('submit', async function(event) {
         signupButton.setAttribute('type', ''); // 버튼 타입을 null로 변경
         event.preventDefault();
+        validateUserName();
         validatePassword(); // 비밀번호 일치 여부 검증
         validateNullInput(); // 인풋 null 여부 검증
 
@@ -126,7 +135,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 password: passwordInput.value,
                 options: {
                     data: {
-                        first_name: nameInput.value,
+                        display_name:nameInput.value,
+                        user_name: nameInput.value,
                         phone: phoneInput.value,
                     }
                 }
