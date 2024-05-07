@@ -173,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         display_name:nameInput.value,
                         user_name: nameInput.value,
                         phone: phoneInput.value,
+
                     }
                 }
             });
