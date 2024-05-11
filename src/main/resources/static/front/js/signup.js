@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const phoneInputBox = document.querySelector(".mobile_input_box");
     const passwordInput = document.getElementById('password');
     const passwordInputBox = document.querySelector(".pw_input_box");
+    const passwordErrorIcon = document.getElementById('passwordErrorIcon');
     const confirmPasswordInput = document.getElementById('confirmPassword');
     const pwCheckInputBox = document.querySelector(".pwCheck_input_box");
-    const passwordMatchMessage = document.getElementById('passwordMatchMsg');
     const signupForm = document.getElementById('signupForm');
     const signupButton = document.getElementById('submitButton');
     const errorBox = document.querySelector(".error_box");
@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             if (nameInput.value === "") {
                 nameInputBox.classList.add('error');
+                nameInput.classList.add('error');
+                nameInput.classList.replace('placeholder', 'error_placeholder');
                 console.log("사용자명 입력안됨");
                 return false; // 사용자명이 입력되지 않은 경우 false를 반환하여 함수 종료
             } else {
@@ -42,12 +44,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     showErrorBox(); // 에러박스 표시
                     errorBoxSpan.textContent = "이미 존재하는 회원명입니다.";
                     nameInputBox.classList.add('error');
+                    nameInput.classList.add('error');
+                    emailInput.classList.replace('placeholder', 'error_placeholder');
                     console.log('이미 존재하는 회원명입니다.');
                     return false;
                 }
 
                 console.log('사용 가능한 회원명입니다.');
                 nameInputBox.classList.remove('error');
+                nameInput.classList.remove('error');
+                nameInput.classList.replace('error_placeholder', 'placeholder');
                 hideErrorBox(); // 에러박스 숨김
                 return true;
             }
@@ -64,17 +70,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validatePassword() {
         if (passwordInput.value !== confirmPasswordInput.value) {
-            passwordMatchMessage.textContent = '❌';
+            passwordErrorIcon.style.display = 'block';
+            pwCheckInputBox.classList.add('error');
+            confirmPasswordInput.classList.add('error');
+            confirmPasswordInput.classList.replace('placeholder', 'error_placeholder');
         } else {
-            passwordMatchMessage.textContent = '✅';
+            passwordErrorIcon.style.display = 'none';
+            pwCheckInputBox.classList.remove('error');
+            confirmPasswordInput.classList.remove('error');
+            confirmPasswordInput.classList.replace('error_placeholder', 'placeholder');
         }
 
         if (validatePasswordFormat()) {
             console.log('정규화된 비밀번호입니다.')
+            passwordInputBox.classList.remove('error');
+            passwordInput.classList.remove('error');
+            passwordInput.classList.replace('error_placeholder', 'placeholder');
             hideErrorBox();
         } else {
             console.log('정규회되지 않은 비밀번호입니다.')
             showErrorBox();
+            passwordInputBox.classList.add('error');
+            passwordInput.classList.add('error');
+            passwordInput.classList.replace('placeholder', 'error_placeholder');
             errorBoxSpan.textContent = "최소 8글자 이상, 영문 대소문자, 숫자, 특수문자 중 최소 한 글자 이상 포함되어야합니다.";
         }
     }
@@ -82,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function validatePasswordFormat() {
         // 최소 8글자 이상, 영문 대소문자, 숫자, 특수문자 중 최소 한 글자 이상 포함
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-        return passwordRegex.test(confirmPasswordInput.value);
+        return passwordRegex.test(passwordInput.value);
     }
 
     function validateCheckbox() {
@@ -90,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('체크박스가 체크되지 않았습니다.');
             agreeBox.classList.add('error');
             agreeBox.style.border = 'none';
+            agreeBox.style.backgroundColor = "#FFFFFF";
             showErrorBox();
             errorBoxSpan.textContent = "체크박스 항목을 확인해주세요.";
             return false;
@@ -105,34 +124,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (emailInput.value === "") {
             emailInputBox.classList.add('error');
+            emailInput.classList.add('error');
+            emailInput.classList.replace('placeholder', 'error_placeholder');
             console.log("이메일 입력안됨");
         } else {
             console.log("이메일 입력되었음!");
             emailInputBox.classList.remove('error');
+            emailInput.classList.remove('error');
+            emailInput.classList.replace('error_placeholder', 'placeholder');
         }
 
         if (passwordInput.value === "") {
             passwordInputBox.classList.add('error');
+            passwordInput.classList.add('error');
+            passwordInput.classList.replace('placeholder', 'error_placeholder');
             console.log("비밀번호 입력안됨");
         } else {
             console.log("비밀번호 입력되었음!");
             passwordInputBox.classList.remove('error');
+            passwordInput.classList.remove('error');
+            passwordInput.classList.replace('error_placeholder', 'placeholder');
         }
 
         if (confirmPasswordInput.value === "") {
             pwCheckInputBox.classList.add('error');
+            confirmPasswordInput.classList.add('error');
+            confirmPasswordInput.classList.replace('placeholder', 'error_placeholder');
             console.log("비밀번호 확인 입력안됨");
         } else {
             console.log("비밀번호 확인 입력되었음!");
             pwCheckInputBox.classList.remove('error');
+            confirmPasswordInput.classList.remove('error');
+            confirmPasswordInput.classList.replace('error_placeholder', 'placeholder');
         }
 
         if (phoneInput.value === "") {
             console.log("휴대전화 입력안됨");
             phoneInputBox.classList.add('error');
+            phoneInput.classList.add('error');
+            phoneInput.classList.replace('placeholder', 'error_placeholder');
         } else {
             console.log("휴대전화 입력되었음!");
             phoneInputBox.classList.remove('error');
+            phoneInput.classList.remove('error');
+            phoneInput.classList.replace('error_placeholder', 'placeholder');
         }
     }
 
@@ -152,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
         errorBoxSpan.style.display = "none";
     }
 
-    confirmPasswordInput.addEventListener('input', validatePassword);
+    passwordInput.addEventListener('input', validatePassword);
 
     signupForm.addEventListener('submit', async function(event) {
         signupButton.setAttribute('type', ''); // 버튼 타입을 null로 변경

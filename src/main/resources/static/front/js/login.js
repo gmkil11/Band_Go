@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     const loginForm = document.getElementById('loginForm');
     const email = document.getElementById('email');
     const emailInputBox = document.querySelector(".email_input_error");
+    const emailInputBoxIcon = document.getElementById('emailIcon');
     const emailErrorBox = document.querySelector(".email_error_box");
     const password = document.getElementById('password');
     const passwordInputBox = document.querySelector(".pw_input_error");
+    const passwordInputBoxIcon = document.getElementById('passwordIcon');
     const pwErrorBox = document.querySelector(".pw_error_box");
     const errorBox = document.querySelector(".error_box");
     const errorBoxSpan = document.querySelector(".error_box_span");
@@ -49,25 +51,43 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (emailValue === "") {
                 console.log("이메일이 입력되지 않았습니다.");
                 if (emailInputBox) {
-                    emailInputBox.style.border = '1px solid darkred';
-                    emailErrorBox.style.display = 'block';
+                    emailInputBox.style.border = '1px solid #D23123';
+                    emailInputBox.style.backgroundColor = "#FFEBEB";
+                    email.style.backgroundColor ="#FFEBEB"
+                    emailInputBoxIcon.style.filter = "invert(20%) sepia(93%) saturate(3205%) hue-rotate(354deg) brightness(89%) contrast(83%)";
+                    emailErrorBox.style.display = 'flex';
+                    emailErrorBox.style.color = "#D23123";
+                    email.classList.replace('placeholder','error_placeholder');
                 }
             } else {
                 if (emailInputBox) {
                     emailInputBox.style.border = '1px solid black';
+                    emailInputBox.style.backgroundColor = '#FFFFFF';
+                    email.style.backgroundColor ="#FFFFFF"
+                    emailInputBoxIcon.style.filter = "invert(39%) sepia(9%) saturate(0%) hue-rotate(197deg) brightness(91%) contrast(80%)";
                     emailErrorBox.style.display = 'none';
+                    email.classList.replace('error_placeholder','placeholder');
                 }
             }
             if (passwordValue === "") {
                 console.log("비밀번호가 입력되지 않았습니다.");
                 if (passwordInputBox) {
-                    passwordInputBox.style.border = '1px solid darkred';
-                    pwErrorBox.style.display = 'block';
+                    passwordInputBox.style.border = '1px solid #D23123';
+                    password.style.backgroundColor = "#FFEBEB";
+                    passwordInputBox.style.backgroundColor = "#FFEBEB";
+                    passwordInputBoxIcon.style.filter = "invert(20%) sepia(93%) saturate(3205%) hue-rotate(354deg) brightness(89%) contrast(83%)";
+                    pwErrorBox.style.display = 'flex';
+                    pwErrorBox.style.color = "#D23123";
+                    password.classList.replace('placeholder','error_placeholder');
                 }
             } else {
                 if (passwordInputBox) {
                     passwordInputBox.style.border = '1px solid black';
+                    passwordInputBox.style.backgroundColor = "#FFFFFF";
+                    password.style.background = '#FFFFFF';
+                    passwordInputBoxIcon.style.filter = "invert(39%) sepia(9%) saturate(0%) hue-rotate(197deg) brightness(91%) contrast(80%)";
                     pwErrorBox.style.display = 'none';
+                    password.classList.replace('error_placeholder','placeholder');
                 }
             }
             return; // 입력값이 없을 경우 함수 종료

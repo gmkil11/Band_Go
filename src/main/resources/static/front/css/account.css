@@ -4,6 +4,10 @@
     margin-bottom: 10px;
 }
 
+.logoBox img{
+    height: 50px;
+}
+
 .member-style {
     display: flex;
     width: 100%;
@@ -18,7 +22,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: center;
     text-align: left;
 }
 
@@ -66,23 +69,29 @@
     border-radius: 5px;
     border: #000 solid 0.5px;
     width: 360px;
+    transition: all 0.1s;
 }
 
 .rows input {
-    height: 48px;
+    height: 40px;
     display: flex;
     align-items: center;
     border-radius: 5px;
-    background: #FFF;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 1.1rem;
     letter-spacing: -0.24px;
     padding: 16px 16px 16px 16px;
     border: none;
     outline: none;
-    width: 360px;
+    width: 250px;
+    transition: all 0.1s;
 }
-.rows input::placeholder {
+
+.error_placeholder::placeholder {
+    color: #D23123;
+}
+
+.placeholder::placeholder {
     color: #9F9F9F;
 }
 
@@ -96,6 +105,8 @@ form .rows:nth-child(5) img {
 }
 
 .forgot_info {
+    display: flex; /* flex로 설정 */
+    justify-content: center; /* 가로 중앙 정렬 */
     color: #9F9F9F;
 }
 
@@ -193,6 +204,11 @@ form .rows:nth-child(5) img {
 
 .email_error_box {
     display: none;
+    align-items: center;
+}
+
+.email_error_box img {
+    margin-right: 0.5rem;
 }
 
 .pw_input_error{
@@ -201,8 +217,19 @@ form .rows:nth-child(5) img {
 
 .pw_error_box {
     display: none;
+    align-items: center;
+}
+
+.pw_error_box img {
+    margin-right: 0.5rem;
+}
+
+#passwordErrorIcon{
+    display: none;
+    margin-right: 1rem;
 }
 
 .error {
-    border: darkred solid 1px;
+    border: #D23123 solid 1px;
+    background-color: #FFEBEB;
 }
