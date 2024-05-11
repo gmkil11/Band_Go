@@ -9,8 +9,15 @@
 }
 
 .member-style {
+    background-color: #F9F9F9;
     display: flex;
-    width: 100%;
+    justify-content: center;
+}
+
+.main_area {
+    width: 40%;
+    background-color: #FFFFFF;
+    display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
@@ -83,7 +90,7 @@
     padding: 16px 16px 16px 16px;
     border: none;
     outline: none;
-    width: 250px;
+    width: 100%;
     transition: all 0.1s;
 }
 
@@ -202,9 +209,20 @@ form .rows:nth-child(5) img {
 
 }
 
+.name_error_box {
+    display: none;
+    align-items: center;
+    color: #D23123;
+}
+
+.name_error_box img {
+    margin-right: 0.5rem;
+}
+
 .email_error_box {
     display: none;
     align-items: center;
+    color: #D23123;
 }
 
 .email_error_box img {
@@ -218,11 +236,34 @@ form .rows:nth-child(5) img {
 .pw_error_box {
     display: none;
     align-items: center;
+    color: #D23123;
 }
 
 .pw_error_box img {
     margin-right: 0.5rem;
 }
+
+.confirmPw_error_box {
+    display: none;
+    align-items: center;
+    color: #D23123;
+}
+
+.confirmPw_error_box img {
+    margin-right: 0.5rem;
+}
+
+.phone_error_box {
+    display: none;
+    align-items: center;
+    color: #D23123;
+}
+
+.phone_error_box img {
+    margin-right: 0.5rem;
+}
+
+
 
 #passwordErrorIcon{
     display: none;

@@ -2,15 +2,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const nameInput = document.getElementById('name')
     const nameInputBox = document.querySelector(".name_input_box");
+    const nameInputIcon = document.getElementById('nameIcon');
+    const nameError = document.querySelector('.name_error_box');
     const emailInput = document.getElementById('email');
     const emailInputBox = document.querySelector(".email_input_box");
-    const phoneInput = document.getElementById('phone')
-    const phoneInputBox = document.querySelector(".mobile_input_box");
+    const emailInputIcon = document.getElementById('emailIcon');
+    const emailError = document.querySelector('.email_error_box');
     const passwordInput = document.getElementById('password');
     const passwordInputBox = document.querySelector(".pw_input_box");
+    const passwordIcon = document.getElementById('passwordIcon');
+    const passwordError = document.querySelector('.pw_error_box');
     const passwordErrorIcon = document.getElementById('passwordErrorIcon');
     const confirmPasswordInput = document.getElementById('confirmPassword');
-    const pwCheckInputBox = document.querySelector(".pwCheck_input_box");
+    const confirmPasswordInputBox = document.querySelector(".pwCheck_input_box");
+    const confirmPasswordIcon = document.getElementById('confirmPasswordIcon')
+    const confirmPasswordError = document.querySelector('.confirmPw_error_box');
+    const phoneInput = document.getElementById('phone')
+    const phoneInputBox = document.querySelector(".mobile_input_box");
+    const phoneIcon = document.getElementById('phoneIcon');
+    const phoneError = document.querySelector('.phone_error_box');
     const signupForm = document.getElementById('signupForm');
     const signupButton = document.getElementById('submitButton');
     const errorBox = document.querySelector(".error_box");
@@ -21,9 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function checkDuplicateUserName() {
         try {
             if (nameInput.value === "") {
-                nameInputBox.classList.add('error');
-                nameInput.classList.add('error');
-                nameInput.classList.replace('placeholder', 'error_placeholder');
+                handleInputError(nameInputBox, nameInput, nameInputIcon, nameError);
                 console.log("사용자명 입력안됨");
                 return false; // 사용자명이 입력되지 않은 경우 false를 반환하여 함수 종료
             } else {
@@ -41,11 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 if (users && users.length > 0) {
+                    resetInputError(nameInputBox, nameInput, nameInputIcon, nameError);
                     showErrorBox(); // 에러박스 표시
                     errorBoxSpan.textContent = "이미 존재하는 회원명입니다.";
                     nameInputBox.classList.add('error');
                     nameInput.classList.add('error');
-                    emailInput.classList.replace('placeholder', 'error_placeholder');
+                    nameInput.classList.replace('placeholder', 'error_placeholder');
+                    handleIconError(nameInputIcon)
                     console.log('이미 존재하는 회원명입니다.');
                     return false;
                 }
@@ -54,6 +64,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 nameInputBox.classList.remove('error');
                 nameInput.classList.remove('error');
                 nameInput.classList.replace('error_placeholder', 'placeholder');
+                nameError.style.display = 'none';
+                resetIconError(nameInputIcon);
+                hideErrorBox(); // 에러박스 숨김
+                return true;
+            }
+        } catch (error) {
+            console.error('중복 확인 중 오류가 발생했습니다:', error.message);
+            return false;
+        }
+    }
+
+    async function checkDuplicatePhone() {
+        try {
+            if (phoneInput.value === "") {
+                handleInputError(phoneInputBox, phoneInput, phoneIcon, phoneError);
+                console.log("휴대폰 입력안됨");
+                return false; // 사용자명이 입력되지 않은 경우 false를 반환하여 함수 종료
+            } else {
+
+                let {data: users, error} = await client
+                    .from('users')
+                    .select('phone')
+                    .eq('phone', phoneInput.value);
+
+                console.log('phone:', JSON.stringify(users));
+
+                if (error) {
+                    console.error('중복 확인 중 오류가 발생했습니다:', error.message);
+                    return false;
+                }
+
+                if (phoneInput && phoneInput.length > 0) {
+                    resetInputError(phoneInputBox, phoneInput, phoneIcon, phoneError);
+                    showErrorBox(); // 에러박스 표시
+                    errorBoxSpan.textContent = "휴대전화 번호가 중복됩니다.";
+                    phoneInputBox.classList.add('error');
+                    phoneInput.classList.add('error');
+                    phoneInput.classList.replace('placeholder', 'error_placeholder');
+                    handleIconError(phoneIcon);
+                    console.log('이미 존재하는 전화번호입니다.');
+                    return false;
+                }
+
+                console.log('사용 가능한 휴대전화번호입니다.');
+                phoneInputBox.classList.remove('error');
+                phoneInput.classList.remove('error');
+                phoneInput.classList.replace('error_placeholder', 'placeholder');
+                phoneError.style.display = 'none';
+                resetIconError(phoneIcon);
                 hideErrorBox(); // 에러박스 숨김
                 return true;
             }
@@ -70,15 +129,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validatePassword() {
         if (passwordInput.value !== confirmPasswordInput.value) {
+            console.log("비밀번호가 다릅니다.");
             passwordErrorIcon.style.display = 'block';
-            pwCheckInputBox.classList.add('error');
+            confirmPasswordInputBox.classList.add('error');
             confirmPasswordInput.classList.add('error');
             confirmPasswordInput.classList.replace('placeholder', 'error_placeholder');
+            handleIconError(confirmPasswordIcon);
         } else {
+            console.log("비밀번호가 일치합니다.");
             passwordErrorIcon.style.display = 'none';
-            pwCheckInputBox.classList.remove('error');
+            confirmPasswordInputBox.classList.remove('error');
             confirmPasswordInput.classList.remove('error');
             confirmPasswordInput.classList.replace('error_placeholder', 'placeholder');
+            resetIconError(confirmPasswordIcon);
         }
 
         if (validatePasswordFormat()) {
@@ -86,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
             passwordInputBox.classList.remove('error');
             passwordInput.classList.remove('error');
             passwordInput.classList.replace('error_placeholder', 'placeholder');
+            resetIconError(passwordIcon);
             hideErrorBox();
         } else {
             console.log('정규회되지 않은 비밀번호입니다.')
@@ -94,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
             passwordInput.classList.add('error');
             passwordInput.classList.replace('placeholder', 'error_placeholder');
             errorBoxSpan.textContent = "최소 8글자 이상, 영문 대소문자, 숫자, 특수문자 중 최소 한 글자 이상 포함되어야합니다.";
+            handleIconError(passwordIcon);
         }
     }
 
@@ -123,51 +188,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateNullInput() {
 
         if (emailInput.value === "") {
-            emailInputBox.classList.add('error');
-            emailInput.classList.add('error');
-            emailInput.classList.replace('placeholder', 'error_placeholder');
+            handleInputError(emailInputBox,emailInput,emailInputIcon,emailError);
             console.log("이메일 입력안됨");
         } else {
             console.log("이메일 입력되었음!");
-            emailInputBox.classList.remove('error');
-            emailInput.classList.remove('error');
-            emailInput.classList.replace('error_placeholder', 'placeholder');
+            resetInputError(emailInputBox,emailInput,emailInputIcon,emailError);
         }
 
         if (passwordInput.value === "") {
-            passwordInputBox.classList.add('error');
-            passwordInput.classList.add('error');
-            passwordInput.classList.replace('placeholder', 'error_placeholder');
+            handleInputError(passwordInputBox, passwordInput, passwordIcon, passwordError);
             console.log("비밀번호 입력안됨");
         } else {
             console.log("비밀번호 입력되었음!");
-            passwordInputBox.classList.remove('error');
-            passwordInput.classList.remove('error');
-            passwordInput.classList.replace('error_placeholder', 'placeholder');
+            resetInputError(passwordInputBox, passwordInput, passwordIcon, passwordError)
         }
 
         if (confirmPasswordInput.value === "") {
-            pwCheckInputBox.classList.add('error');
-            confirmPasswordInput.classList.add('error');
-            confirmPasswordInput.classList.replace('placeholder', 'error_placeholder');
+            handleInputError(confirmPasswordInputBox, confirmPasswordInput, confirmPasswordIcon, confirmPasswordError);
             console.log("비밀번호 확인 입력안됨");
         } else {
             console.log("비밀번호 확인 입력되었음!");
-            pwCheckInputBox.classList.remove('error');
-            confirmPasswordInput.classList.remove('error');
-            confirmPasswordInput.classList.replace('error_placeholder', 'placeholder');
-        }
-
-        if (phoneInput.value === "") {
-            console.log("휴대전화 입력안됨");
-            phoneInputBox.classList.add('error');
-            phoneInput.classList.add('error');
-            phoneInput.classList.replace('placeholder', 'error_placeholder');
-        } else {
-            console.log("휴대전화 입력되었음!");
-            phoneInputBox.classList.remove('error');
-            phoneInput.classList.remove('error');
-            phoneInput.classList.replace('error_placeholder', 'placeholder');
+            resetInputError(confirmPasswordInputBox, confirmPasswordInput, confirmPasswordIcon, confirmPasswordError);
         }
     }
 
@@ -187,7 +228,33 @@ document.addEventListener('DOMContentLoaded', function() {
         errorBoxSpan.style.display = "none";
     }
 
+    function handleInputError(inputBox, inputElement, iconElement, errorBox) {
+        inputBox.classList.add('error');
+        inputElement.classList.add('error');
+        handleIconError(iconElement);
+        errorBox.style.display = 'flex';
+        errorBox.style.color = "#D23123";
+        inputElement.classList.replace('placeholder','error_placeholder');
+    }
+
+    function resetInputError(inputBox, inputElement, iconElement, errorBox) {
+        inputBox.classList.remove('error');
+        inputElement.classList.remove('error');
+        resetIconError(iconElement);
+        errorBox.style.display = 'none';
+        inputElement.classList.replace('error_placeholder','placeholder');
+    }
+
+    function handleIconError(Icon) {
+        Icon.style.filter = "invert(20%) sepia(93%) saturate(3205%) hue-rotate(354deg) brightness(89%) contrast(83%)";
+    }
+
+    function resetIconError(Icon) {
+        Icon.style.filter = "invert(39%) sepia(9%) saturate(0%) hue-rotate(197deg) brightness(91%) contrast(80%)";
+    }
+
     passwordInput.addEventListener('input', validatePassword);
+    confirmPasswordInput.addEventListener('input', validatePassword);
 
     signupForm.addEventListener('submit', async function(event) {
         signupButton.setAttribute('type', ''); // 버튼 타입을 null로 변경
@@ -196,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
         validateNullInput(); // 인풋 null 여부 검증
         validateCheckbox(); // 체크박스 검증
         await checkDuplicateUserName();
+        await checkDuplicatePhone();
 
 
         if (!signupForm.querySelector('.error') && passwordInput.value === confirmPasswordInput.value) {
@@ -213,11 +281,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
+
+
             if (error) {
                 console.error('회원가입에 실패했습니다:', error.message);
                 if (error.message.includes('registered')) {
                     errorBoxSpan.textContent = "이미 가입된 이메일입니다.";
-                    emailInputBox.classList.add('error');
+                    handleInputError(emailInputBox, emailInput, emailInputIcon,errorBox);
+                    emailError.style.display='none';
                 }
                 errorBox.style.display= "block"
                 errorBox.style.color = "black"
@@ -227,8 +298,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
             } else {
                 console.log('회원가입이 완료되었습니다:', user);
-                // 회원가입 성공 시 다음 페이지로 이동하거나 다른 동작을 수행할 수 있습니다.
-                signupButton.setAttribute('type', 'submit'); // 버튼 타입을 submit으로 변경
+                // 회원가입 성공 시 로그인 된 상태로 메인페이지 이동
+                const { data, error } = await client.auth.signInWithPassword({
+                    email: emailInput.value,
+                    password: passwordInput.value,
+                });
+
+                if (error) {
+                    console.error('로그인에 실패했습니다:', error.message);
+                    window.location.href = "http://localhost:8080/login";
+                } else {
+                    console.log('로그인이 완료되었습니다:', data);
+                    window.location.href = "http://localhost:8080";
+                }
+
             }
         } else {
             console.log('error 항목이 존재합니다.')

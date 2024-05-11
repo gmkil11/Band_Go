@@ -13,74 +13,99 @@
 </th:block>
 
 <!--Body 영역-->
-<th:block layout:fragment="content">
-    <form id="signupForm"  class="member-box member-style">
+<main layout:fragment="content" class="member-style">
+    <div class="main_area">
         <div class="logoBox" th:onclick="|window.location.href='@{/}'|">
             <img th:src="@{/img/logo.svg}" alt="logo">
         </div>
         <div class="error_box">
             <span class="error_box_span"></span>
         </div>
-        <div class="rows name_input_box">
-            <img th:src="@{/img/icons/people.svg}">
-            <input type="text" id="name" placeholder="회원명을 입력하세요" class="placeholder">
-        </div>
-        <div class="rows email_input_box">
-            <img th:src="@{/img/icons/email.svg}">
-            <input type="email" id="email" placeholder="이메일을 입력해주세요" class="placeholder">
-        </div>
-        <div class="rows pw_input_box">
-            <img th:src="@{/img/icons/password.svg}">
-            <input type="password" id="password" placeholder="비밀번호를 입력해주세요" class="placeholder">
-        </div>
-        <div class="rows pwCheck_input_box">
-            <img th:src="@{/img/icons/passwordCheck.svg}">
-            <input type="password" id="confirmPassword" placeholder="비밀번호를 다시 입력해주세요" class="placeholder">
-            <img th:src="@{/img/icons/error.svg}" id="passwordErrorIcon">
-        </div>
-        <div class="rows mobile_input_box">
-            <img th:src="@{/img/icons/mobile.svg}">
-            <input type="text" id="phone" placeholder="전화번호를 입력해주세요" class="placeholder">
-        </div>
-        <button type="submit" id="submitButton">회원가입</button>
-
-
-        <div class="agreeBox">
-            <div class="checkbox-container">
-                <input type="checkbox" class="agree allAgree" id="selectAll" name="agree" onclick='toggleAll(this); toggleCheckbox();'>
-                <label id="checkboxAll" class="checkbox" for="selectAll"></label>
-                <label for="selectAll" class="allAgreeText" >모두 확인하였으며 동의합니다.</label>
+        <form id="signupForm"  class="member-box">
+            <div class="rows name_input_box">
+                <img th:src="@{/img/icons/people.svg}" id="nameIcon">
+                <input type="text" id="name" placeholder="회원명을 입력하세요" class="placeholder">
             </div>
-            <hr>
-
-            <div class="checkbox-container">
-                <input type="checkbox" id="ageAgree" class="agree"  name="ageAgree" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
-                <label id="checkbox1" class="checkbox unchecked" for="ageAgree"></label>
-                <label for="ageAgree" class="agreeText" >만 14세 이상 이용동의</label>
+            <div class="name_error_box">
+                <img th:src="@{/img/icons/error.svg}">
+                <span>회원명이 입력되지 않았습니다.</span>
             </div>
 
-            <div class="checkbox-container">
-                <input type="checkbox" id="termsOfUser" class="agree"  name="termsOfUser" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
-                <label id="checkbox2" class="checkbox unchecked" for="termsOfUser"></label>
-                <label for="termsOfUser" class="agreeText" >밴드할래 이용약관 동의</label>
+            <div class="rows email_input_box">
+                <img th:src="@{/img/icons/email.svg}" id="emailIcon">
+                <input type="email" id="email" placeholder="이메일을 입력해주세요" class="placeholder">
+            </div>
+            <div class="email_error_box">
+                <img th:src="@{/img/icons/error.svg}">
+                <span>이메일이 입력되지 않았습니다.</span>
             </div>
 
-            <div class="checkbox-container">
-                <input type="checkbox" id="privacy" class="agree"  name="privacy" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
-                <label id="checkbox3" class="checkbox unchecked" for="privacy"></label>
-                <label for="privacy" class="agreeText" >개인정보 수집 및 이용 동의</label>
+            <div class="rows pw_input_box">
+                <img th:src="@{/img/icons/password.svg}" id="passwordIcon">
+                <input type="password" id="password" placeholder="비밀번호를 입력해주세요" class="placeholder">
+            </div>
+            <div class="pw_error_box">
+                <img th:src="@{/img/icons/error.svg}">
+                <span>비밀번호가 입력되지 않았습니다.</span>
             </div>
 
-            <div class="checkbox-container">
-                <input type="checkbox" id="thirdPartyAgree" class="agree"  name="thirdPartyAgree"  value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
-                <label id="checkbox4" class="checkbox unchecked" for="thirdPartyAgree"></label>
-                <label for="thirdPartyAgree" class="agreeText" >개인정보 제3자 제공 동의</label>
+            <div class="rows pwCheck_input_box">
+                <img th:src="@{/img/icons/passwordCheck.svg}" id="confirmPasswordIcon">
+                <input type="password" id="confirmPassword" placeholder="비밀번호를 다시 입력해주세요" class="placeholder">
+                <img th:src="@{/img/icons/error.svg}" id="passwordErrorIcon">
             </div>
-        </div>
+            <div class="confirmPw_error_box">
+                <img th:src="@{/img/icons/error.svg}">
+                <span>비밀번호 확인이 입력되지 않았습니다.</span>
+            </div>
 
-    </form>
+            <div class="rows mobile_input_box">
+                <img th:src="@{/img/icons/mobile.svg}" id="phoneIcon">
+                <input type="text" id="phone" placeholder="전화번호를 입력해주세요" class="placeholder">
+            </div>
+            <div class="phone_error_box">
+                <img th:src="@{/img/icons/error.svg}">
+                <span>전화번호가 입력되지 않았습니다.</span>
+            </div>
+            <button type="submit" id="submitButton">회원가입</button>
 
 
-</th:block>
+            <div class="agreeBox">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="agree allAgree" id="selectAll" name="agree" onclick='toggleAll(this); toggleCheckbox();'>
+                    <label id="checkboxAll" class="checkbox" for="selectAll"></label>
+                    <label for="selectAll" class="allAgreeText" >모두 확인하였으며 동의합니다.</label>
+                </div>
+                <hr>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="ageAgree" class="agree"  name="ageAgree" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
+                    <label id="checkbox1" class="checkbox unchecked" for="ageAgree"></label>
+                    <label for="ageAgree" class="agreeText" >만 14세 이상 이용동의</label>
+                </div>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="termsOfUser" class="agree"  name="termsOfUser" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
+                    <label id="checkbox2" class="checkbox unchecked" for="termsOfUser"></label>
+                    <label for="termsOfUser" class="agreeText" >밴드할래 이용약관 동의</label>
+                </div>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="privacy" class="agree"  name="privacy" value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
+                    <label id="checkbox3" class="checkbox unchecked" for="privacy"></label>
+                    <label for="privacy" class="agreeText" >개인정보 수집 및 이용 동의</label>
+                </div>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="thirdPartyAgree" class="agree"  name="thirdPartyAgree"  value="true" onclick=' checkSelectAll(); toggleCheckbox();'>
+                    <label id="checkbox4" class="checkbox unchecked" for="thirdPartyAgree"></label>
+                    <label for="thirdPartyAgree" class="agreeText" >개인정보 제3자 제공 동의</label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</main>
 
 </html>
