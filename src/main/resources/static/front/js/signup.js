@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetIconError(phoneIcon);
                 hideErrorBox(); // 에러박스 숨김
                 return true;
+
             }
         } catch (error) {
             console.error('중복 확인 중 오류가 발생했습니다:', error.message);
