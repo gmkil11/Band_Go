@@ -82,6 +82,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("휴대폰 입력안됨");
                 return false; // 사용자명이 입력되지 않은 경우 false를 반환하여 함수 종료
             } else {
+                if (!validatePhoneNumber(phoneInput.value)) {
+                    resetInputError(phoneInputBox, phoneInput, phoneIcon, phoneError);
+                    showErrorBox(); // 에러박스 표시
+                    errorBoxSpan.textContent = "올바른 전화번호 형식을 사용해주세요.";
+                    phoneInputBox.classList.add('error');
+                    phoneInput.classList.add('error');
+                    phoneInput.classList.replace('placeholder', 'error_placeholder');
+                    handleIconError(phoneIcon);
+                    console.log('올바른 전화번호 형식이 아닙니다.');
+                    return false;
+                }
 
                 let {data: users, error} = await client
                     .from('users')
@@ -95,10 +106,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     return false;
                 }
 
-                if (phoneInput && phoneInput.length > 0) {
+                if (users && users.length > 0) {
                     resetInputError(phoneInputBox, phoneInput, phoneIcon, phoneError);
                     showErrorBox(); // 에러박스 표시
-                    errorBoxSpan.textContent = "휴대전화 번호가 중복됩니다.";
+                    errorBoxSpan.textContent = "이미 존재하는 전화번호입니다.";
                     phoneInputBox.classList.add('error');
                     phoneInput.classList.add('error');
                     phoneInput.classList.replace('placeholder', 'error_placeholder');
@@ -167,6 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // 최소 8글자 이상, 영문 대소문자, 숫자, 특수문자 중 최소 한 글자 이상 포함
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
         return passwordRegex.test(passwordInput.value);
+    }
+
+    function validatePhoneNumber(phoneNumber) {
+        const phoneRegex = /^010-\d{4}-\d{4}$/;
+        return phoneRegex.test(phoneNumber);
     }
 
     function validateCheckbox() {
@@ -256,6 +272,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     passwordInput.addEventListener('input', validatePassword);
     confirmPasswordInput.addEventListener('input', validatePassword);
+
+    phoneInput.addEventListener('focus', function(event) {
+        if (event.target.value === '') {
+            event.target.value = '010-'; // 전화번호 입력란이 비어있을 때만 "010" 입력
+        }
+    });
+
+    // 휴대폰 형식 자동 완성
+    phoneInput.addEventListener('input', function(event) {
+        let phoneNumber = event.target.value.replace(/[^0-9]/g, ''); // 입력된 값에서 숫자만 추출
+
+        // 전화번호가 11자리 이상으로 입력되려고 하면 더 이상 입력 안 되도록 함
+        if (phoneNumber.length >= 11) {
+            phoneNumber = phoneNumber.slice(0, 11); // 11자리 이상 입력되면 초과된 부분을 잘라냄
+        }
+
+        if (phoneNumber.length > 3 && phoneNumber.length <= 7) {
+            phoneNumber = phoneNumber.replace(/(\d{3})(\d{1,4})/, '$1-$2'); // 010-xxxx 형식으로 변경
+        } else if (phoneNumber.length > 7) {
+            phoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3'); // 010-xxxx-xxxx 형식으로 변경
+        }
+
+        event.target.value = phoneNumber; // 변환된 번호를 다시 입력 값으로 설정
+    });
 
     signupForm.addEventListener('submit', async function(event) {
         signupButton.setAttribute('type', ''); // 버튼 타입을 null로 변경
