@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.querySelector("#loggedIn").style.display = "none";
     document.querySelector("#NotLoggedIn").style.display = "none";
 
-    // `checkLogin()` 함수를 await 키워드와 함께 호출하여 비동기적으로 실행합니다.
     if (await checkLogin()) {
         document.querySelector("#loggedIn").style.display = "inline";
     } else {

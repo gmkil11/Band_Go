@@ -9,7 +9,7 @@
 }
 
 .member-style {
-    background-color: #F9F9F9;
+    background-color: #F2F2F3;
     display: flex;
     justify-content: center;
 }
@@ -23,6 +23,8 @@
     align-items: center;
     gap: 30px;
     height: 100vh;
+    border-right: #F2F2F3 2px;
+    border-left: #F2F2F3 2px;
 }
 
 .member-box {
