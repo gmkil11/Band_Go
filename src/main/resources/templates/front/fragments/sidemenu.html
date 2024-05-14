@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+
+
+<th:block th:fragment="sideMenuFragment">
+<nav class="side-nav">
+    <div class="logoBox" th:onclick="|window.location.href='@{/}'|">
+        <img th:src="@{/img/logo.svg}" alt="logo">
+    </div>
+    <div class="side-nav-contents">
+        <div>
+            <img th:src="@{/img/icons/offer.svg}" alt="offer">
+            <span>악기 중고거래</span>
+        </div>
+        <div>
+            <img th:src="@{/img/icons/group.svg}" alt="group">
+            <span>밴드 찾기</span>
+        </div>
+        <div>
+            <img th:src="@{/img/icons/calender.svg}" alt="calender">
+            <span>합주 일정관리</span>
+        </div>
+        <div>
+            <img th:src="@{/img/icons/map.svg}" alt="map">
+            <span>합주실 찾기</span>
+        </div>
+    </div>
+</nav>
+</th:block>
+</html>

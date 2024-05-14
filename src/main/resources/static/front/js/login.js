@@ -4,12 +4,15 @@ document.addEventListener('DOMContentLoaded', async function () {
     const emailInputBox = document.querySelector(".email_input_error");
     const emailInputBoxIcon = document.getElementById('emailIcon');
     const emailErrorBox = document.querySelector(".email_error_box");
+    const emailErrorSpan = document.getElementById("emailErrorSpan");
     const password = document.getElementById('password');
     const passwordInputBox = document.querySelector(".pw_input_error");
     const passwordInputBoxIcon = document.getElementById('passwordIcon');
     const pwErrorBox = document.querySelector(".pw_error_box");
+    const passwordErrorSpan = document.getElementById('passwordErrorSpan');
     const errorBox = document.querySelector(".error_box");
     const errorBoxSpan = document.querySelector(".error_box_span");
+
 
     console.log("로그인 페이지 진입.");
 
@@ -34,6 +37,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         .querySelector("#login_by_kakao")
         .addEventListener("click", signInWithKaKao);
 
+    function validateEmailFormat() {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+        return emailRegex.test(email.value);
+    }
+
     loginForm.addEventListener('submit', async function(event) {
         event.preventDefault();
 
@@ -43,18 +51,24 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (emailValue === "" || passwordValue === "") {
             if (emailValue === "") {
                 console.log("이메일이 입력되지 않았습니다.");
-                handleInputError(emailInputBox, email, emailInputBoxIcon, emailErrorBox);
+                handleInputError(emailInputBox, email, emailInputBoxIcon, emailErrorBox, emailErrorSpan, "이메일이 입력되지 않았습니다.");
             } else {
-                resetInputError(emailInputBox, email, emailInputBoxIcon, emailErrorBox);
+                if (!validateEmailFormat()) {
+                    console.log('이메일 형식이 잘못되었습니다.')
+                    handleInputError(emailInputBox, email, emailInputBoxIcon, emailErrorBox, emailErrorSpan, "이메일 형식이 잘못되었습니다.")
+                } else {
+                    resetInputError(emailInputBox, email, emailInputBoxIcon, emailErrorBox);
+                }
             }
             if (passwordValue === "") {
                 console.log("비밀번호가 입력되지 않았습니다.");
-                handleInputError(passwordInputBox, password, passwordInputBoxIcon, pwErrorBox);
+                handleInputError(passwordInputBox, password, passwordInputBoxIcon, pwErrorBox, passwordErrorSpan, "비밀번호가 입력되지 않았습니다.");
             } else {
                 resetInputError(passwordInputBox, password, passwordInputBoxIcon, pwErrorBox);
             }
             return; // 입력값이 없을 경우 함수 종료
         }
+
 
         // 이메일과 비밀번호가 모두 입력된 경우
         try {
@@ -77,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     });
 
-    function handleInputError(inputBox, inputElement, iconElement, errorBox) {
+    function handleInputError(inputBox, inputElement, iconElement, errorBox, errorSpan ,errorSpanText) {
         inputBox.style.border = '1px solid #D23123';
         inputBox.style.backgroundColor = "#FFEBEB";
         inputElement.style.backgroundColor = "#FFEBEB";
@@ -85,10 +99,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         errorBox.style.display = 'flex';
         errorBox.style.color = "#D23123";
         inputElement.classList.replace('placeholder','error_placeholder');
+        errorSpan.innerHTML = errorSpanText;
     }
 
     function resetInputError(inputBox, inputElement, iconElement, errorBox) {
-        inputBox.style.border = '1px solid black';
+        inputBox.style.border = '1px solid #76819C';
         inputBox.style.backgroundColor = '#FFFFFF';
         inputElement.style.backgroundColor = '#FFFFFF';
         iconElement.style.filter = "invert(39%) sepia(9%) saturate(0%) hue-rotate(197deg) brightness(91%) contrast(80%)";

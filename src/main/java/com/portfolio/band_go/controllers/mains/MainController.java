@@ -59,4 +59,9 @@ public class MainController {
         return "front/main/find_room";
     }
 
+    @GetMapping("/profileEdit")
+    public String profileEdit(Model model) {
+        return "front/main/profile_edit";
+    }
+
 }

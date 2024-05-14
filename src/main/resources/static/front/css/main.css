@@ -6,10 +6,53 @@
 body{
     margin: 0;
     min-height: 100vh;
+    background-color: #F8FAFB;
+}
+
+main {
+    height: 100%;
+}
+
+.row-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.column-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.side-nav {
+    height: 100vh;
+    width: calc(100%/4);
+    background-color: #FFFFFF;
+    border-right: #F2F2F3 2px solid;
 
 }
 
-main { height: 100%; }
+.side-nav img {
+    width: 80%;
+    min-width: 50%;
+}
+
+.logoBox {
+    justify-content: center;
+    display: flex;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.side-nav-contents {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-nav-contents img {
+    
+}
 
 /* 헤더 네비게이션 바*/
 .header{
@@ -24,8 +67,28 @@ main { height: 100%; }
 }
 
 .leftContent {
+    background-color: #FFFFFF;
     display: flex;
+    border-radius: 10px;
     gap: 20px;
+    padding-left: 10px;
+    width: calc(100%/2);
+    height: 40px;
+    align-items: center;
+}
+
+.leftContent input {
+    border: none;
+    border-radius: 10px;
+}
+
+.leftContent img {
+    height: 30px;
+}
+
+.leftContent input::placeholder {
+    font-size: 1rem;
+    color: #CAD7E0;
 }
 
 .rightContent a{

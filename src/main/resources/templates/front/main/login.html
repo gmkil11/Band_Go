@@ -29,7 +29,7 @@
       </div>
       <div class="email_error_box">
         <img th:src="@{/img/icons/error.svg}">
-        <span>이메일이 입력되지 않았습니다.</span>
+        <span id="emailErrorSpan">이메일이 입력되지 않았습니다.</span>
       </div>
 
       <div class="rows pw_input_error" th:classappend="${session.NotBlank_password} ? 'error-box' : ''">
@@ -38,7 +38,7 @@
       </div>
       <div class="pw_error_box">
         <img th:src="@{/img/icons/error.svg}">
-        <span>비밀번호가 입력되지 않았습니다.</span>
+        <span id="passwordErrorSpan">비밀번호가 입력되지 않았습니다.</span>
       </div>
       <button type="submit" >로그인</button>
       <!--계정 찾기 기능 추가 예정-->
