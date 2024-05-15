@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.querySelector("#NotLoggedIn").style.display = "none";
 
     if (await checkLogin()) {
-        document.querySelector("#loggedIn").style.display = "inline";
+        document.querySelector("#loggedIn").style.display = "flex";
     } else {
         document.querySelector("#NotLoggedIn").style.display = "inline";
     }
