@@ -146,7 +146,7 @@ main {
 .dropdown_content1{
     position: absolute;
     display: none;
-    margin-top: 5px;
+    margin-top: 25px;
     width: 100px;
     border: #9F9F9F;
     border-radius: 5%;
@@ -158,7 +158,7 @@ main {
 .dropdown_content2{
     position: absolute;
     display: none;
-    margin-top: 5px;
+    margin-top: 25px;
     width: 100px;
     right: 5px;
     border: #9F9F9F;
@@ -176,3 +176,4 @@ main {
         opacity: 1;
     }
 }
+
