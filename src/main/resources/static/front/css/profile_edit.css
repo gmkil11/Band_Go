@@ -24,6 +24,53 @@
     font-size: 1rem;
 }
 
-.rows {
+.profile_edit_input {
     width: 100%;
+}
+
+.rows {
+    display: flex;
+    align-items: center;
+    background: #FFF;
+    border-radius: 5px;
+    border: #76819C solid 1px;
+    width: 100%;
+    transition: all 0.1s;
+}
+
+.rows img {
+    height: 20px;
+    margin-left: 20px;
+}
+
+.rows input{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    font-weight: 300;
+    font-size: 1.1rem;
+    letter-spacing: -0.24px;
+    padding: 16px 16px 16px 16px;
+    border: none;
+    outline: none;
+    width: 100%;
+    transition: all 0.1s;
+}
+
+.public_button {
+    border:none;
+    background-color: #F8FAFB;
+}
+
+.public_button input {
+    display: flex;
+}
+
+.profile_public {
+
+}
+
+.profile_non_public {
+
 }
