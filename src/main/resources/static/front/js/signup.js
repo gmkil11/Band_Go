@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function resetIconError(Icon) {
-        Icon.style.filter = "invert(39%) sepia(9%) saturate(0%) hue-rotate(197deg) brightness(91%) contrast(80%)";
+        Icon.style.filter = "invert(54%) sepia(12%) saturate(692%) hue-rotate(185deg) brightness(91%) contrast(89%)";
     }
 
     passwordInput.addEventListener('input', validatePassword);

@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         inputBox.style.border = '1px solid #76819C';
         inputBox.style.backgroundColor = '#FFFFFF';
         inputElement.style.backgroundColor = '#FFFFFF';
-        iconElement.style.filter = "invert(39%) sepia(9%) saturate(0%) hue-rotate(197deg) brightness(91%) contrast(80%)";
+        iconElement.style.filter = "invert(54%) sepia(12%) saturate(692%) hue-rotate(185deg) brightness(91%) contrast(89%)";
         errorBox.style.display = 'none';
         inputElement.classList.replace('error_placeholder','placeholder');
     }
