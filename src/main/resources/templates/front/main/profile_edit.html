@@ -8,7 +8,7 @@
 </th:block>
 
 <th:block layout:fragment="addJs">
-  <script th:src="@{front/js/group.js}"></script>
+  <script th:src="@{front/js/profile_edit.js}"></script>
 </th:block>
 
 <!--Body 영역-->
@@ -20,33 +20,70 @@
         <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
       </div>
       <form class="profile_edit_input">
-        <span>회원명</span>
-        <div class="rows">
-          <img th:src="@{/img/icons/people.svg}" alt="username_icon">
-          <input placeholder="회원명">
-        </div>
-        <span>거주지역</span>
-        <div class="rows">
-          <img th:src="@{/img/icons/location.svg}" alt="location_icon">
-          <input placeholder="거주지역">
-        </div>
-        <span>소개글</span>
-        <div class="rows">
-          <img th:src="@{/img/icons/write.svg}" alt="write_icon">
-          <input placeholder="소개글">
-        </div>
-        <span>프로필 공개 상태</span>
-        <div class="rows public_button">
-          <div class="profile_public">
-            <input type="radio" value="public" name="is_public">프로필 공개</input>
+        <div>
+          <span>회원명</span>
+          <div class="rows">
+            <img th:src="@{/img/icons/people.svg}" alt="username_icon">
+            <input placeholder="회원명">
           </div>
-          <div class="profile_non_public">
-            <input type="radio" value="public" name="is_public">프로필 비공개</input>
+        </div>
+        <div>
+          <span>거주지역</span>
+          <div class="rows">
+            <img th:src="@{/img/icons/location.svg}" alt="location_icon">
+            <input placeholder="거주지역">
+          </div>
+        </div>
+        <div>
+          <span>소개글</span>
+          <div class="rows">
+            <img th:src="@{/img/icons/write.svg}" alt="write_icon">
+            <input placeholder="소개글">
+          </div>
+        </div>
+        <div>
+          <span>프로필 공개 상태</span>
+          <div class="rows public_button_box">
+            <label for="public" class="profile_public_buttons public_button public_checked">
+                  <input type="radio" value="public" id="public" name="is_public" checked="checked">
+                  프로필 공개
+            </label>
+            <label class="profile_public_buttons no_public_button public_no_checked" for="no_public">
+              <input type="radio" value="no_public" id="no_public" name="is_public">
+              프로필 비공개
+            </label>
           </div>
         </div>
         <div>
           <span>세션</span>
+          <div class="rows session_button_box">
+            <label class="session_buttons session_no_checked vocal_box">
+              <input type="checkbox" value="vocal" id="vocal">
+              보컬
+            </label>
+            <label class="session_buttons session_no_checked guitar_box">
+              <input type="checkbox" value="guitar" id="guitar">
+              기타
+            </label>
+            <label class="session_buttons session_no_checked bass_box">
+              <input type="checkbox" value="bass" id="bass">
+              베이스
+            </label>
+            <label class="session_buttons session_no_checked drum_box">
+              <input type="checkbox" value="drum" id="drum">
+              드럼
+            </label>
+            <label class="session_buttons session_no_checked keyboard_box">
+              <input type="checkbox" value="keyboard" id="keyboard">
+              건반
+            </label>
+            <label class="session_buttons session_no_checked brass_box">
+              <input type="checkbox" value="brass" id="brass">
+              관악
+            </label>
+          </div>
         </div>
+
       </form>
     </div>
   </div>
