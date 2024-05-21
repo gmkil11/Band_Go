@@ -64,4 +64,9 @@ public class MainController {
         return "front/main/profile_edit";
     }
 
+    @GetMapping("/mypage")
+    public String myPage(Model model) {
+        return "front/main/my_page";
+    }
+
 }

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="addCss">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+</th:block>
+
+<th:block layout:fragment="addJs">
+<!--  <script th:src="@{front/js/profile_edit.js}"></script>-->
+</th:block>
+
+<!--Body 영역-->
+<th:block layout:fragment="content">
+  <div class="profile_edit_box">
+    <span>프로필 설정</span>
+    <div class="profile_form_box">
+      <div class="profile_picture">
+        <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
+      </div>
+      <form class="profile_edit_input" id="profile_edit_form">
+        <div>
+          <span>회원명</span>
+          <div class="rows">
+            <img th:src="@{/img/icons/people.svg}" alt="username_icon">
+            <input placeholder="회원명" id="user_name_input">
+          </div>
+        </div>
+        <div>
+          <span>거주지역</span>
+          <div class="rows">
+            <img th:src="@{/img/icons/location.svg}" alt="location_icon">
+            <input placeholder="거주지역" id="location_input">
+          </div>
+        </div>
+        <div>
+          <span>소개글</span>
+          <div class="rows">
+            <img th:src="@{/img/icons/write.svg}" alt="write_icon">
+            <input placeholder="소개글" id="introduce_input">
+          </div>
+        </div>
+        <div>
+          <span>프로필 공개 상태</span>
+          <div class="rows public_button_box">
+            <label for="public" class="profile_public_buttons public_button public_checked">
+              <input type="radio" value=true id="public" name="is_public" checked="checked">
+              프로필 공개
+            </label>
+            <label class="profile_public_buttons no_public_button public_no_checked" for="no_public">
+              <input type="radio" value=false id="no_public" name="is_public">
+              프로필 비공개
+            </label>
+          </div>
+        </div>
+        <div>
+          <span>세션</span>
+          <div class="rows session_button_box">
+            <label class="session_buttons session_no_checked vocal_box">
+              <img th:src="@{/img/icons/vocal.svg}" alt="vocal">
+              <input type="checkbox" name="session[]" value="vocal" id="vocal">
+              보컬
+            </label>
+            <label class="session_buttons session_no_checked guitar_box">
+              <img th:src="@{/img/icons/guitar.svg}" alt="guitar">
+              <input type="checkbox" name="session[]" value="guitar" id="guitar">
+              기타
+            </label>
+            <label class="session_buttons session_no_checked bass_box">
+              <img th:src="@{/img/icons/bass.svg}" alt="bass">
+              <input type="checkbox" name="session[]" value="bass" id="bass">
+              베이스
+            </label>
+            <label class="session_buttons session_no_checked drum_box">
+              <img th:src="@{/img/icons/drum.svg}" alt="drum">
+              <input type="checkbox" name="session[]" value="drum" id="drum">
+              드럼
+            </label>
+            <label class="session_buttons session_no_checked keyboard_box">
+              <img th:src="@{/img/icons/keyboard.svg}" alt="keyboard">
+              <input type="checkbox" name="session[]" value="keyboard" id="keyboard">
+              건반
+            </label>
+            <label class="session_buttons session_no_checked brass_box">
+              <img th:src="@{/img/icons/brass.svg}" alt="brass">
+              <input type="checkbox" name="session[]" value="brass" id="brass">
+              관악
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="submit_button">저장하기</button>
+        <button type="button" class="cancel_button">돌아가기</button>
+
+      </form>
+    </div>
+  </div>
+</th:block>
+</html>
