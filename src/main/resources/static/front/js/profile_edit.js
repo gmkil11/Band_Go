@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (!await checkLogin()) {
         window.location.href = "http://localhost:8080/login";
     }
+
     const profileEditForm = document.getElementById("profile_edit_form");
     const authInfo = await client.auth.getSession();
     const loggedInUserId = authInfo.data.session.user.id;
@@ -196,8 +197,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     })
 
-
-
-
-
+    const cancelButton = document.querySelector('.cancel_button');
+    cancelButton.addEventListener('click', goToMainPage);
+    function goToMainPage() {
+        window.location.href = "http://localhost:8080";
+    }
 })

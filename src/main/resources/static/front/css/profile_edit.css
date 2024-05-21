@@ -137,11 +137,21 @@
     transition: all 0.5s;
 }
 
-.profile_form_box button {
+.submit_button {
+    margin-top: 30px;
     background: linear-gradient(90deg, rgba(56,160,247,1) 0%, rgba(50,128,251,1) 100%);
     color: #FFFFFF;
     border-radius: 5px;
     border: none;
+    height: 50px;
+    font-size: 1rem;
+}
+
+.cancel_button {
+    background: #F8FAFB;
+    border: #CAD7E0 1px solid;
+    color: #8E98AE;
+    border-radius: 5px;
     height: 50px;
     font-size: 1rem;
 }
