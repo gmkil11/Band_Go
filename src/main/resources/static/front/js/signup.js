@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = "http://localhost:8080/login";
                 } else {
                     console.log('로그인이 완료되었습니다:', data);
-                    window.location.href = "http://localhost:8080";
+                    window.location.href = "http://localhost:8080/profileEdit";
                 }
 
             }
