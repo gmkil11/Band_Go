@@ -14,50 +14,52 @@
 <!--Body 영역-->
 <th:block layout:fragment="content">
     <div class="profile_box">
-      <div class="profile_picture">
-        <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
-      </div>
-      <div class="profile_value" id="profile_value">
-        <div class="user_name_span_box">
-          <span id="user_name"></span>
+      <div class="profile_img_span_box">
+        <div class="profile_picture">
+          <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
         </div>
-        <div class="location_span_box">
-          <img th:src="@{/img/icons/location.svg}" alt="location_icon">
-          <span id="location"></span>
-        </div>
-        <div class="introduce_span_box">
-          <span id="introduce"></span>
-        </div>
-      </div>
-        <div>
-          <div class="rows session_button_box">
-            <label class="session_buttons session_no_checked vocal_box">
-
-              <img th:src="@{/img/icons/vocal.svg}" alt="vocal">
-              보컬
-            </label>
-            <label class="session_buttons session_no_checked guitar_box">
-              <img th:src="@{/img/icons/guitar.svg}" alt="guitar">
-              기타
-            </label>
-            <label class="session_buttons session_no_checked bass_box">
-              <img th:src="@{/img/icons/bass.svg}" alt="bass">
-              베이스
-            </label>
-            <label class="session_buttons session_no_checked drum_box">
-              <img th:src="@{/img/icons/drum.svg}" alt="drum">
-              드럼
-            </label>
-            <label class="session_buttons session_no_checked keyboard_box">
-              <img th:src="@{/img/icons/keyboard.svg}" alt="keyboard">
-              건반
-            </label>
-            <label class="session_buttons session_no_checked brass_box">
-              <img th:src="@{/img/icons/brass.svg}" alt="brass">
-              관악
-            </label>
+        <div class="profile_value" id="profile_value">
+          <div class="user_name_span_box">
+            <span id="user_name"></span>
+          </div>
+          <div class="location_span_box">
+            <img th:src="@{/img/icons/location.svg}" alt="location_icon">
+            <span id="location"></span>
+          </div>
+          <div class="introduce_span_box">
+            <span id="introduce"></span>
           </div>
         </div>
+      </div>
+      <div class="profile_session_box">
+        <div class="rows session_button_box">
+          <label class="session_buttons session_no_checked vocal_box">
+
+            <img th:src="@{/img/icons/vocal.svg}" alt="vocal">
+            보컬
+          </label>
+          <label class="session_buttons session_no_checked guitar_box">
+            <img th:src="@{/img/icons/guitar.svg}" alt="guitar">
+            기타
+          </label>
+          <label class="session_buttons session_no_checked bass_box">
+            <img th:src="@{/img/icons/bass.svg}" alt="bass">
+            베이스
+          </label>
+          <label class="session_buttons session_no_checked drum_box">
+            <img th:src="@{/img/icons/drum.svg}" alt="drum">
+            드럼
+          </label>
+          <label class="session_buttons session_no_checked keyboard_box">
+            <img th:src="@{/img/icons/keyboard.svg}" alt="keyboard">
+            건반
+          </label>
+          <label class="session_buttons session_no_checked brass_box">
+            <img th:src="@{/img/icons/brass.svg}" alt="brass">
+            관악
+          </label>
+        </div>
+      </div>
 
 
     </div>

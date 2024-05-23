@@ -1,185 +1,206 @@
 .profile_edit_box {
-    display: flex;
-    flex-direction: column;
-    margin: 0 0 0 35px;
-    gap: 25px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 35px;
+  gap: 25px;
 }
 
-.profile_edit_box span{
-    font-size: 40px;
-    color: #2D3F51;
+.profile_edit_box span {
+  font-size: 40px;
+  color: #2d3f51;
 }
 
 .profile_form_box {
-    display: flex;
-    width: calc(100%/1.2);
-    gap: 40px;
+  display: flex;
+  width: calc(100% / 1.2);
+  gap: 40px;
 }
 
 .profile_form_box img {
-    height: 110px;
+  height: 110px;
 }
 
-.profile_form_box span{
-    font-size: 1rem;
+.profile_form_box span {
+  font-size: 1rem;
 }
 
 .profile_edit_input {
-    width: 100%;
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .rows {
-    display: flex;
-    align-items: center;
-    background: #FFF;
-    border-radius: 5px;
-    border: #76819C solid 1px;
-    width: 100%;
-    transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 5px;
+  border: #76819c solid 1px;
+  width: 100%;
+  transition: all 0.1s;
 }
 
 .rows img {
-    height: 20px;
-    margin-left: 20px;
-
+  height: 20px;
+  margin-left: 20px;
 }
 
-.rows input{
-    height: 40px;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    font-weight: 300;
-    font-size: 1.1rem;
-    letter-spacing: -0.24px;
-    padding: 16px 16px 16px 16px;
-    border: none;
-    outline: none;
-    width: 100%;
-    transition: all 0.1s;
-
+.rows input {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  font-weight: 300;
+  font-size: 1.1rem;
+  letter-spacing: -0.24px;
+  padding: 16px 16px 16px 16px;
+  border: none;
+  outline: none;
+  width: 100%;
+  transition: all 0.1s;
 }
 
 .public_button_box {
-    border:none;
-    background-color: #F8FAFB;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    gap: 2%;
-
+  border: none;
+  background-color: #f8fafb;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 2%;
 }
 
 .public_button_box input {
-    display: none;
+  display: none;
 }
 
 .profile_public_buttons {
-    width: 100%;
-    height: 50px;
-    border-radius: 5px;
-    text-align: center;
-    align-items: center;
-    line-height: 50px;
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  text-align: center;
+  align-items: center;
+  line-height: 50px;
 }
 
 .session_button_box {
-    border: none;
-    background-color: #F8FAFB;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    gap: 2%;
+  border: none;
+  background-color: #f8fafb;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 2%;
 }
 
 .public_checked {
-    border: #CAD7E0 1px solid;
-    background: linear-gradient(90deg, rgba(56,160,247,1) 0%, rgba(50,128,251,1) 100%);
-    color: #FFFFFF;
-    transition: all 0.5s;
+  border: #cad7e0 1px solid;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 160, 247, 1) 0%,
+    rgba(50, 128, 251, 1) 100%
+  );
+  color: #ffffff;
+  transition: all 0.5s;
 }
 
 .public_no_checked {
-    border: #CAD7E0 1px solid;
-    color: #8E98AE;
-    transition: all 0.5s;
+  border: #cad7e0 1px solid;
+  color: #8e98ae;
+  transition: all 0.5s;
 }
 
 .session_buttons {
-    background-color: #9ED3FF;
-    height: 50px;
-    line-height: 50px;
-    color: #FFFFFF;
-    border-radius: 15px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    gap: 10px;
+  background-color: #9ed3ff;
+  height: 50px;
+  line-height: 50px;
+  color: #ffffff;
+  border-radius: 15px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
 }
 
-.session_buttons input{
-    display: none;
+.session_buttons input {
+  display: none;
 }
 
 .session_buttons img {
-    margin: 0;
-    height: 30px;
+  margin: 0;
+  height: 30px;
 }
 
 .session_checked {
-    background: linear-gradient(90deg, rgba(56,160,247,1) 0%, rgba(50,128,251,1) 100%);
-    transition: all 0.5s;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 160, 247, 1) 0%,
+    rgba(50, 128, 251, 1) 100%
+  );
+  transition: all 0.5s;
 }
 
 .submit_button {
-    margin-top: 30px;
-    background: linear-gradient(90deg, rgba(56,160,247,1) 0%, rgba(50,128,251,1) 100%);
-    color: #FFFFFF;
-    border-radius: 5px;
-    border: none;
-    height: 50px;
-    font-size: 1rem;
+  margin-top: 30px;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 160, 247, 1) 0%,
+    rgba(50, 128, 251, 1) 100%
+  );
+  color: #ffffff;
+  border-radius: 5px;
+  border: none;
+  height: 50px;
+  font-size: 1rem;
 }
 
 .cancel_button {
-    background: #F8FAFB;
-    border: #CAD7E0 1px solid;
-    color: #8E98AE;
-    border-radius: 5px;
-    height: 50px;
-    font-size: 1rem;
+  background: #f8fafb;
+  border: #cad7e0 1px solid;
+  color: #8e98ae;
+  border-radius: 5px;
+  height: 50px;
+  font-size: 1rem;
 }
 
 /*마이 페이지*/
 .user_name_span_box {
-    font-size: 1.9rem;
-    font-weight: bold;
-    color: #2D3F51;
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: #2d3f51;
 }
 
 .location_span_box {
-    font-size: 1.5rem;
-    color: #76819C;
+  font-size: 1.5rem;
+  color: #76819c;
 }
 
 .profile_box {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: column;
+  margin: 33px;
+  width: calc(100% / 1.3);
+}
+
+.profile_img_span_box {
+  display: flex;
+  flex-direction: row;
 }
 
 .profile_picture img {
-    height: 110px;
+  height: 110px;
 }
 
 .profile_value {
-    display: flex;
-    flex-direction: column;
-    width: calc(100%/1.2);
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% / 1.2);
+  gap: 10px;
+}
+
+.profile_session_box {
+  display: flex;
+  flex-direction: row;
 }

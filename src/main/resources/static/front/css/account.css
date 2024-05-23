@@ -1,279 +1,267 @@
 /*로그인 및 회원가입 페이지에 사용되는 CSS 입니다.*/
 .logoBox {
-    cursor: pointer;
-    margin-bottom: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.logoBox img{
-    height: 50px;
+.logoBox img {
+  height: 50px;
 }
 
 .member-style {
-    background-color: #F8FAFB;
-    display: flex;
-    justify-content: center;
+  background-color: #f8fafb;
+  display: flex;
+  justify-content: center;
 }
 
 .main_area {
-    width: 40%;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    height: 100vh;
-    border-right: #F2F2F3 1px solid;
-    border-left: #F2F2F3 1px solid;
-
+  width: 40%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  height: 100vh;
+  border-right: #f2f2f3 1px solid;
+  border-left: #f2f2f3 1px solid;
 }
 
 .member-box {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
 }
 
 .member-box button {
-    display: flex;
-    height: 48px;
-    padding: 16px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    border: 1px solid #000000;
-    color: #000000;
-    font-size: 1.1rem;
-    font-weight: 400;
-    letter-spacing: -0.24px;
-    transition: all 0.5s;
-    width: 360px;
-    cursor: pointer;
+  display: flex;
+  height: 48px;
+  padding: 16px 32px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #000000;
+  color: #000000;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: -0.24px;
+  transition: all 0.5s;
+  width: 360px;
+  cursor: pointer;
 }
 
 .member-box button:first-of-type {
-    background: #000000;
-    color: #fff;
+  background: #000000;
+  color: #fff;
 }
 
 .member-box button:nth-of-type(2) {
-    background: #FEE500;
-    color: #000000;
-    border: none;
-    display: flex;
-    align-items: center;
+  background: #fee500;
+  color: #000000;
+  border: none;
+  display: flex;
+  align-items: center;
 }
 
 .member-box button img {
-    height: 22px;
-    width: 22px;
+  height: 22px;
+  width: 22px;
 }
 
 .rows {
-    display: flex;
-    align-items: center;
-    background: #FFF;
-    border-radius: 5px;
-    border: #76819C solid 1px;
-    width: 360px;
-    transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 5px;
+  border: #76819c solid 1px;
+  width: 360px;
+  transition: all 0.1s;
 }
 
 .rows input {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    font-weight: 300;
-    font-size: 1.1rem;
-    letter-spacing: -0.24px;
-    padding: 16px 16px 16px 16px;
-    border: none;
-    outline: none;
-    width: 100%;
-    transition: all 0.1s;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  font-weight: 300;
+  font-size: 1.1rem;
+  letter-spacing: -0.24px;
+  padding: 16px 16px 16px 16px;
+  border: none;
+  outline: none;
+  width: 100%;
+  transition: all 0.1s;
 }
 
 .error_placeholder::placeholder {
-    color: #D23123;
+  color: #d23123;
 }
 
 .placeholder::placeholder {
-    color: #CAD7E0;
+  color: #cad7e0;
 }
 
 .rows img {
-    margin-left: 20px;
-
+  margin-left: 20px;
 }
 
 form .rows:nth-child(5) img {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .forgot_info {
-    display: flex; /* flex로 설정 */
-    justify-content: center; /* 가로 중앙 정렬 */
-    color: #9F9F9F;
+  display: flex; /* flex로 설정 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  color: #9f9f9f;
 }
 
-.forgot_info a{
-    text-decoration: none;
-    color: #9F9F9F;
+.forgot_info a {
+  text-decoration: none;
+  color: #9f9f9f;
 }
 
 .error_box {
-    padding: 0px;
-    background: white;
-    color: white;
-    border-radius: 5px;
-    text-align: center;
-    display: block;
-    transition: 0.3s all;
+  padding: 0px;
+  background: white;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  display: block;
+  transition: 0.3s all;
 }
 
 .error_box_span {
-    display: none;
+  display: none;
 }
 
 /* 체크박스 시작 */
 
-.agreeBox{
-    margin-top: 30px;
-    width: 360px;
+.agreeBox {
+  margin-top: 30px;
+  width: 360px;
 }
 
-.agree{
-    display: none;
-
+.agree {
+  display: none;
 }
 
-.agree + label{
-    cursor: pointer;
-
+.agree + label {
+  cursor: pointer;
 }
 
-.agree + label > span{
-    vertical-align: middle;
-    padding-left: 10px;
-    cursor: pointer;
+.agree + label > span {
+  vertical-align: middle;
+  padding-left: 10px;
+  cursor: pointer;
 }
 
-
-.checkbox-container{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .checkbox {
-    width:17px;
-    height:17px;
-    border:1px solid #000;
-    content:"";
-    display:inline-block;
-    border-radius: 4px;
-    vertical-align:middle;
-    transition: all 0.3s;
-    cursor: pointer;
-
+  width: 17px;
+  height: 17px;
+  border: 1px solid #000;
+  content: "";
+  display: inline-block;
+  border-radius: 4px;
+  vertical-align: middle;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
 .checked {
-    content: "";
-    width: 17px;
-    height: 17px;
-    background-color: #000;
-    border-color: #000;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-image: url('../../img/icons/check.svg');
-    transition: all 0.3s;
-
+  content: "";
+  width: 17px;
+  height: 17px;
+  background-color: #000;
+  border-color: #000;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-image: url("../../img/icons/check.svg");
+  transition: all 0.3s;
 }
 
-
-.allAgreeText{
-    font-size: 1.2rem;
-    font-weight: 600;
-    line-height: 32px; /* 200% */
+.allAgreeText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 32px; /* 200% */
 }
 
-.agreeText{
-    font-size: 1.2rem;
-    font-weight: 100;
-    line-height: 32px; /* 200% */
+.agreeText {
+  font-size: 1.2rem;
+  font-weight: 100;
+  line-height: 32px; /* 200% */
 }
 
-.email_input_error{
-
+.email_input_error {
 }
 
 .name_error_box {
-    display: none;
-    align-items: center;
-    color: #D23123;
+  display: none;
+  align-items: center;
+  color: #d23123;
 }
 
 .name_error_box img {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .email_error_box {
-    display: none;
-    align-items: center;
-    color: #D23123;
+  display: none;
+  align-items: center;
+  color: #d23123;
 }
 
 .email_error_box img {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
-.pw_input_error{
-
+.pw_input_error {
 }
 
 .pw_error_box {
-    display: none;
-    align-items: center;
-    color: #D23123;
+  display: none;
+  align-items: center;
+  color: #d23123;
 }
 
 .pw_error_box img {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .confirmPw_error_box {
-    display: none;
-    align-items: center;
-    color: #D23123;
+  display: none;
+  align-items: center;
+  color: #d23123;
 }
 
 .confirmPw_error_box img {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .phone_error_box {
-    display: none;
-    align-items: center;
-    color: #D23123;
+  display: none;
+  align-items: center;
+  color: #d23123;
 }
 
 .phone_error_box img {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
-
-
-#passwordErrorIcon{
-    display: none;
-    margin-right: 1rem;
+#passwordErrorIcon {
+  display: none;
+  margin-right: 1rem;
 }
 
 .error {
-    border: #D23123 solid 1px;
-    background-color: #FFEBEB;
+  border: #d23123 solid 1px;
+  background-color: #ffebeb;
 }

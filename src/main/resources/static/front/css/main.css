@@ -1,179 +1,177 @@
 /*공통 적용 되는 CSS 파일입니다.*/
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
 
-* { box-sizing: border-box; font-family: Pretendard, serif; }
+* {
+  box-sizing: border-box;
+  font-family: Pretendard, serif;
+}
 
-body{
-    margin: 0;
-    min-height: 100vh;
-    background-color: #F8FAFB;
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #f8fafb;
 }
 
 main {
-    height: 100%;
+  height: 100%;
 }
 
 .row-content {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .column-content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .side-nav {
-    height: 100vh;
-    width: calc(100%/4);
-    background-color: #FFFFFF;
-    border-right: #F2F2F3 2px solid;
-
+  height: 100vh;
+  width: calc(100% / 4);
+  background-color: #ffffff;
+  border-right: #f2f2f3 2px solid;
 }
 
 .logoBox {
-    justify-content: center;
-    display: flex;
-    width: 80%;
-    min-width: 50%;
-    margin: 30px;
+  justify-content: center;
+  display: flex;
+  width: 80%;
+  min-width: 50%;
+  margin: 30px;
 }
 
 .logoBox img {
-    width: 80%;
-    min-width: 50%;
+  width: 80%;
+  min-width: 50%;
 }
 
 .logoBox_no_side_menu {
-    width: 80%;
-    min-width: 50%;
+  width: 80%;
+  min-width: 50%;
 }
 
 .logoBox_no_side_menu img {
-    width: 80%;
-    min-width: 50%;
+  width: 80%;
+  min-width: 50%;
 }
 
 .side-nav-contents-box {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .side-nav-contents {
-    align-items: flex-start;
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .side-nav-content {
-    align-items: center;
-    display: flex;
-    gap: 20px;
-    color: #9FA7BB;
-    margin-top: 15px;
-    margin-bottom: 15px;
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  color: #9fa7bb;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .side-nav-content img {
-    height: 27px;
-    width: 27px;
+  height: 27px;
+  width: 27px;
 }
 
 /* 헤더 네비게이션 바*/
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 30px;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 30px;
 }
 
 .header img {
-    height: 35px;
+  height: 35px;
 }
 
 .leftContent {
-    display: flex;
-    align-items: center;
-    width: calc(100%/1.7);
+  display: flex;
+  align-items: center;
+  width: calc(100% / 1.7);
 }
 
 .search_box {
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    gap: 20px;
-    padding-left: 15px;
-    padding-right: 15px;
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  gap: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .search_box input {
-    border: none;
-    width: 100%;
-    outline: none;
-    height: 100%;
-    font-size: 1rem;
+  border: none;
+  width: 100%;
+  outline: none;
+  height: 100%;
+  font-size: 1rem;
 }
 
 .search_box img {
-    height: 25px;
+  height: 25px;
 }
 
 .search_box input::placeholder {
-    font-size: 1rem;
-    color: #CAD7E0;
+  font-size: 1rem;
+  color: #cad7e0;
 }
 
-
-.rightContent a{
-    text-decoration: none;
-    color: #000000;
+.rightContent a {
+  text-decoration: none;
+  color: #000000;
 }
 
-
-#loggedIn img{
-    margin-left: 25px;
-    cursor: pointer;
-    height: 30px;
+#loggedIn img {
+  margin-left: 25px;
+  cursor: pointer;
+  height: 30px;
 }
 
-
-.dropdown_content1{
-    position: absolute;
-    display: none;
-    margin-top: 25px;
-    width: 100px;
-    border: #9F9F9F;
-    border-radius: 5%;
-    box-shadow: 4px 4px 10px rgba(0 0 0 / 25%);
-    animation: fade-in 1s ease;
-    padding: 10px;
+.dropdown_content1 {
+  position: absolute;
+  display: none;
+  margin-top: 25px;
+  width: 100px;
+  border: #9f9f9f;
+  border-radius: 5%;
+  box-shadow: 4px 4px 10px rgba(0 0 0 / 25%);
+  animation: fade-in 1s ease;
+  padding: 10px;
 }
 
-.dropdown_content2{
-    position: absolute;
-    display: none;
-    margin-top: 25px;
-    width: 100px;
-    right: 5px;
-    border: #9F9F9F;
-    border-radius: 5%;
-    box-shadow: 4px 4px 10px rgba(0 0 0 / 25%);
-    animation: fade-in 0.5s ease;
-    padding: 10px;
+.dropdown_content2 {
+  position: absolute;
+  display: none;
+  margin-top: 25px;
+  width: 100px;
+  right: 5px;
+  border: #9f9f9f;
+  border-radius: 5%;
+  box-shadow: 4px 4px 10px rgba(0 0 0 / 25%);
+  animation: fade-in 0.5s ease;
+  padding: 10px;
 }
 
 @keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
