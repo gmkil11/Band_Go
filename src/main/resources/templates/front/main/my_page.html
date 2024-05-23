@@ -13,13 +13,11 @@
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
-  <div class="profile_edit_box">
-    <span>프로필 설정</span>
     <div class="profile_box">
       <div class="profile_picture">
         <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
       </div>
-      <div class="profile_edit_input" id="profile_edit_form">
+      <div class="profile_value" id="profile_value">
         <div class="user_name_span_box">
           <span id="user_name"></span>
         </div>
@@ -30,6 +28,7 @@
         <div class="introduce_span_box">
           <span id="introduce"></span>
         </div>
+      </div>
         <div>
           <div class="rows session_button_box">
             <label class="session_buttons session_no_checked vocal_box">
@@ -60,8 +59,7 @@
           </div>
         </div>
 
-      </div>
+
     </div>
-  </div>
 </th:block>
 </html>

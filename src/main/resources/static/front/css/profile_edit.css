@@ -167,3 +167,19 @@
     font-size: 1.5rem;
     color: #76819C;
 }
+
+.profile_box {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile_picture img {
+    height: 110px;
+}
+
+.profile_value {
+    display: flex;
+    flex-direction: column;
+    width: calc(100%/1.2);
+    gap: 10px;
+}
