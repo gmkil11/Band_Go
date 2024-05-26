@@ -166,15 +166,23 @@
 }
 
 /*마이 페이지*/
-.user_name_span_box {
+.user_name_span_and_edit_buttons {
+  display: flex;
+  justify-content: space-between;
   font-size: 1.9rem;
   font-weight: bold;
   color: #2d3f51;
 }
 
 .location_span_box {
+  display: flex;
   font-size: 1.5rem;
   color: #76819c;
+  align-items: center;
+}
+
+.location_span_box img {
+  height: 20px;
 }
 
 .profile_box {
@@ -187,6 +195,7 @@
 .profile_img_span_box {
   display: flex;
   flex-direction: row;
+  gap: 5%;
 }
 
 .profile_picture img {
@@ -203,4 +212,47 @@
 .profile_session_box {
   display: flex;
   flex-direction: row;
+  margin-top: 50px;
+}
+
+.public_buttons {
+  display: flex;
+  width: 45%;
+  gap: 15px;
+}
+
+.profile_edit_button {
+  width: 90%;
+  cursor: pointer;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 160, 247, 1) 0%,
+    rgba(50, 128, 251, 1) 100%
+  );
+  color: #ffffff;
+  border-radius: 15px;
+  border: none;
+  height: 40px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+}
+
+.is_public {
+  width: 90%;
+  border: #cad7e0 1px solid;
+  color: #8e98ae;
+  border-radius: 15px;
+  height: 40px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+}
+
+.introduce_span_box {
+  color: #76819c;
 }

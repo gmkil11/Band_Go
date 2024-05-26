@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const userNameSpan = document.getElementById("user_name");
-  const locationSpan = document.getElementById("location");
-  const introduce = document.getElementById("introduce");
   const authInfo = await client.auth.getSession();
   const loggedInUserId = authInfo.data.session.user.id;
 
@@ -42,6 +39,21 @@ document.addEventListener("DOMContentLoaded", async function () {
             button.classList.add("session_checked");
           }
         });
+
+        const profileEditButton = document.querySelector(
+          ".profile_edit_button",
+        );
+        profileEditButton.addEventListener("click", function () {
+          window.location.href = "http://localhost:8080/profileEdit";
+        });
+
+        const isPublicSpan = document.getElementById("is_public_span");
+
+        if (user_profile.is_public) {
+          isPublicSpan.innerHTML = "프로필 공개";
+        } else {
+          isPublicSpan.innerHTML = "프로필 비공개";
+        }
       }
     } catch (error) {
       console.error("Error getting user profile:", error);

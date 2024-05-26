@@ -19,8 +19,16 @@
           <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
         </div>
         <div class="profile_value" id="profile_value">
-          <div class="user_name_span_box">
+          <div class="user_name_span_and_edit_buttons">
             <span id="user_name"></span>
+            <div class="public_buttons">
+              <div class="profile_edit_button">
+                <span>프로필 수정</span>
+              </div>
+              <div class="is_public">
+                <span id="is_public_span"></span>
+              </div>
+            </div>
           </div>
           <div class="location_span_box">
             <img th:src="@{/img/icons/location.svg}" alt="location_icon">
@@ -30,6 +38,7 @@
             <span id="introduce"></span>
           </div>
         </div>
+
       </div>
       <div class="profile_session_box">
         <div class="rows session_button_box">
