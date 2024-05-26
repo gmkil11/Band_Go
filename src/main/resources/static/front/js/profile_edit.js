@@ -198,6 +198,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       console.log("User name updated successfully:", userNameData);
       console.log("User profile updated successfully:", userProfileData);
+      window.location.href = "http://localhost:8080/mypage";
       // 업데이트가 성공한 후에 작업 수행.
     }
   });
