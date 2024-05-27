@@ -153,7 +153,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   profileEditForm.addEventListener("submit", async function (event) {
     event.preventDefault(); // 폼 제출 기본 동작 방지
 
-    // 입력된 값을 가져옵니다.
     const userName = document.getElementById("user_name_input").value;
     const location = document.getElementById("location_input").value;
     const introduce = document.getElementById("introduce_input").value;
