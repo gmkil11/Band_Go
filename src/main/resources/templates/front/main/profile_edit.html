@@ -22,23 +22,35 @@
       <form class="profile_edit_input" id="profile_edit_form">
         <div>
           <span>회원명</span>
-          <div class="rows">
-            <img th:src="@{/img/icons/people.svg}" alt="username_icon">
-            <input placeholder="회원명" id="user_name_input">
+          <div class="rows name_input_box">
+            <img th:src="@{/img/icons/people.svg}" alt="username_icon" id="user_name_icon">
+            <input placeholder="회원명" id="user_name_input" class="placeholder">
+          </div>
+          <div class="user_name_error_box">
+            <img th:src="@{/img/icons/error.svg}">
+            <span class="name_error_span">회원명이 입력되지 않았습니다.</span>
           </div>
         </div>
         <div>
           <span>거주지역</span>
-          <div class="rows">
-            <img th:src="@{/img/icons/location.svg}" alt="location_icon">
-            <input placeholder="거주지역" id="location_input">
+          <div class="rows location_input_box">
+            <img th:src="@{/img/icons/location.svg}" alt="location_icon" id="location_icon">
+            <input placeholder="거주지역" id="location_input" class="placeholder">
+          </div>
+          <div class="location_error_box">
+            <img th:src="@{/img/icons/error.svg}">
+            <span>거주지역이 입력되지 않았습니다.</span>
           </div>
         </div>
         <div>
           <span>소개글</span>
-          <div class="rows">
-            <img th:src="@{/img/icons/write.svg}" alt="write_icon">
-            <input placeholder="소개글" id="introduce_input">
+          <div class="rows introduce_input_box">
+            <img th:src="@{/img/icons/write.svg}" alt="write_icon" id="introduce_icon">
+            <input placeholder="소개글" id="introduce_input" class="placeholder">
+          </div>
+          <div class="introduce_error_box">
+            <img th:src="@{/img/icons/error.svg}">
+            <span>소개글이 입력되지 않았습니다.</span>
           </div>
         </div>
         <div>

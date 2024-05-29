@@ -1,0 +1,19 @@
+.error_placeholder::placeholder {
+  color: #d23123;
+}
+
+.placeholder::placeholder {
+  color: #cad7e0;
+}
+
+
+
+.error {
+  border: #d23123 solid 1px;
+  background-color: #ffebeb;
+}
+
+#error {
+  border: #d23123 solid 1px; !important;
+  background-color: #ffebeb; !important;
+}

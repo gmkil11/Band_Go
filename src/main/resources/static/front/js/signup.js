@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const nameInputBox = document.querySelector(".name_input_box");
   const nameInputIcon = document.getElementById("nameIcon");
   const nameError = document.querySelector(".name_error_box");
+  const nameErrorSpan = document.querySelector(".name_error_span");
   const emailInput = document.getElementById("email");
   const emailInputBox = document.querySelector(".email_input_box");
   const emailInputIcon = document.getElementById("emailIcon");
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const errorBoxSpan = document.querySelector(".error_box_span");
   const agreeBox = document.querySelector(".agreeBox");
 
-  async function checkDuplicateUserName() {
+  /*async function checkDuplicateUserName() {
     try {
       if (nameInput.value === "") {
         handleInputError(nameInputBox, nameInput, nameInputIcon, nameError);
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("중복 확인 중 오류가 발생했습니다:", error.message);
       return false;
     }
-  }
+  }*/
 
   async function checkDuplicatePhone() {
     try {
@@ -81,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         if (!validatePhoneNumber(phoneInput.value)) {
           resetInputError(phoneInputBox, phoneInput, phoneIcon, phoneError);
-          showErrorBox(); // 에러박스 표시
+          showErrorBox(errorBox, errorBoxSpan); // 에러박스 표시
           errorBoxSpan.textContent = "올바른 전화번호 형식을 사용해주세요.";
           phoneInputBox.classList.add("error");
           phoneInput.classList.add("error");
@@ -105,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (users && users.length > 0) {
           resetInputError(phoneInputBox, phoneInput, phoneIcon, phoneError);
-          showErrorBox(); // 에러박스 표시
+          showErrorBox(errorBox, errorBoxSpan); // 에러박스 표시
           errorBoxSpan.textContent = "이미 존재하는 전화번호입니다.";
           phoneInputBox.classList.add("error");
           phoneInput.classList.add("error");
@@ -121,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
         phoneInput.classList.replace("error_placeholder", "placeholder");
         phoneError.style.display = "none";
         resetIconError(phoneIcon);
-        hideErrorBox(); // 에러박스 숨김
+        hideErrorBox(errorBox, errorBoxSpan); // 에러박스 숨김
         return true;
       }
     } catch (error) {
@@ -159,10 +160,10 @@ document.addEventListener("DOMContentLoaded", function () {
       passwordInput.classList.remove("error");
       passwordInput.classList.replace("error_placeholder", "placeholder");
       resetIconError(passwordIcon);
-      hideErrorBox();
+      hideErrorBox(errorBox, errorBoxSpan);
     } else {
       console.log("정규회되지 않은 비밀번호입니다.");
-      showErrorBox();
+      showErrorBox(errorBox, errorBoxSpan);
       passwordInputBox.classList.add("error");
       passwordInput.classList.add("error");
       passwordInput.classList.replace("placeholder", "error_placeholder");
@@ -190,63 +191,18 @@ document.addEventListener("DOMContentLoaded", function () {
       agreeBox.classList.add("error");
       agreeBox.style.border = "none";
       agreeBox.style.backgroundColor = "#FFFFFF";
-      showErrorBox();
+      showErrorBox(errorBox, errorBoxSpan);
       errorBoxSpan.textContent = "체크박스 항목을 확인해주세요.";
       return false;
     } else {
       console.log("모든 체크박스가 체크되었습니다.");
       agreeBox.classList.remove("error");
-      hideErrorBox();
+      hideErrorBox(errorBox, errorBoxSpan);
       return true;
     }
   }
 
-  function validateNullInput() {
-    if (emailInput.value === "") {
-      handleInputError(emailInputBox, emailInput, emailInputIcon, emailError);
-      console.log("이메일 입력안됨");
-    } else {
-      console.log("이메일 입력되었음!");
-      resetInputError(emailInputBox, emailInput, emailInputIcon, emailError);
-    }
-
-    if (passwordInput.value === "") {
-      handleInputError(
-        passwordInputBox,
-        passwordInput,
-        passwordIcon,
-        passwordError,
-      );
-      console.log("비밀번호 입력안됨");
-    } else {
-      console.log("비밀번호 입력되었음!");
-      resetInputError(
-        passwordInputBox,
-        passwordInput,
-        passwordIcon,
-        passwordError,
-      );
-    }
-
-    if (confirmPasswordInput.value === "") {
-      handleInputError(
-        confirmPasswordInputBox,
-        confirmPasswordInput,
-        confirmPasswordIcon,
-        confirmPasswordError,
-      );
-      console.log("비밀번호 확인 입력안됨");
-    } else {
-      console.log("비밀번호 확인 입력되었음!");
-      resetInputError(
-        confirmPasswordInputBox,
-        confirmPasswordInput,
-        confirmPasswordIcon,
-        confirmPasswordError,
-      );
-    }
-  }
-
+  /*
   function showErrorBox() {
     console.log("showErrorBox 함수가 호출되었습니다.");
     errorBox.style.color = "black";
@@ -262,33 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
     errorBox.style.padding = "0px";
     errorBoxSpan.style.display = "none";
   }
-
-  function handleInputError(inputBox, inputElement, iconElement, errorBox) {
-    inputBox.classList.add("error");
-    inputElement.classList.add("error");
-    handleIconError(iconElement);
-    errorBox.style.display = "flex";
-    errorBox.style.color = "#D23123";
-    inputElement.classList.replace("placeholder", "error_placeholder");
-  }
-
-  function resetInputError(inputBox, inputElement, iconElement, errorBox) {
-    inputBox.classList.remove("error");
-    inputElement.classList.remove("error");
-    resetIconError(iconElement);
-    errorBox.style.display = "none";
-    inputElement.classList.replace("error_placeholder", "placeholder");
-  }
-
-  function handleIconError(Icon) {
-    Icon.style.filter =
-      "invert(20%) sepia(93%) saturate(3205%) hue-rotate(354deg) brightness(89%) contrast(83%)";
-  }
-
-  function resetIconError(Icon) {
-    Icon.style.filter =
-      "invert(54%) sepia(12%) saturate(692%) hue-rotate(185deg) brightness(91%) contrast(89%)";
-  }
+*/
 
   passwordInput.addEventListener("input", validatePassword);
   confirmPasswordInput.addEventListener("input", validatePassword);
@@ -320,11 +250,33 @@ document.addEventListener("DOMContentLoaded", function () {
   signupForm.addEventListener("submit", async function (event) {
     signupButton.setAttribute("type", ""); // 버튼 타입을 null로 변경
     event.preventDefault();
+
     validatePassword(); // 비밀번호 일치 여부 검증
-    validateNullInput(); // 인풋 null 여부 검증
+    validateNullInput(emailInputBox, emailInput, emailInputIcon, emailError); // 이메일 인풋 null 여부 검증
+    validateNullInput(
+      passwordInput,
+      passwordInput,
+      passwordIcon,
+      passwordError,
+    ); // 비밀번호 인풋 null 여부 검증
+    validateNullInput(
+      confirmPasswordInputBox,
+      confirmPasswordInput,
+      confirmPasswordIcon,
+      confirmPasswordError,
+    ); //비밀번호 확인 인풋 null 여부 검증
     validateCheckbox(); // 체크박스 검증
-    await checkDuplicateUserName();
+
     await checkDuplicatePhone();
+    await checkDuplicateUserName(
+      nameInput,
+      nameInputBox,
+      nameInputIcon,
+      nameError,
+      nameErrorSpan,
+      errorBoxSpan,
+      errorBox,
+    );
 
     if (
       !signupForm.querySelector(".error") &&

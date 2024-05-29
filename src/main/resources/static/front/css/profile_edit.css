@@ -154,6 +154,7 @@
   border: none;
   height: 50px;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 .cancel_button {
@@ -259,4 +260,51 @@
 
 .group_uuid {
   display: none;
+}
+
+.user_name_error_box {
+  display: none;
+  align-items: center;
+}
+
+.user_name_error_box span{
+  color: #d23123; !important;
+}
+
+.user_name_error_box img {
+  margin-right: 0.5rem;
+  height: 16px;
+}
+
+.location_error_box {
+  display: none;
+  align-items: center;
+}
+
+.location_error_box img {
+  margin-right: 0.5rem;
+  height: 16px;
+}
+
+.location_error_box span{
+  color: #d23123; !important;
+}
+
+.introduce_error_box {
+  display: none;
+  align-items: center;
+}
+
+.introduce_error_box img {
+  margin-right: 0.5rem;
+  height: 16px;
+}
+
+.introduce_error_box span{
+  color: #d23123; !important;
+}
+
+.error {
+  border: #d23123 solid 1px;
+  background-color: #ffebeb;
 }

@@ -96,14 +96,6 @@
   transition: all 0.1s;
 }
 
-.error_placeholder::placeholder {
-  color: #d23123;
-}
-
-.placeholder::placeholder {
-  color: #cad7e0;
-}
-
 .rows img {
   margin-left: 20px;
 }
@@ -121,20 +113,6 @@ form .rows:nth-child(5) img {
 .forgot_info a {
   text-decoration: none;
   color: #9f9f9f;
-}
-
-.error_box {
-  padding: 0px;
-  background: white;
-  color: white;
-  border-radius: 5px;
-  text-align: center;
-  display: block;
-  transition: 0.3s all;
-}
-
-.error_box_span {
-  display: none;
 }
 
 /* 체크박스 시작 */
@@ -264,4 +242,18 @@ form .rows:nth-child(5) img {
 .error {
   border: #d23123 solid 1px;
   background-color: #ffebeb;
+}
+
+.error_box {
+  padding: 0px;
+  background: white;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  display: block;
+  transition: 0.3s all;
+}
+
+.error_box_span {
+  display: none;
 }

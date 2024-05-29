@@ -153,9 +153,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   profileEditForm.addEventListener("submit", async function (event) {
     event.preventDefault(); // 폼 제출 기본 동작 방지
 
-    const userName = document.getElementById("user_name_input").value;
-    const location = document.getElementById("location_input").value;
-    const introduce = document.getElementById("introduce_input").value;
+    const userName = document.getElementById("user_name_input");
+    const userNameBox = document.querySelector(".name_input_box");
+    const userNameIcon = document.getElementById("user_name_icon");
+    const userNameError = document.querySelector(".user_name_error_box");
+    const userNameErrorSpan = document.querySelector(".name_error_span");
+    const location = document.getElementById("location_input");
+    const locationBox = document.querySelector(".location_input_box");
+    const locationIcon = document.getElementById("location_icon");
+    const locationError = document.querySelector(".location_error_box");
+    const introduce = document.getElementById("introduce_input");
+    const introduceBox = document.querySelector(".introduce_input_box");
+    const introduceIcon = document.getElementById("introduce_icon");
+    const introduceError = document.querySelector(".introduce_error_box");
     const isPublic = document.querySelector(
       'input[name="is_public"]:checked',
     ).value;
@@ -166,39 +176,53 @@ document.addEventListener("DOMContentLoaded", async function () {
       (checkbox) => checkbox.value,
     );
 
-    console.log("username", userName);
-    console.log("location", location);
-    console.log("introduce", introduce);
-    console.log("isPublic", isPublic);
+    console.log("username", userName.value);
+    console.log("location", location.value);
+    console.log("introduce", introduce.value);
+    console.log("isPublic", isPublic.value);
     console.log("Checked sessions:", checkedSessions);
 
-    const { data: userNameData, error: updateNameError } = await client
-      .from("users")
-      .update({
-        user_name: userName,
-      })
-      .eq("id", loggedInUserId);
+    validateNullInput(userNameBox, userName, userNameIcon, userNameError);
+    validateNullInput(locationBox, location, locationIcon, locationError);
+    validateNullInput(introduceBox, introduce, introduceIcon, introduceError);
 
-    // 사용자 프로필 정보 업데이트
-    const { data: userProfileData, error: updateProfileError } = await client
-      .from("user_profile")
-      .update({
-        location: location,
-        introduce: introduce,
-        is_public: isPublic,
-        session: checkedSessions,
-        updated_at: new Date(),
-      })
-      .eq("id", loggedInUserId);
+    await checkDuplicateUserName(
+      userName,
+      userNameBox,
+      userNameIcon,
+      userNameError,
+      userNameErrorSpan,
+    );
 
-    if (updateNameError || updateProfileError) {
-      console.error("Error updating user Name profile:", updateNameError);
-      console.error("Error updating user profile:", updateProfileError);
-    } else {
-      console.log("User name updated successfully:", userNameData);
-      console.log("User profile updated successfully:", userProfileData);
-      window.location.href = "http://localhost:8080/mypage";
-      // 업데이트가 성공한 후에 작업 수행.
+    if (!profileEditForm.querySelector(".error")) {
+      const { data: userNameData, error: updateNameError } = await client
+        .from("users")
+        .update({
+          user_name: userName.value,
+        })
+        .eq("id", loggedInUserId);
+
+      // 사용자 프로필 정보 업데이트
+      const { data: userProfileData, error: updateProfileError } = await client
+        .from("user_profile")
+        .update({
+          location: location.value,
+          introduce: introduce.value,
+          is_public: isPublic,
+          session: checkedSessions,
+          updated_at: new Date(),
+        })
+        .eq("id", loggedInUserId);
+
+      if (updateNameError || updateProfileError) {
+        console.error("Error updating user Name profile:", updateNameError);
+        console.error("Error updating user profile:", updateProfileError);
+      } else {
+        console.log("User name updated successfully:", userNameData);
+        console.log("User profile updated successfully:", userProfileData);
+        window.location.href = "http://localhost:8080/mypage";
+        // 업데이트가 성공한 후에 작업 수행.
+      }
     }
   });
 
