@@ -1,6 +1,7 @@
 package com.portfolio.band_go.controllers.mains;
 
 import com.portfolio.band_go.Exceptions.MemberException;
+import com.portfolio.band_go.services.CreateUuidService;
 import com.portfolio.band_go.services.MemberInfoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -42,6 +43,7 @@ public class MainController {
 
     @GetMapping("/group")
     public String group( Model model) {
+        model.addAttribute("uuid",CreateUuidService.generateUUID());
         return "front/main/group_create";
     }
 

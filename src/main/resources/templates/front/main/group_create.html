@@ -4,17 +4,59 @@
       layout:decorate="~{front/layouts/default_layout}">
 
 <th:block layout:fragment="addCss">
-
+    <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
 </th:block>
 
 <th:block layout:fragment="addJs">
-    <script th:src="@{front/js/profile_edit.js}"></script>
+    <script type="module"  th:src="@{front/js/create_group.js}"></script>
+
 </th:block>
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
 
 
+    <span class="group_uuid" th:text="${uuid}"></span>
+    <div class="profile_edit_box">
+        <span>프로필 설정</span>
+        <div class="profile_form_box">
+            <div class="profile_picture">
+                <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
+            </div>
+            <form class="profile_edit_input" id="group_edit_form">
+                <div>
+                    <span>그룹명</span>
+                    <div class="rows">
+                        <img th:src="@{/img/icons/people.svg}" alt="username_icon">
+                        <input placeholder="그룹명" id="group_name_input">
+                    </div>
+                </div>
+                <div>
+                    <span>소개글</span>
+                    <div class="rows">
+                        <img th:src="@{/img/icons/write.svg}" alt="write_icon">
+                        <input placeholder="소개글" id="introduce_input">
+                    </div>
+                </div>
+                <div>
+                    <span>그룹 공개 상태</span>
+                    <div class="rows public_button_box">
+                        <label for="public" class="profile_public_buttons public_button public_checked">
+                            <input type="radio" value=true id="public" name="is_public" checked="checked">
+                            그룹 공개
+                        </label>
+                        <label class="profile_public_buttons no_public_button public_no_checked" for="no_public">
+                            <input type="radio" value=false id="no_public" name="is_public">
+                            그룹 비공개
+                        </label>
+                    </div>
+                </div>
 
+                <button type="submit" class="submit_button">저장하기</button>
+                <button type="button" class="cancel_button">돌아가기</button>
+
+            </form>
+        </div>
+    </div>
 </th:block>
 </html>

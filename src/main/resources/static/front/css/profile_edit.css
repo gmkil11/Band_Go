@@ -256,3 +256,7 @@
 .introduce_span_box {
   color: #76819c;
 }
+
+.group_uuid {
+  display: none;
+}
