@@ -308,3 +308,8 @@
   border: #d23123 solid 1px;
   background-color: #ffebeb;
 }
+
+.introduce_span {
+  font-size: 0.8rem !important;
+  color: #8e98ae !important;
+}

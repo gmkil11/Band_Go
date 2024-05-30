@@ -3,6 +3,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.location.href = "http://localhost:8080/login";
   }
 
+  const introduce = document.getElementById("introduce_input");
+  const introduceSpan = document.getElementById("introduce_check_length");
+  introduce.addEventListener("input", async function () {
+    checkTextLength(introduce, introduceSpan, 100);
+  });
+
   const profileEditForm = document.getElementById("profile_edit_form");
   const authInfo = await client.auth.getSession();
   const loggedInUserId = authInfo.data.session.user.id;
@@ -11,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   await getUserValue();
   checkPublicButton();
   checkSessionButton();
+  checkTextLength(introduce, introduceSpan, 100);
 
   console.log(getUserValue());
 

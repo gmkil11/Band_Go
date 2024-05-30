@@ -139,3 +139,11 @@ function hideErrorBox(errorBox, errorBoxSpan) {
   errorBox.style.padding = "0px";
   errorBoxSpan.style.display = "none";
 }
+
+function checkTextLength(inputElement, spanElement, maximumLength) {
+  if (inputElement.value.length <= maximumLength) {
+    spanElement.innerHTML = inputElement.value.length + "/" + maximumLength;
+  } else {
+    inputElement.value = inputElement.value.substring(0, maximumLength);
+  }
+}

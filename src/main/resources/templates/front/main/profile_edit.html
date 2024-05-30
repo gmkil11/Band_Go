@@ -47,7 +47,9 @@
           <div class="rows introduce_input_box">
             <img th:src="@{/img/icons/write.svg}" alt="write_icon" id="introduce_icon">
             <input placeholder="소개글" id="introduce_input" class="placeholder">
+            <span id="introduce_check_length"></span>
           </div>
+          <span class="introduce_span"> • 최대 100자 까지 입력 가능합니다.</span>
           <div class="introduce_error_box">
             <img th:src="@{/img/icons/error.svg}">
             <span>소개글이 입력되지 않았습니다.</span>
