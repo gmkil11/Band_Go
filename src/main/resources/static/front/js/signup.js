@@ -324,6 +324,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     } else {
       console.log("error 항목이 존재합니다.");
+
     }
   });
 });
