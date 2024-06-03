@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   console.log(getUserValue());
 
+  // 원래 회원명 입력 시 중복 된다고 하는 에러를 막기 위한 변수
+  const originalUserName = document.getElementById("user_name_input").value;
+
   async function getUserValue() {
     try {
       let { data: user_profile, error } = await client
@@ -193,14 +196,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     validateNullInput(locationBox, location, locationIcon, locationError);
     validateNullInput(introduceBox, introduce, introduceIcon, introduceError);
 
-    await checkDuplicateUserName(
-      userName,
-      userNameBox,
-      userNameIcon,
-      userNameError,
-      userNameErrorSpan,
-    );
-
+    console.log("originalName:", originalUserName.value);
+    console.log("inputtedUserName:", userName.value);
+    if (originalUserName !== userName.value) {
+      await checkDuplicateUserName(
+        userName,
+        userNameBox,
+        userNameIcon,
+        userNameError,
+        userNameErrorSpan,
+      );
+    }
     if (!profileEditForm.querySelector(".error")) {
       const { data: userNameData, error: updateNameError } = await client
         .from("users")
@@ -236,6 +242,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const cancelButton = document.querySelector(".cancel_button");
   cancelButton.addEventListener("click", goToMainPage);
   function goToMainPage() {
-    window.location.href = "http://localhost:8080";
+    /*window.location.href = "http://localhost:8080";*/
+    window.history.back();
   }
 });

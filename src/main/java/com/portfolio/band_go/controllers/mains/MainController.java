@@ -42,7 +42,12 @@ public class MainController {
     }
 
     @GetMapping("/group")
-    public String group( Model model) {
+    public String group(Model model) {
+        return "front/main/group";
+    }
+
+    @GetMapping("/group-create")
+    public String groupCreate( Model model) {
         model.addAttribute("uuid",CreateUuidService.generateUUID());
         return "front/main/group_create";
     }
@@ -61,7 +66,7 @@ public class MainController {
         return "front/main/find_room";
     }
 
-    @GetMapping("/profileEdit")
+    @GetMapping("/profile-edit")
     public String profileEdit(Model model) {
         return "front/main/profile_edit";
     }

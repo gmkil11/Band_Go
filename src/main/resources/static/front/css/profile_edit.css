@@ -313,3 +313,73 @@
   font-size: 0.8rem !important;
   color: #8e98ae !important;
 }
+
+.group-list-area {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.group-list-area-span {
+  font-size: 1.5rem;
+  color: #2D3F51;
+  font-weight: bold;
+}
+
+#groupTable {
+  width: 100%;
+
+}
+
+
+#groupTableBody {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid #CAD7E0;
+}
+
+.group-row {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #CAD7E0;
+  color: #76819C;
+  font-size: 1rem;
+  font-weight: lighter;
+  height: 150px;
+  align-items: center;
+  gap: 3%;
+  cursor: pointer;
+}
+
+.group-row img {
+  height: 100px;
+}
+
+.group-text-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.group-row :first-child {
+  font-size: 1.5rem;
+  color: #2D3F51;
+  font-weight: normal;
+}
+
+/*그룹 페이지*/
+.group_name_error_box {
+  display: none;
+  align-items: center;
+}
+
+.group_name_error_box span{
+  color: #d23123; !important;
+}
+
+.group_name_error_box img {
+  margin-right: 0.5rem;
+  height: 16px;
+}
+

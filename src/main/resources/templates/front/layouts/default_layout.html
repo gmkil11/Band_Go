@@ -28,6 +28,11 @@
 
     <th:block layout:fragment="addJs"></th:block>
   </head>
+  <!-- 전체 페이지에 불투명한 오버레이 -->
+  <div class="overlay" id="overlay">
+    <!-- 로딩 스피너 -->
+    <div class="spinner" id="spinner"></div>
+  </div>
   <div class="row-content">
     <th:block
       th:replace="~{front/fragments/sidemenu :: sideMenuFragment}"

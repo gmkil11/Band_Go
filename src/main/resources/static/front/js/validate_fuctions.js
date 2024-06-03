@@ -87,6 +87,62 @@ async function checkDuplicateUserName(
   }
 }
 
+async function checkDuplicateGroupName(
+  nameInput,
+  nameInputBox,
+  nameInputIcon,
+  nameError,
+  nameErrorSpan,
+  originalName,
+  errorBox = null,
+  errorBoxSpan = null,
+) {
+  try {
+    if (!nameInput.value) {
+      handleInputError(nameInputBox, nameInput, nameInputIcon, nameError);
+      console.log("그룹명이 입력되지 않았습니다.");
+      if (nameErrorSpan)
+        nameErrorSpan.innerHTML = "그룹명이 입력되지 않았습니다.";
+      return false; // 그룹명이 입력되지 않은 경우 false를 반환하여 함수 종료
+    }
+
+    let { data: groups, error } = await client
+      .from("groups")
+      .select("group_name")
+      .eq("group_name", nameInput.value); // 그룹명으로 필터링
+
+    console.log(groups);
+
+    if (error) {
+      console.error("중복 확인 중 오류가 발생했습니다:", error.message);
+      return false;
+    }
+
+    if (groups && groups.length > 0) {
+      handleInputError(nameInputBox, nameInput, nameInputIcon, nameError);
+      if (nameErrorSpan)
+        nameErrorSpan.innerHTML = "이미 존재하는 그룹명입니다.";
+      if (errorBox && errorBoxSpan) {
+        showErrorBox(errorBox, errorBoxSpan); // 에러박스 표시
+        errorBoxSpan.textContent = "이미 존재하는 그룹명입니다.";
+      }
+      handleIconError(nameInputIcon);
+      console.log("이미 존재하는 그룹명입니다.");
+      return false;
+    }
+
+    resetInputError(nameInputBox, nameInput, nameInputIcon, nameError);
+    if (nameErrorSpan) nameErrorSpan.innerHTML = "";
+    if (errorBox && errorBoxSpan) hideErrorBox(errorBox, errorBoxSpan); // 에러박스 숨김
+    resetIconError(nameInputIcon);
+    console.log("사용 가능한 그룹명입니다.");
+    return true;
+  } catch (error) {
+    console.error("중복 확인 중 오류가 발생했습니다:", error.message);
+    return false;
+  }
+}
+
 function validateNullInput(inputBox, input, inputIcon, inputError) {
   if (input.value === "") {
     handleInputError(inputBox, input, inputIcon, inputError);

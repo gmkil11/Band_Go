@@ -18,7 +18,7 @@
 
     <span class="group_uuid" th:text="${uuid}"></span>
     <div class="profile_edit_box">
-        <span>프로필 설정</span>
+        <span>그룹 생성</span>
         <div class="profile_form_box">
             <div class="profile_picture">
                 <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
@@ -26,9 +26,13 @@
             <form class="profile_edit_input" id="group_edit_form">
                 <div>
                     <span>그룹명</span>
-                    <div class="rows">
-                        <img th:src="@{/img/icons/people.svg}" alt="username_icon">
+                    <div class="rows group_input_box">
+                        <img th:src="@{/img/icons/people.svg}" alt="group_name_icon" id="group_name_icon">
                         <input placeholder="그룹명" id="group_name_input">
+                    </div>
+                    <div class="group_name_error_box">
+                        <img th:src="@{/img/icons/error.svg}">
+                        <span class="name_error_span">그룹명이 입력되지 않았습니다.</span>
                     </div>
                 </div>
                 <div>
