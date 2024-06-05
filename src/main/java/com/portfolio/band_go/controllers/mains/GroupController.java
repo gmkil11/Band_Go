@@ -23,7 +23,7 @@ public class GroupController {
     private SupabaseService supabaseService;
 
     @GetMapping("/{groupId}")
-    public String getGroup(@PathVariable("groupId") String groupId, Model model) {
+    public String getGroup(@PathVariable("groupId") String groupId,Model model) {
         try {
             JsonNode groupProfile = supabaseService.getGroupProfile(groupId);
             if (groupProfile != null && groupProfile.isArray() && groupProfile.size() > 0) {
@@ -45,8 +45,12 @@ public class GroupController {
     }
 
     @GetMapping("/invite")
-    public String acceptInvite(@RequestParam("groupId") String groupId, Model model) {
+    public String acceptInvite(@RequestParam("groupId") String groupId,
+                               @RequestParam("userId") String userId,
+                               Model model) {
         model.addAttribute("groupId", groupId);
+        model.addAttribute("userId", userId);
         return "/front/main/invite_group";
     }
+
 }

@@ -13,7 +13,25 @@
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
+    <span th:text="${groupId}" id="invited_group_id_span">그룹아이디</span>
+    <span th:text="${userId}" id="invited_user_id_span">초대한 유저</span>
 
-    <span th:text="${groupId}" id="group_id_span">그룹아이디</span>
+    <div class="invited_info_box">
+        <div class="img_group_info_box">
+            <img th:src="@{/img/icons/my_profile.svg}" class="group_img">
+            <span id="group_name_span"></span>
+            <span id="group_introduce_span"></span>
+        </div>
+        <div id="invite_message">
+            <span id="invited_user"></span>
+            <span>&nbsp님이&nbsp</span>
+            <span id="invited_group"></span>
+            <span>&nbsp그룹에 초대하였습니다.</span>
+        </div>
+        <div class="accept_deny_button_box">
+            <div class="profile_edit_button accept_button">수락하기</div>
+            <div class="is_public deny_button">거절하기</div>
+        </div>
+    </div>
 </th:block>
 </html>
