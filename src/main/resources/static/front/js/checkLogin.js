@@ -6,7 +6,7 @@ async function checkLogin() {
     console.log("로그인 상태 확인 -> 비로그인 상태");
     return false;
   } else {
-    console.log("로그인 상태 확인 -> 로그인 상태");
+    console.log("로그인 상태 확인 -> 로그인 상태 user_id:", session.user.id);
     return true;
   }
 }

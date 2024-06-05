@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="addCss">
+    <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+</th:block>
+
+<th:block layout:fragment="addJs">
+    <script th:src="@{~/front/js/invite_group.js}"></script>
+</th:block>
+
+<!--Body 영역-->
+<th:block layout:fragment="content">
+
+    <span th:text="${groupId}" id="group_id_span">그룹아이디</span>
+</th:block>
+</html>

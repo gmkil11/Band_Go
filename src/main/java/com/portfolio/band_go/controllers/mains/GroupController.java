@@ -1,15 +1,19 @@
 package com.portfolio.band_go.controllers.mains;
 
 import com.portfolio.band_go.services.SupabaseService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/group")
@@ -22,12 +26,27 @@ public class GroupController {
     public String getGroup(@PathVariable("groupId") String groupId, Model model) {
         try {
             JsonNode groupProfile = supabaseService.getGroupProfile(groupId);
-            model.addAttribute("group", groupProfile.get(0)); // Assuming the response is an array with a single object
+            if (groupProfile != null && groupProfile.isArray() && groupProfile.size() > 0) {
+                JsonNode group = groupProfile.get(0);
+                model.addAttribute("group_name", group.get("group_name").asText());
+                model.addAttribute("group_introduce", group.get("group_introduce").asText());
+                model.addAttribute("is_public", group.get("is_public").asBoolean());
+                model.addAttribute("created_at", group.get("created_at").asText());
+                model.addAttribute("updated_at", group.get("updated_at").asText());
+                model.addAttribute("is_active", group.get("is_active").asBoolean());
+                model.addAttribute("group_id", group.get("group_id").asText());
+            }
             return "/front/main/group";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Failed to load group information.");
             return "/front/main/index";
         }
+    }
+
+    @GetMapping("/invite")
+    public String acceptInvite(@RequestParam("groupId") String groupId, Model model) {
+        model.addAttribute("groupId", groupId);
+        return "/front/main/invite_group";
     }
 }

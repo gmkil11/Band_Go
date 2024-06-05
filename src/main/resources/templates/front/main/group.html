@@ -20,57 +20,25 @@
             </div>
             <div class="profile_value" id="profile_value">
                 <div class="user_name_span_and_edit_buttons">
-                    <span id="user_name"></span>
+                    <span th:text="${group_name}">그룹 이름</span>
                     <div class="public_buttons">
                         <div class="profile_edit_button">
-                            <span>프로필 수정</span>
+                            <span>그룹 수정</span>
                         </div>
                         <div class="is_public">
-                            <span id="is_public_span"></span>
+                            <span id="is_public_span">그룹 공개</span>
                         </div>
                     </div>
                 </div>
-                <div class="location_span_box">
-                    <img th:src="@{/img/icons/location.svg}" alt="location_icon">
-                    <span id="location"></span>
-                </div>
                 <div class="introduce_span_box">
-                    <span id="introduce"></span>
+                    <span th:text="${group_introduce}">그룹 소개</span>
                 </div>
             </div>
 
         </div>
-        <div class="profile_session_box">
-            <div class="rows session_button_box">
-                <label class="session_buttons session_no_checked vocal_box">
-                    <img th:src="@{/img/icons/vocal.svg}" alt="vocal">
-                    보컬
-                </label>
-                <label class="session_buttons session_no_checked guitar_box">
-                    <img th:src="@{/img/icons/guitar.svg}" alt="guitar">
-                    기타
-                </label>
-                <label class="session_buttons session_no_checked bass_box">
-                    <img th:src="@{/img/icons/bass.svg}" alt="bass">
-                    베이스
-                </label>
-                <label class="session_buttons session_no_checked drum_box">
-                    <img th:src="@{/img/icons/drum.svg}" alt="drum">
-                    드럼
-                </label>
-                <label class="session_buttons session_no_checked keyboard_box">
-                    <img th:src="@{/img/icons/keyboard.svg}" alt="keyboard">
-                    건반
-                </label>
-                <label class="session_buttons session_no_checked brass_box">
-                    <img th:src="@{/img/icons/brass.svg}" alt="brass">
-                    관악
-                </label>
-            </div>
-        </div>
 
-        <div>
-            <span th:text="${group}">가져온 그룹 값</span>
+        <div class="group_user_list">
+
         </div>
 
 

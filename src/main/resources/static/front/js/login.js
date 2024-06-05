@@ -30,6 +30,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         redirectTo: "http://localhost:8080/",
       },
     });
+    if (error) {
+      console.error("로그인에 실패했습니다:", error.message);
+      displayErrorBox();
+    } else {
+      console.log("로그인이 완료되었습니다:", data.url);
+      window.location.href = "http://localhost:8080";
+    }
   }
 
   document
@@ -111,6 +118,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         displayErrorBox();
       } else {
         console.log("로그인이 완료되었습니다:", data);
+        saveSessionValue(data.session.user.id);
         window.location.href = "http://localhost:8080";
       }
     } catch (error) {
