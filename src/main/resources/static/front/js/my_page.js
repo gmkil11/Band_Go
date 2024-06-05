@@ -131,8 +131,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     tableBody.innerHTML = ""; // 기존 내용을 초기화
 
     groups.forEach((group) => {
+      console.log("group_id:", group.group_id);
       const row = document.createElement("tr");
       row.classList.add("group-row"); // 클래스 추가
+
+      row.addEventListener("click", () => {
+        window.location.href = `http://localhost:8080/group/${group.group_id}`;
+      });
 
       const img = document.createElement("img");
       img.src = "/img/icons/my_profile.svg";
