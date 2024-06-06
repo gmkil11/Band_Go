@@ -171,7 +171,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 1.9rem;
-  font-weight: bold;
+  font-weight: 500;
   color: #2d3f51;
 }
 
@@ -324,7 +324,7 @@
 .group-list-area-span {
   font-size: 1.5rem;
   color: #2D3F51;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 #groupTable {
@@ -387,6 +387,52 @@
   display: none;
 }
 
+.group-user-area {
+  margin-top: 50px;
+}
+
+.group-user-area-span {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+#userTable {
+  width: 100%;
+
+}
+
+#userTableBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-row {
+  display: flex;
+  border-top: 1px solid #CAD7E0;
+  align-items: center;
+  padding : 10px;
+  gap: 10px;
+}
+
+.user-row img {
+  width: 10%;
+}
+
+.user-text-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.group_page_session_box {
+  margin: 0;
+}
+
+.group_page_session_button {
+  width: 50%;
+}
+
 /* 그룹 초대 페이지 */
 #invited_group_id_span {
   display: none;
@@ -421,7 +467,7 @@
 
 #group_name_span {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 500;
   color: #2D3F51;
 }
 
@@ -439,11 +485,11 @@
 }
 
 #invited_user {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 #invited_group {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .accept_deny_button_box {
