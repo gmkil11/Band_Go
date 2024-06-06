@@ -383,6 +383,10 @@
   height: 16px;
 }
 
+#group_id_span {
+  display: none;
+}
+
 /* 그룹 초대 페이지 */
 #invited_group_id_span {
   display: none;

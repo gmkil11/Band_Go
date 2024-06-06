@@ -8,11 +8,12 @@
 </th:block>
 
 <th:block layout:fragment="addJs">
-    <script th:src="@{~/front/js/my_page.js}"></script>
+    <script th:src="@{~/front/js/group_page.js}"></script>
 </th:block>
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
+    <span id="group_id_span" th:text="${group_id}"></span>
     <div class="profile_box">
         <div class="profile_img_span_box">
             <div class="profile_picture">
@@ -37,8 +38,12 @@
 
         </div>
 
-        <div class="group_user_list">
-
+        <div class="group-user-area">
+            <span class="group-user-area-span">유저 목록</span>
+            <table id="userTable">
+                <tbody id="userTableBody">
+                </tbody>
+            </table>
         </div>
 
 

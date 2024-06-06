@@ -40,13 +40,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         const sessionButtons = document.querySelectorAll(".session_buttons");
         const userSessions = user_profile.session;
 
-        sessionButtons.forEach((button) => {
-          const sessionName = button.querySelector("img").alt;
-          if (userSessions.includes(sessionName)) {
-            button.classList.remove("session_no_checked");
-            button.classList.add("session_checked");
-          }
-        });
+        if (user_profile.session) {
+          sessionButtons.forEach((button) => {
+            const sessionName = button.querySelector("img").alt;
+            if (userSessions.includes(sessionName)) {
+              button.classList.remove("session_no_checked");
+              button.classList.add("session_checked");
+            }
+          });
+        }
 
         const profileEditButton = document.querySelector(
           ".profile_edit_button",
