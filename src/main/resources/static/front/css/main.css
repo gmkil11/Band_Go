@@ -83,7 +83,7 @@ main {
   display: flex;
   width: 80%;
   min-width: 50%;
-  margin: 30px;
+  margin: 35px 30px 30px;
 }
 
 .logoBox img {

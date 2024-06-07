@@ -13,6 +13,29 @@
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
+    <div class="invite_form">
+        <div class="invite_title_box">
+            <span>그룹 맴버 초대</span>
+            <img th:src="@{/img/icons/cancel.svg}" id="invite_cancel_button">
+        </div>
+        <div class="invite_box">
+            <div class="invite_link_box">
+                <span>초대 링크</span>
+                <div class="invite_link_span_box">
+                    <span id="invite_link_span">링크예제</span>
+                    <img th:src="@{/img/icons/copy.svg}" class="invite_icon copy_icon">
+                    <div id="copy_message" class="copy_message">복사가 완료되었습니다!</div>
+                </div>
+            </div>
+            <div class="invite_email_span_box">
+                <span>이메일 초대</span>
+                <div class="invite_link_span_box">
+                    <input placeholder="초대받을 회원의 이메일을 입력하세요">
+                    <img th:src="@{/img/icons/email.svg}" class="invite_icon">
+                </div>
+            </div>
+        </div>
+    </div>
     <span id="group_id_span" th:text="${group_id}"></span>
     <div class="profile_box">
         <div class="profile_img_span_box">
@@ -39,7 +62,13 @@
         </div>
 
         <div class="group-user-area">
-            <span class="group-user-area-span">회원 목록</span>
+            <div class="group-user-area-span-box">
+                <span class="group-user-area-span">회원 목록</span>
+                <div id="invite_user">
+                    <img th:src="@{/img/icons/plus.svg}">
+                    <span id="invite_user_span">초대하기</span>
+                </div>
+            </div>
             <table id="userTable">
                 <tbody id="userTableBody">
                 </tbody>

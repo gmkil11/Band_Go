@@ -39,6 +39,7 @@
   border: #76819c solid 1px;
   width: 100%;
   transition: all 0.1s;
+  margin-top: 5px;
 }
 
 .rows img {
@@ -121,7 +122,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  gap: 10px;
+  gap: 5px;
 }
 
 .session_buttons input {
@@ -391,9 +392,24 @@
   margin-top: 50px;
 }
 
+.group-user-area-span-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .group-user-area-span {
   font-size: 1.5rem;
   font-weight: 500;
+  color: #2D3F51;
+}
+
+#invite_user {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  font-size: 1rem;
+  color: #2D3F51;
 }
 
 #userTable {
@@ -415,7 +431,7 @@
   gap: 10px;
 }
 
-.user-row img {
+.user-row img{
   width: 10%;
 }
 
@@ -423,6 +439,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 5px;
 }
 
 .group_page_session_box {
@@ -431,9 +448,144 @@
 
 .group_page_session_button {
   width: 50%;
+  justify-content: normal;
 }
 
-/* 그룹 초대 페이지 */
+.session_label {
+  width: calc(100%/3);
+  height: 40px;
+}
+
+.session_label img {
+  width: 30px;
+  height: 30px;
+}
+
+.user_name_cell {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #2D3F51;
+}
+
+.invite_form {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #F8FAFB;
+  width: 50%;
+  height: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  padding: 20px;
+  gap: 20px;
+}
+
+.invite_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.invite_box span {
+
+}
+
+.invite_box{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.invite_title_box {
+  display: flex;
+  font-size: 1.5rem;
+  color: #2D3F51;
+  font-weight: 500;
+  justify-content: space-between;
+}
+.invite_link_box{
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  color: #76819c;
+}
+
+.invite_link_span_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  border: 1px solid #DBE4EA;
+}
+
+.invite_link_span_box {
+  color: #2D3F51;
+}
+
+.invite_email_span_box {
+  color: #76819c;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.invite_link_span_box input {
+  border: none;
+  outline: none;
+  width: 80%;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: -0.24px;
+}
+
+.invite_icon {
+  cursor: pointer;
+}
+
+.copy_message {
+  position: absolute;
+  color: #2D3F51;
+  background-color: #F8FAFB;
+  border: 1px solid #DBE4EA;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  white-space: nowrap;
+  z-index: 1000;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.5s;
+  margin-top: 10px; /* 아이콘과 말풍선 사이의 거리 */
+}
+
+.copy_message::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #f0f0f0 transparent;
+}
+
+
+
+.introduce_cell {
+  color: #76819C;
+}
+
+#invite_cancel_button {
+  cursor: pointer;
+}
+
+/* 그룹 초대 수락 페이지 */
 #invited_group_id_span {
   display: none;
 }

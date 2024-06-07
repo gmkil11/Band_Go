@@ -1,24 +1,58 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  showSpinner();
   const profileEditButton = document.querySelector(".profile_edit_button");
-
+  const groupId = document.getElementById("group_id_span").innerText;
+  const userId = await getLoggedInUserId();
   profileEditButton.addEventListener("click", function () {
     window.location.href = "http://localhost:8080/group/edit"; // 수정해야함
   });
 
+  const inviteButton = document.getElementById("invite_user");
+  inviteButton.addEventListener("click", renderInviteUser);
+
+  const inviteCancelButton = document.getElementById("invite_cancel_button");
+  inviteCancelButton.addEventListener("click", hideInviteUser);
+
+  const copyIcon = document.querySelector(".copy_icon");
+  copyIcon.addEventListener("click", function () {
+    const copyMessage = document.getElementById("copy_message");
+    const textToCopy = document.getElementById("invite_link_span").innerText;
+
+    window.navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        // 복사 성공 시 메시지 표시
+        copyMessage.style.opacity = "1";
+        copyMessage.style.transform = "translateX(-50%) translateY(0)";
+
+        // 2초 후 메시지 숨김
+        setTimeout(() => {
+          copyMessage.style.opacity = "0";
+          copyMessage.style.transform = "translateX(-50%) translateY(10px)";
+        }, 2000);
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  });
+
   await getUserList();
+  generateInviteLink(
+    document.getElementById("invite_link_span"),
+    groupId,
+    userId,
+  );
 
   async function getUserList() {
-    const groupId = document.getElementById("group_id_span").innerText;
-
     let { data: user_groups, error } = await client
-        .from("user_groups")
-        .select("*")
-        .eq("group_id", groupId);
+      .from("user_groups")
+      .select("*")
+      .eq("group_id", groupId);
 
     if (error) {
       console.log(
-          "user_groups 테이블에서 유저 목록을 가져오는데 실패했습니다.",
-          error,
+        "user_groups 테이블에서 유저 목록을 가져오는데 실패했습니다.",
+        error,
       );
     } else {
       console.log("user_groups 해당 되는 유저id:", user_groups);
@@ -27,14 +61,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       const userIds = user_groups.map((userGroup) => userGroup.user_id);
 
       let { data: user_profiles, error: profileError } = await client
-          .from("user_profile")
-          .select("*")
-          .in("id", userIds);
+        .from("user_profile")
+        .select("*")
+        .in("id", userIds);
 
       if (profileError) {
         console.log(
-            "user_profile 테이블에서 유저 프로필을 가져오는데 실패했습니다.",
-            profileError,
+          "user_profile 테이블에서 유저 프로필을 가져오는데 실패했습니다.",
+          profileError,
         );
         return;
       }
@@ -43,14 +77,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       // user_profiles 배열을 정렬하여 master 역할이 있는 유저를 먼저 오게 함
       user_profiles.sort((a, b) => {
-        const userA = user_groups.find(userGroup => userGroup.user_id === a.id);
-        const userB = user_groups.find(userGroup => userGroup.user_id === b.id);
-        if (userA.role === 'master') return -1;
-        if (userB.role === 'master') return 1;
+        const userA = user_groups.find(
+          (userGroup) => userGroup.user_id === a.id,
+        );
+        const userB = user_groups.find(
+          (userGroup) => userGroup.user_id === b.id,
+        );
+        if (userA.role === "master") return -1;
+        if (userB.role === "master") return 1;
         return 0;
       });
 
       renderUsers(user_profiles);
+      hideSpinner();
     }
   }
 
@@ -77,17 +116,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       const nameCell = document.createElement("td");
       nameCell.textContent = user.user_name;
+      nameCell.classList.add("user_name_cell");
       div.appendChild(nameCell);
 
       const introduceCell = document.createElement("td");
       introduceCell.textContent = user.introduce;
+      introduceCell.classList.add("introduce_cell");
       div.appendChild(introduceCell);
 
       let sessions = [];
       try {
         if (user.session) {
           sessions = JSON.parse(user.session);
-          console.log(user.user_name,sessions)
+          console.log(user.user_name, sessions);
         }
       } catch (e) {
         console.error("세션 정보를 파싱하는데 실패했습니다:", e);
@@ -105,22 +146,60 @@ document.addEventListener("DOMContentLoaded", async function () {
     sessionBox.classList.add("profile_session_box", "group_page_session_box");
 
     const sessionButtonBox = document.createElement("div");
-    sessionButtonBox.classList.add("rows", "session_button_box", "group_page_session_button");
+    sessionButtonBox.classList.add(
+      "rows",
+      "session_button_box",
+      "group_page_session_button",
+    );
     sessionBox.appendChild(sessionButtonBox);
 
     const sessionTypes = [
-      { class: 'vocal_box', imgSrc: '/img/icons/vocal.svg', text: 'vocal', textValue: '보컬'},
-      { class: 'guitar_box', imgSrc: '/img/icons/guitar.svg', text: 'guitar', textValue: '기타' },
-      { class: 'bass_box', imgSrc: '/img/icons/bass.svg', text: 'bass', textValue: '베이스' },
-      { class: 'drum_box', imgSrc: '/img/icons/drum.svg', text: 'drum', textValue: '드럼' },
-      { class: 'keyboard_box', imgSrc: '/img/icons/keyboard.svg', text: 'keyboard', textValue: '키보드' },
-      { class: 'brass_box', imgSrc: '/img/icons/brass.svg', text: 'brass', textValue: '관악' }
+      {
+        class: "vocal_box",
+        imgSrc: "/img/icons/vocal.svg",
+        text: "vocal",
+        textValue: "보컬",
+      },
+      {
+        class: "guitar_box",
+        imgSrc: "/img/icons/guitar.svg",
+        text: "guitar",
+        textValue: "기타",
+      },
+      {
+        class: "bass_box",
+        imgSrc: "/img/icons/bass.svg",
+        text: "bass",
+        textValue: "베이스",
+      },
+      {
+        class: "drum_box",
+        imgSrc: "/img/icons/drum.svg",
+        text: "drum",
+        textValue: "드럼",
+      },
+      {
+        class: "keyboard_box",
+        imgSrc: "/img/icons/keyboard.svg",
+        text: "keyboard",
+        textValue: "건반",
+      },
+      {
+        class: "brass_box",
+        imgSrc: "/img/icons/brass.svg",
+        text: "brass",
+        textValue: "관악",
+      },
     ];
 
-    sessionTypes.forEach(session => {
+    sessionTypes.forEach((session) => {
       if (sessions.includes(session.text)) {
         const label = document.createElement("label");
-        label.classList.add("session_buttons", "session_checked", session.class);
+        label.classList.add(
+          "session_buttons",
+          "session_checked",
+          "session_label",
+        );
 
         const img = document.createElement("img");
         img.src = session.imgSrc;
@@ -135,5 +214,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     return sessionBox;
+  }
+
+  function renderInviteUser() {
+    const overlay = document.getElementById("overlay");
+    overlay.style.display = "block";
+    overlay.style.opacity = "1";
+    const inviteForm = document.querySelector(".invite_form");
+    inviteForm.style.display = "flex";
+  }
+
+  function hideInviteUser() {
+    const overlay = document.getElementById("overlay");
+    overlay.style.display = "none";
+    overlay.style.opacity = "0";
+    const inviteForm = document.querySelector(".invite_form");
+    inviteForm.style.display = "none";
+  }
+
+  function generateInviteLink(span, groupId, userId) {
+    span.textContent = `http://localhost:8080/group/invite?groupId=${groupId}&userId=${userId}`;
   }
 });
