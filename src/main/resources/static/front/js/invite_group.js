@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   showSpinner();
 
   const authInfo = await client.auth.getSession();
-  const loggedInUserId = authInfo.data.session.user.id;
+  const loggedInUserId = authInfo?.data?.session?.user?.id;
   const invitedGroupId = document.getElementById(
     "invited_group_id_span",
   ).innerText;
@@ -21,7 +21,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await getGroupAndUserInfo();
 
-  acceptButton.addEventListener("click", saveUserIntoGroup);
+  acceptButton.addEventListener("click", function () {
+    if (loggedInUserId) {
+      saveUserIntoGroup();
+    } else {
+      window.location.href = "http://localhost:8080/login"; // 수락버튼 누르고 로그인 되어있지 않으면 로그인 페이지로
+    }
+  });
 
   denyButton.addEventListener("click", function () {
     window.location.href = "http://localhost:8080";
@@ -34,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       .eq("group_id", invitedGroupId)
       .single();
     if (groupError) {
-      console.log("그룹 정보를 가져오는데 에러가 발새했습니다.", groupError);
+      console.log("그룹 정보를 가져오는데 에러가 발생했습니다.", groupError);
     } else {
       groupNameSpan.innerHTML = groupData.group_name;
       groupIntroduceSpan.innerHTML = groupData.group_introduce;
@@ -46,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       .eq("id", invitedUserId)
       .single();
     if (userError) {
-      console.log("유저 정보를 가져오는데 에러가 발새했습니다.", groupError);
+      console.log("유저 정보를 가져오는데 에러가 발생했습니다.", groupError);
     } else {
       invitedUser.innerHTML = userData.user_name;
       invitedGroup.innerHTML = groupData.group_name;
