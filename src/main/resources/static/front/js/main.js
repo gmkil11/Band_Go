@@ -1,3 +1,4 @@
+/*
 document.addEventListener("DOMContentLoaded", async function () {
   document.querySelector("#loggedIn").style.display = "none";
   document.querySelector("#NotLoggedIn").style.display = "none";
@@ -31,3 +32,4 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 });
+*/

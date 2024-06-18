@@ -1,32 +1,46 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
     <title>밴드할래?</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const supabaseUrl = 'https://kzoqorcgyatwmoafkfcb.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6b3FvcmNneWF0d21vYWZrZmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4NDg3MDQsImV4cCI6MjAyNjQyNDcwNH0.sOC91NnK94dqgloyKq5LKqH9nwyVrrUXgQJJn0whyZg';
-        const client = supabase.createClient(supabaseUrl, supabaseKey);
+      const supabaseUrl = "https://kzoqorcgyatwmoafkfcb.supabase.co";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6b3FvcmNneWF0d21vYWZrZmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4NDg3MDQsImV4cCI6MjAyNjQyNDcwNH0.sOC91NnK94dqgloyKq5LKqH9nwyVrrUXgQJJn0whyZg";
+      const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-        console.log(client);
+      console.log(client);
     </script>
 
     <script th:src="@{/front/js/checkLogin.js}"></script>
+    <script th:src="@{/front/js/loading_spinner.js}"></script>
+    <script th:src="@{/front/js/validate_fuctions.js}"></script>
     <script th:src="@{/front/js/main.js}"></script>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/front/css/main.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/front/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/front/css/error.css}" />
 
     <th:block layout:fragment="addCss"></th:block>
 
     <th:block layout:fragment="addJs"></th:block>
-</head>
-    <div class="column-content">
-        <th:block th:replace="~{front/fragments/nosidemenu_header :: headerFragment}"></th:block>
-        <body>
-        <th:block layout:fragment="content"></th:block>
-        </body>
-    </div>
-<th:block th:replace="~{front/fragments/footer :: footerFragment}"></th:block>
+  </head>
+  <!-- 전체 페이지에 불투명한 오버레이 -->
+  <div class="overlay" id="overlay">
+    <!-- 로딩 스피너 -->
+    <div class="spinner" id="spinner"></div>
+  </div>
+  <div class="column-content">
+    <th:block
+      th:replace="~{front/fragments/nosidemenu_header :: headerFragment}"
+    ></th:block>
+    <body>
+      <th:block layout:fragment="content"></th:block>
+    </body>
+  </div>
+  <th:block th:replace="~{front/fragments/footer :: footerFragment}"></th:block>
 </html>
