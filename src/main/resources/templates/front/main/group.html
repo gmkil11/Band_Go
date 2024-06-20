@@ -13,7 +13,7 @@
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
-    <div class="invite_form">
+    <div class="invite_form ">
         <div class="invite_title_box">
             <span>그룹 맴버 초대</span>
             <img th:src="@{/img/icons/cancel.svg}" id="invite_cancel_button">
@@ -37,7 +37,7 @@
         </div>
     </div>
     <span id="group_id_span" th:text="${group_id}"></span>
-    <div class="profile_box">
+    <div class="profile_box body-content">
         <div class="profile_img_span_box">
             <div class="profile_picture">
                 <img th:src="@{~/img/icons/my_profile.svg}" alt="profile_picture">

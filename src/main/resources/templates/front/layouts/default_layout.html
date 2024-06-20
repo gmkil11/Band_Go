@@ -34,18 +34,15 @@
     <!-- 로딩 스피너 -->
     <div class="spinner" id="spinner"></div>
   </div>
-  <div class="row-content">
+  <th:block th:replace="~{front/fragments/sidemenu :: sideMenuFragment}">
+  </th:block>
+  <div class="column-content">
     <th:block
-      th:replace="~{front/fragments/sidemenu :: sideMenuFragment}"
+      th:replace="~{front/fragments/header :: headerFragment}"
     ></th:block>
-    <div class="column-content">
-      <th:block
-        th:replace="~{front/fragments/header :: headerFragment}"
-      ></th:block>
-      <body>
-        <th:block layout:fragment="content"></th:block>
-      </body>
-    </div>
+    <body>
+      <th:block layout:fragment="content"></th:block>
+    </body>
   </div>
   <th:block th:replace="~{front/fragments/footer :: footerFragment}"></th:block>
 </html>

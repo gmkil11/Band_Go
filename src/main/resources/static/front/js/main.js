@@ -1,6 +1,5 @@
-/*
 document.addEventListener("DOMContentLoaded", async function () {
-  document.querySelector("#loggedIn").style.display = "none";
+  /*document.querySelector("#loggedIn").style.display = "none";
   document.querySelector("#NotLoggedIn").style.display = "none";
 
   if (await checkLogin()) {
@@ -30,6 +29,26 @@ document.addEventListener("DOMContentLoaded", async function () {
       dropdownContent2.style.display = "block";
       dropdownContent1.style.display = "none";
     }
+  });*/
+  const sideMenuButton = document.querySelector(".side_menu_button");
+  const sideMenu = document.querySelector(".side-nav");
+  const sideMenuContent = document.querySelector(".side-nav-contents-box");
+  const sideMenuCloseButton = document.querySelector(".side-nav-close-button");
+
+  sideMenuButton.addEventListener("click", function () {
+    console.log("사이드 메뉴 버튼 클릭됨");
+    showOverlay();
+    sideMenu.style.width = "25%";
+    setTimeout(() => {
+      sideMenuContent.style.display = "flex";
+    }, 100);
+  });
+  sideMenuCloseButton.addEventListener("click", function () {
+    console.log("사이드 메뉴 닫기 버튼 클릭됨");
+    hideOverlay();
+    sideMenu.style.width = "0%";
+    setTimeout(() => {
+      sideMenuContent.style.display = "none";
+    }, 100);
   });
 });
-*/

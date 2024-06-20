@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{front/layouts/nosidemenu_layout}">
+      layout:decorate="~{front/layouts/default_layout}">
 
 <th:block layout:fragment="addCss">
   <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
@@ -13,7 +13,7 @@
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
-    <div class="profile_box">
+    <div class="profile_box body-content">
       <div class="profile_img_span_box">
         <div class="profile_picture">
           <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
