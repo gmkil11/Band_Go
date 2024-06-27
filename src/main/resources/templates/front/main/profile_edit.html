@@ -9,6 +9,7 @@
 
 <th:block layout:fragment="addJs">
   <script th:src="@{front/js/profile_edit.js}"></script>
+  <script th:src="@{front/js/upload_image.js}"></script>
 </th:block>
 
 <!--Body 영역-->
@@ -17,7 +18,8 @@
     <span>프로필 설정</span>
     <div class="profile_form_box">
       <div class="profile_picture">
-        <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
+        <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture" id="profile_picture_img">
+        <input type="file" accept="image/*" id="profile_image">
       </div>
       <form class="profile_edit_input" id="profile_edit_form">
         <div>
