@@ -55,3 +55,16 @@ async function uploadImage(event, uuid) {
     }
   }
 }
+
+async function getUserImg(userId) {
+  const { data, error } = await client.storage
+    .from("user_profile_images")
+    .download(`public/${userId}`);
+
+  if (data) {
+    const profileImg = document.getElementById("profile_picture_img");
+    profileImg.src = URL.createObjectURL(data);
+  } else {
+    console.error("Error fetching profile image:", error);
+  }
+}

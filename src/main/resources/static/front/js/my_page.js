@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.error("Error getting user profile:", error);
       // 오류 처리
     }
+    await getUserImg(loggedInUserId);
   }
 
   async function getGroups() {

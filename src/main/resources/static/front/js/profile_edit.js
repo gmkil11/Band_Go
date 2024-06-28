@@ -84,16 +84,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.error("Error getting user profile:", error);
       // 오류 처리
     }
-    const { data, error } = await client.storage
-      .from("user_profile_images")
-      .download(`public/${loggedInUserId}`);
-
-    if (data) {
-      const profileImg = document.getElementById("profile_picture_img");
-      profileImg.src = URL.createObjectURL(data);
-    } else {
-      console.error("Error fetching profile image:", error);
-    }
+    await getUserImg(loggedInUserId);
     hideSpinner();
   }
 
