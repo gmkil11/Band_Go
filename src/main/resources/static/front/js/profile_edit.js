@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   console.log("로그인 되어있는 유저:", loggedInUserId);
 
   await getUserValue();
+
   checkPublicButton();
   checkSessionButton();
   checkTextLength(introduce, introduceSpan, 100);
@@ -28,10 +29,13 @@ document.addEventListener("DOMContentLoaded", async function () {
   const imgInput = document.getElementById("profile_image");
   imgInput.addEventListener("change", async function (event) {
     renderImage(event);
+    showSpinner();
     await uploadImage(event, loggedInUserId);
+    hideSpinner();
   });
 
   async function getUserValue() {
+    showSpinner();
     try {
       let { data: user_profile, error } = await client
         .from("user_profile")
@@ -80,6 +84,17 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.error("Error getting user profile:", error);
       // 오류 처리
     }
+    const { data, error } = await client.storage
+      .from("user_profile_images")
+      .download(`public/${loggedInUserId}`);
+
+    if (data) {
+      const profileImg = document.getElementById("profile_picture_img");
+      profileImg.src = URL.createObjectURL(data);
+    } else {
+      console.error("Error fetching profile image:", error);
+    }
+    hideSpinner();
   }
 
   const publicButtonBox = document.querySelector(".public_button_box");

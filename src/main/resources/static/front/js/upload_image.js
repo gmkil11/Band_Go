@@ -10,24 +10,48 @@ function renderImage(event) {
 }
 
 async function uploadImage(event, uuid) {
-  const avatarFile = event.target.files[0];
-  const { data, error } = await client.storage
+  const filePath = `public/${uuid}`;
+  const file = event.target.files[0];
+
+  // 파일 존재 여부 확인
+  const { data: existingFile, error: fetchError } = await client.storage
     .from("user_profile_images")
-    .upload(`public/${uuid}`, avatarFile, {
-      cacheControl: "3600",
-      upsert: false,
-    });
-  console.log(data);
-  console.log(error);
-  if (error) {
-    console.log("duplicate 탐");
-    const { dataDuplicate, errorDuplicate } = await client.storage
+    .list("", { search: filePath });
+
+  if (fetchError) {
+    console.error("Error checking file existence:", fetchError);
+    return;
+  }
+
+  if (existingFile && existingFile.length > 0) {
+    console.log("파일이 존재함으로 업데이트 합니다");
+    // 파일이 존재하면 업데이트
+    const { data, error } = await client.storage
       .from("user_profile_images")
-      .update(`public/${uuid}`, avatarFile, {
+      .update(filePath, file, {
         cacheControl: "3600",
         upsert: false,
       });
-    console.log(dataDuplicate);
-    console.log(errorDuplicate);
+
+    if (error) {
+      console.error("Error updating file:", error);
+    } else {
+      console.log("File updated successfully:", data);
+    }
+  } else {
+    // 파일이 존재하지 않으면 업로드
+    console.log("파일이 존재하지 않으므로 업로드 합니다");
+    const { data, error } = await client.storage
+      .from("user_profile_images")
+      .upload(filePath, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+    if (error) {
+      console.error("Error uploading file:", error);
+    } else {
+      console.log("File uploaded successfully:", data);
+    }
   }
 }
