@@ -666,4 +666,47 @@
   cursor: pointer;
 }
 
+/*타임피커*/
+
+/* 타임피커의 기본 스타일 */
+.time-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 타임피커 셀렉트 박스의 스타일 */
+.time-picker-select {
+  background-color: #fff; /* 배경색을 흰색으로 설정 */
+  color: #000; /* 텍스트 색상을 검정색으로 설정 */
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+  /* 선택된 값의 텍스트와 배경색을 일치시켜 디자인을 통일감 있게 만듭니다. */
+}
+
+/* 셀렉트 박스에 기본 브라우저 스타일 제거 */
+.time-picker-select::-ms-expand {
+
+}
+
+/* 기본 스타일 초기화 */
+select {
+  -webkit-appearance: none; /* Chrome, Safari, Edge */
+  -moz-appearance: none; /* Firefox */
+  appearance: none; /* 모든 브라우저 */
+  background-color: #fff; /* 배경색을 흰색으로 설정 */
+  color: #000; /* 텍스트 색상을 검정색으로 설정 */
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+
+}
+
+/* 셀렉트 박스의 옵션 스타일 */
+select option {
+  background-color: #fff;
+  color: #000;
+}
+
 

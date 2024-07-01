@@ -53,4 +53,9 @@ public class GroupController {
         return "/front/main/invite_group";
     }
 
+    @GetMapping("/schedule")
+    public String addSchedule(Model model) {
+        return "front/main/group_schedule";
+    }
+
 }
