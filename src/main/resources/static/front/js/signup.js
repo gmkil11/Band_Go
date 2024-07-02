@@ -49,16 +49,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (users && users.length > 0) {
           resetInputError(nameInputBox, nameInput, nameInputIcon, nameError);
           showErrorBox(); // 에러박스 표시
-          errorBoxSpan.textContent = "이미 존재하는 회원명입니다.";
+          errorBoxSpan.textContent = "이미 존재하는 닉네임입니다.";
           nameInputBox.classList.add("error");
           nameInput.classList.add("error");
           nameInput.classList.replace("placeholder", "error_placeholder");
           handleIconError(nameInputIcon);
-          console.log("이미 존재하는 회원명입니다.");
+          console.log("이미 존재하는 닉네임입니다.");
           return false;
         }
 
-        console.log("사용 가능한 회원명입니다.");
+        console.log("사용 가능한 닉네임입니다.");
         nameInputBox.classList.remove("error");
         nameInput.classList.remove("error");
         nameInput.classList.replace("error_placeholder", "placeholder");

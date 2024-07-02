@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   console.log(getUserValue());
 
-  // 원래 회원명 입력 시 중복 된다고 하는 에러를 막기 위한 변수
+  // 원래 닉네임 입력 시 중복 된다고 하는 에러를 막기 위한 변수
   const originalUserName = document.getElementById("user_name_input").value;
 
   // 프로필 이미지 함수 시작

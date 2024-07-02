@@ -18,7 +18,7 @@ async function checkDuplicateUserName(
       );
 
       console.log("사용자명 입력안됨");
-      nameErrorSpan.innerHTML = "회원명이 입력되지 않았습니다.";
+      nameErrorSpan.innerHTML = "닉네임이 입력되지 않았습니다.";
       return false; // 사용자명이 입력되지 않은 경우 false를 반환하여 함수 종료
     } else {
       let { data: users, error } = await client
@@ -44,7 +44,7 @@ async function checkDuplicateUserName(
         if (errorBoxSpan && errorBox) {
           // errorBoxSpan과 errorBox가 전달된 경우에만 에러박스 표시
           showErrorBox(errorBox, errorBoxSpan); // 에러박스 표시
-          errorBoxSpan.textContent = "이미 존재하는 회원명입니다.";
+          errorBoxSpan.textContent = "이미 존재하는 닉네임입니다.";
         }
         handleInputError(
           nameInputBox,
@@ -57,12 +57,12 @@ async function checkDuplicateUserName(
         nameInput.classList.add("error");
         nameInput.classList.replace("placeholder", "error_placeholder");*/
         handleIconError(nameInputIcon);
-        nameErrorSpan.innerHTML = "이미 존재하는 회원명입니다.";
-        console.log("이미 존재하는 회원명입니다.");
+        nameErrorSpan.innerHTML = "이미 존재하는 닉네임입니다.";
+        console.log("이미 존재하는 닉네임입니다.");
         return false;
       }
 
-      console.log("사용 가능한 회원명입니다.");
+      console.log("사용 가능한 닉네임입니다.");
       resetInputError(
         nameInputBox,
         nameInput,
