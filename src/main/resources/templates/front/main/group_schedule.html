@@ -5,15 +5,14 @@
 
 <th:block layout:fragment="addCss">
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
   <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/calender.css}">
 
 </th:block>
 
 <th:block layout:fragment="addJs">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
   <script th:src="@{/front/js/schedule.js}"></script>
 </th:block>
 
@@ -51,7 +50,7 @@
   </body>
   <script>
     $.datepicker.setDefaults({
-      dateFormat: 'yyyy-MM-dd',
+      dateFormat: 'yy-mm-dd',
       prevText: '이전 달',
       nextText: '다음 달',
       monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
@@ -63,8 +62,34 @@
       yearSuffix: '년'
     });
 
-    $("#datepicker").datepicker({
+    $(function() {
+      function updateDatepickerIcons(inst) {
+        var prevButton = inst.dpDiv.find('.ui-datepicker-prev');
+        var nextButton = inst.dpDiv.find('.ui-datepicker-next');
 
+        // Remove existing icon
+        prevButton.children('.ui-icon').remove();
+        nextButton.children('.ui-icon').remove();
+
+        // Add custom icon
+        prevButton.append('<span class="custom-prev-icon"></span>');
+        nextButton.append('<span class="custom-next-icon"></span>');
+      }
+
+      $("#datepicker").datepicker({
+        prevText: "",
+        nextText: "",
+        beforeShow: function(input, inst) {
+          setTimeout(function() {
+            updateDatepickerIcons(inst);
+          }, 1);
+        },
+        onChangeMonthYear: function(year, month, inst) {
+          setTimeout(function() {
+            updateDatepickerIcons(inst);
+          }, 1);
+        }
+      });
     });
   </script>
 </th:block>

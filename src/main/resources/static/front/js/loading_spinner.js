@@ -17,6 +17,7 @@ function showSpinner() {
 }
 
 function showOverlay() {
+  document.getElementById("spinner").style.display = "none";
   const overlay = document.getElementById("overlay");
   overlay.style.display = "block";
   setTimeout(() => {
@@ -25,6 +26,7 @@ function showOverlay() {
 }
 
 function hideOverlay() {
+  document.getElementById("spinner").style.display = "none";
   const overlay = document.getElementById("overlay");
   overlay.style.opacity = "0"; // 투명도를 0으로 설정하여 사라지도록 함
   setTimeout(() => {
