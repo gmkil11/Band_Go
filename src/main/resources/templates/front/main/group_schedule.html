@@ -76,9 +76,12 @@
         nextButton.append('<span class="custom-next-icon"></span>');
       }
 
+
       $("#datepicker").datepicker({
         prevText: "",
         nextText: "",
+        showButtonPanel: true,
+        closeText: "확인",
         beforeShow: function(input, inst) {
           setTimeout(function() {
             updateDatepickerIcons(inst);
@@ -88,9 +91,10 @@
           setTimeout(function() {
             updateDatepickerIcons(inst);
           }, 1);
-        }
+        },
       });
     });
+
   </script>
 </th:block>
 </html>
