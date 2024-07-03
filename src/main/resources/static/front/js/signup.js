@@ -233,15 +233,17 @@ document.addEventListener("DOMContentLoaded", function () {
   phoneInput.addEventListener("input", function (event) {
     let phoneNumber = event.target.value.replace(/[^0-9]/g, ""); // 입력된 값에서 숫자만 추출
 
-    // 전화번호가 11자리 이상으로 입력되려고 하면 더 이상 입력 안 되도록 함
+    // 전화번호가 11자리 이상으로 입력되려고 하면 입력 막음
     if (phoneNumber.length >= 11) {
-      phoneNumber = phoneNumber.slice(0, 11); // 11자리 이상 입력되면 초과된 부분을 잘라냄
+      phoneNumber = phoneNumber.slice(0, 11); // 11자리 이상 입력되면 초과된 부분을 컷
     }
 
     if (phoneNumber.length > 3 && phoneNumber.length <= 7) {
-      phoneNumber = phoneNumber.replace(/(\d{3})(\d{1,4})/, "$1-$2"); // 010-xxxx 형식으로 변경
+      // 입력된 숫자가 3보다 크고 7이하면
+      phoneNumber = phoneNumber.replace(/(\d{3})(\d{1,4})/, "$1-$2"); //010-**** 형식으로 변경
     } else if (phoneNumber.length > 7) {
-      phoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3"); // 010-xxxx-xxxx 형식으로 변경
+      // 입력된 숫자가 7보다 크면
+      phoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3"); //010-****-**** 형식으로 변경
     }
 
     event.target.value = phoneNumber; // 변환된 번호를 다시 입력 값으로 설정
@@ -324,7 +326,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     } else {
       console.log("error 항목이 존재합니다.");
-
     }
   });
 });

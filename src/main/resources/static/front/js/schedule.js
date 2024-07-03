@@ -1,46 +1,65 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const datePicker =document.getElementById("datepicker");
-  const today = new Date()
-  const year = today.getFullYear();
-  const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const day = ('0' + today.getDate()).slice(-2);
-  datePicker.value = year + '-' + month + '-' + day
+  function getTime(meridiem, hour, minute) {
+    let adjustedHour = hour;
 
-  const startHourDropdown = document.getElementById("start-hour-dropdown");
-  const startMinuteDropdown = document.getElementById("start-minute-dropdown");
+    if (meridiem === "PM" && hour !== 12) {
+      adjustedHour += 12;
+    } else if (meridiem === "AM" && hour === 12) {
+      adjustedHour = 0;
+    }
 
-  // Populate hours
-  for (let i = 1; i <= 12; i++) {
-    const option = document.createElement("option");
-    option.value = i;
-    option.text = i;
-    startHourDropdown.appendChild(option);
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const day = String(now.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}T${String(adjustedHour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00`;
   }
 
-  // Populate minutes
-  for (let i = 0; i < 60; i += 5) {
-    const option = document.createElement("option");
-    option.value = i < 10 ? `0${i}` : i;
-    option.text = i < 10 ? `0${i}` : i;
-    startMinuteDropdown.appendChild(option);
-  }
+  document
+    .querySelector("form")
+    .addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const startMeridiem = document.getElementById(
+        "start-meridiem-dropdown",
+      ).value;
+      const startHour = parseInt(
+        document.getElementById("start-hour-dropdown").value,
+      );
+      const startMinute = parseInt(
+        document.getElementById("start-minute-dropdown").value,
+      );
 
-  const endHourDropdown = document.getElementById("end-hour-dropdown");
-  const endMinuteDropdown = document.getElementById("end-minute-dropdown");
+      const endMeridiem = document.getElementById(
+        "end-meridiem-dropdown",
+      ).value;
+      const endHour = parseInt(
+        document.getElementById("end-hour-dropdown").value,
+      );
+      const endMinute = parseInt(
+        document.getElementById("end-minute-dropdown").value,
+      );
 
-  // Populate hours
-  for (let i = 1; i <= 12; i++) {
-    const option = document.createElement("option");
-    option.value = i;
-    option.text = i;
-    endHourDropdown.appendChild(option);
-  }
+      const startTime = getTime(startMeridiem, startHour, startMinute);
+      const endTime = getTime(endMeridiem, endHour, endMinute);
 
-  // Populate minutes
-  for (let i = 0; i < 60; i += 5) {
-    const option = document.createElement("option");
-    option.value = i < 10 ? `0${i}` : i;
-    option.text = i < 10 ? `0${i}` : i;
-    endMinuteDropdown.appendChild(option);
-  }
+      console.log("Start Time:", startTime);
+      console.log("End Time:", endTime);
+
+      const { data, error } = await client.from("group_schedule").insert([
+        {
+          group_id: "someValue",
+          place: "otherValue",
+          datetime: "",
+          users: "",
+          songs: "",
+          update_at: "",
+        },
+      ]);
+      if (error) {
+        console.error("Error insert schedule ", error);
+      } else {
+        console.log("insert schedule successfully:", data);
+      }
+    });
 });
