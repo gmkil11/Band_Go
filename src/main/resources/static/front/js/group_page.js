@@ -7,6 +7,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.location.href = "http://localhost:8080/group/edit"; // 수정해야함
   });
 
+  /* 스케쥴 추가 기능 */
+  const addScheduleButton = document.getElementById("add_schedule_span");
+  addScheduleButton.addEventListener("click", function () {
+    window.location.href = `http://localhost:8080/group/schedule?groupId=${groupId}`;
+  });
+
   const inviteButton = document.getElementById("invite_user");
   inviteButton.addEventListener("click", renderInviteUser);
 

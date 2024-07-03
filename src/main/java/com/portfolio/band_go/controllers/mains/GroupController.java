@@ -54,7 +54,8 @@ public class GroupController {
     }
 
     @GetMapping("/schedule")
-    public String addSchedule(@PathVariable("groupId") String groupId, Model model) {
+    public String addSchedule(@RequestParam("groupId") String groupId, Model model) {
+        model.addAttribute("groupId", groupId);
         return "front/main/group_schedule";
     }
 

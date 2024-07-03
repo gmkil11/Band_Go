@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const groupId = document.getElementById("group_id_span").innerText;
+
   function getTime(meridiem, hour, minute) {
     let adjustedHour = hour;
 
@@ -48,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const { data, error } = await client.from("group_schedule").insert([
         {
-          group_id: "someValue",
+          group_id: groupId,
           place: "otherValue",
-          datetime: "",
+          datetime: startTime,
           users: "",
           songs: "",
           update_at: "",
