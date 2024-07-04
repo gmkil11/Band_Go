@@ -15,6 +15,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script th:src="@{/front/js/schedule.js}"></script>
   <script th:src="@{/front/js/calender.js}"></script>
+  <script th:src="@{/front/js/group_page_functions.js}"></script>
 </th:block>
 
 <!--Body 영역-->
@@ -49,6 +50,17 @@
     </div>
     <p>장소 <input type="text" id="schedule_place"></p>
     <p>합주곡 <input type="text" id="schedule_songs"></p>
+
+
+    <div class="group-user-area">
+      <div class="group-user-area-span-box">
+        <span class="group-user-area-span">회원 목록</span>
+      </div>
+      <table id="userTable">
+        <tbody id="userTableBody">
+        </tbody>
+      </table>
+    </div>
     <button type="submit" id="submitButton">저장하기</button>
   </form>
   <script>
