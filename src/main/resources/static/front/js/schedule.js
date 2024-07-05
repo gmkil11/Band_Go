@@ -7,54 +7,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   hideSpinner();
 
-  function getTime(meridiem, hour, minute) {
-    let adjustedHour = hour;
-
-    if (meridiem === "PM" && hour !== 12) {
-      adjustedHour += 12;
-    } else if (meridiem === "AM" && hour === 12) {
-      adjustedHour = 0;
-    }
-
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-    const day = String(now.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${day}T${String(adjustedHour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00`;
-  }
-
   document
     .querySelector("form")
     .addEventListener("submit", async function (event) {
       event.preventDefault();
 
       /* 시간 선택 파트 시작 */
-      const startMeridiem = document.getElementById(
-        "start-meridiem-dropdown",
-      ).value;
-      const startHour = parseInt(
-        document.getElementById("start-hour-dropdown").value,
-      );
-      const startMinute = parseInt(
-        document.getElementById("start-minute-dropdown").value,
-      );
 
-      const endMeridiem = document.getElementById(
-        "end-meridiem-dropdown",
-      ).value;
-      const endHour = parseInt(
-        document.getElementById("end-hour-dropdown").value,
-      );
-      const endMinute = parseInt(
-        document.getElementById("end-minute-dropdown").value,
-      );
-
-      const startTime = getTime(startMeridiem, startHour, startMinute);
-      const endTime = getTime(endMeridiem, endHour, endMinute);
-
-      console.log("Start Time:", startTime);
-      console.log("End Time:", endTime);
+      const start_time = document.getElementById("startTime").value;
+      const end_time = document.getElementById("endTime").value;
+      const formatted_start_time = new Date(start_time).toISOString();
+      const formatted_end_time = new Date(end_time).toISOString();
 
       /* 시간 선택 파트 끝 */
 
@@ -83,10 +46,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         {
           group_id: groupId,
           place: place,
-          datetime: startTime,
+          start_time: formatted_start_time,
+          end_time: formatted_end_time,
           users: selectedUserIds,
           songs: songs,
-          update_at: startTime,
+          update_at: formatted_start_time,
         },
       ]);
       if (error) {

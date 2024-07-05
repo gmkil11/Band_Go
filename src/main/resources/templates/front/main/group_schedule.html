@@ -6,8 +6,8 @@
 <th:block layout:fragment="addCss">
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/jquery.datetimepicker.css}">
   <link rel="stylesheet" type="text/css" th:href="@{/front/css/calender.css}">
-
 </th:block>
 
 <th:block layout:fragment="addJs">
@@ -16,56 +16,32 @@
   <script th:src="@{/front/js/schedule.js}"></script>
   <script th:src="@{/front/js/calender.js}"></script>
   <script th:src="@{/front/js/group_page_functions.js}"></script>
+  <script th:src="@{/front/js/jquery.datetimepicker.full.js}"></script>
 </th:block>
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
   <span th:text="${groupId}" id="group_id_span"></span>
   <form>
-    <p>일정을 선택해주세요. <input type="text" id="datepicker" ></p>
-    <!--<div class="time-picker">
-      <div class="start-time-picker">
-        <select id="start-AmPm-dropdown" class="time-picker-select">
-          <option value="AM">오전</option>
-          <option value="PM">오후</option>
-        </select>
-        <select id="start-hour-dropdown" class="time-picker-select">
-
-        </select>
-        <span>:</span>
-        <select id="start-minute-dropdown" class="time-picker-select">
-
-        </select>
-      </div>-->
-    <div class="time-picker">
-      <div class="start-time-picker">
-        <input>
-      </div>
-      <div class="start-time-picker-drop-menu">
-        <div class="Hour">
-
-        </div>
-        <div class="minuet">
-
-        </div>
-      </div>
-
+    <p>일정을 선택해주세요.></p>
+    <div class="datetime-container">
+      <input type="text" id="startTime" class="datetimepicker" placeholder="시작 시간" autocomplete="off">
+      <input type="text" id="endTime" class="datetimepicker" placeholder="종료 시간" autocomplete="off">
     </div>
     <p>장소 <input type="text" id="schedule_place"></p>
     <p>합주곡 <input type="text" id="schedule_songs"></p>
-
 
     <div class="group-user-area">
       <div class="group-user-area-span-box">
         <span class="group-user-area-span">회원 목록</span>
       </div>
       <table id="userTable">
-        <tbody id="userTableBody">
-        </tbody>
+        <tbody id="userTableBody"></tbody>
       </table>
     </div>
     <button type="submit" id="submitButton">저장하기</button>
   </form>
+
   <script>
 
   </script>

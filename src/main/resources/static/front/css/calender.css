@@ -99,3 +99,48 @@ a.ui-button:active,
 .ui-datepicker td {
   padding: 1px 7px;
 }
+
+/* 캘린더 th*/
+.xdsoft_datetimepicker .xdsoft_calendar th {
+  background: #76819c;
+}
+
+.xdsoft_datetimepicker .xdsoft_calendar td:hover,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
+  color: #fff !important;
+  background: #76819c !important;
+  box-shadow: none !important;
+}
+
+.xdsoft_datetimepicker .xdsoft_calendar td,
+.xdsoft_datetimepicker .xdsoft_calendar th {
+  text-align: center;
+}
+
+.xdsoft_day_of_week0 {
+  color: red;
+}
+
+.xdsoft_day_of_week1 {
+  color: #000000;
+}
+
+.xdsoft_day_of_week2 {
+  color: #000000;
+}
+
+.xdsoft_day_of_week3 {
+  color: #000000;
+}
+
+.xdsoft_day_of_week4 {
+  color: #000000;
+}
+
+.xdsoft_day_of_week5 {
+  color: #000000;
+}
+
+.xdsoft_day_of_week6 {
+  color: dodgerblue;
+}
