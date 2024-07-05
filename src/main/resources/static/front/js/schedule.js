@@ -102,10 +102,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     tableBody.innerHTML = ""; // 기존 내용을 초기화
 
-    users.forEach((user) => {
+    users.forEach((user, index) => {
       console.log("group_id:", user.group_id);
       const row = document.createElement("tr");
-      row.classList.add("user-row"); // 클래스 추가
+      row.classList.add(`user-row`); // 클래스 추가
+      row.classList.add(`user-row-${index}`);
 
       const img = document.createElement("img");
       img.src = "/img/icons/my_profile.svg";
@@ -142,10 +143,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.value = user.id;
-      checkbox.classList.add("user-checkbox");
+      checkbox.classList.add(`user-checkbox`);
+      checkbox.classList.add(`user-checkbox-${index}`);
       checkbox.checked = true;
       checkboxCell.appendChild(checkbox);
       row.appendChild(checkboxCell);
+
+      row.addEventListener("click", () => {
+        checkbox.checked = !checkbox.checked; // 체크박스 체크 상태 토글
+      });
 
       tableBody.appendChild(row);
     });

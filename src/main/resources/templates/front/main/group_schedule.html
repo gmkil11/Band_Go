@@ -23,30 +23,33 @@
   <span th:text="${groupId}" id="group_id_span"></span>
   <form>
     <p>일정을 선택해주세요. <input type="text" id="datepicker" ></p>
+    <!--<div class="time-picker">
+      <div class="start-time-picker">
+        <select id="start-AmPm-dropdown" class="time-picker-select">
+          <option value="AM">오전</option>
+          <option value="PM">오후</option>
+        </select>
+        <select id="start-hour-dropdown" class="time-picker-select">
+
+        </select>
+        <span>:</span>
+        <select id="start-minute-dropdown" class="time-picker-select">
+
+        </select>
+      </div>-->
     <div class="time-picker">
-      <select id="start-meridiem-dropdown" class="time-picker-select">
-        <option value="AM">오전</option>
-        <option value="PM">오후</option>
-      </select>
-      <select id="start-hour-dropdown" class="time-picker-select">
+      <div class="start-time-picker">
+        <input>
+      </div>
+      <div class="start-time-picker-drop-menu">
+        <div class="Hour">
 
-      </select>
-      <span>:</span>
-      <select id="start-minute-dropdown" class="time-picker-select">
+        </div>
+        <div class="minuet">
 
-      </select>
-      ~
-      <select id="end-meridiem-dropdown" class="time-picker-select">
-        <option value="AM">오전</option>
-        <option value="PM">오후</option>
-      </select>
-      <select id="end-hour-dropdown" class="time-picker-select">
+        </div>
+      </div>
 
-      </select>
-      <span>:</span>
-      <select id="end-minute-dropdown" class="time-picker-select">
-
-      </select>
     </div>
     <p>장소 <input type="text" id="schedule_place"></p>
     <p>합주곡 <input type="text" id="schedule_songs"></p>

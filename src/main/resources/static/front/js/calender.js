@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const startHourDropdown = document.getElementById("start-hour-dropdown");
   const startMinuteDropdown = document.getElementById("start-minute-dropdown");
+  const startAmPmDropdown = document.getElementById("start-AmPm-dropdown");
+  const endAmPmDropdown = document.getElementById("end-AmPm-dropdown");
 
   // Populate hours
   for (let i = 1; i <= 12; i++) {
@@ -114,4 +116,32 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
   });
+
+  // TODO
+  /**
+   * 0. 공통부분
+   *    - startTime과 EndTime의 시간차 표시
+   * 1. startAmPm의 값이 오전일 경우
+   *    - startHour의 값을 받아옴
+   *    - endHour의 옵션값을 startHour보다 큰 값부터 시작되게 옵션 재설정
+   *    - startMinuet의 값을 받아옴
+   *    - endMinuet의 옵션값을 endMinuet보다 큰 값부터 시작되게  옵션 재설정
+   *    - 만약 startHour과 EndHour이 같다면 endminuet의 값이 startMinuet의 값보다 크게 옵션 재설정
+   * 2. statAmPm의 값이 오후일 경우
+   *    - startHour의 값을 받아옴
+   *    - endHour의 옵션값을 startHour보다 큰 값부터 시작되게 옵션 재설정
+   *    - startMinuet의 값을 받아옴
+   *    - endMinuet의 옵션값을 endMinuet보다 큰 값부터 시작되게  옵션 재설정
+   *    - 만약 startHour과 EndHour이 같다면 endminuet의 값이 startMinuet의 값보다 크게 옵션 재설정
+   *    - statAmPm이 오후이고 endAmPm이 오전일 경우에는 시간차 표시하는 부분이 다음날이라고 생각하고 계산
+   *
+   */
+  function updateEndTimeOptions() {
+    if (startAmPmDropdown.value === "AM") {
+    }
+  }
+
+  startAmPmDropdown.addEventListener("change", updateEndTimeOptions);
+  startHourDropdown.addEventListener("change", updateEndTimeOptions);
+  startMinuteDropdown.addEventListener("change", updateEndTimeOptions);
 });
