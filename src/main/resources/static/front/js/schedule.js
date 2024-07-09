@@ -120,4 +120,20 @@ document.addEventListener("DOMContentLoaded", async function () {
       tableBody.appendChild(row);
     });
   }
+
+  document.querySelector(".add_songs").addEventListener("click", function () {
+    const songPopup = document.querySelector(".popup_form");
+    showOverlay();
+    songPopup.style.display = "block";
+    const overlay = document.getElementById("overlay");
+    overlay.addEventListener("click", function () {
+      hideOverlay();
+      songPopup.style.display = "none";
+    });
+    const cancelButton = document.getElementById("popup_cancel_button");
+    cancelButton.addEventListener("click", function () {
+      hideOverlay();
+      songPopup.style.display = "none";
+    });
+  });
 });

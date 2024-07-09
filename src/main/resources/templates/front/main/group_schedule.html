@@ -21,6 +21,26 @@
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
+  <div class="popup_form">
+    <div class="invite_title_box">
+      <span>합주곡 추가하기</span>
+      <img th:src="@{/img/icons/cancel.svg}" id="popup_cancel_button">
+    </div>
+    <div class="popup_box">
+      <div class="song_info_box">
+        <input placeholder="노래 제목">
+        <input placeholder="아티스트">
+        <input placeholder="합주시 참고해야할 사항을 적어주세요!">
+      </div>
+      <div class="invite_email_span_box">
+        <span>이메일 초대</span>
+        <div class="invite_link_span_box">
+          <input placeholder="초대받을 회원의 이메일을 입력하세요">
+          <img th:src="@{/img/icons/email.svg}" class="invite_icon">
+        </div>
+      </div>
+    </div>
+  </div>
   <span th:text="${groupId}" id="group_id_span"></span>
   <form>
     <p>일정을 선택해주세요.></p>
@@ -29,7 +49,7 @@
       <input type="text" id="endTime" class="datetimepicker" placeholder="종료 시간" autocomplete="off">
     </div>
     <p>장소 <input type="text" id="schedule_place"></p>
-    <p>합주곡 <input type="text" id="schedule_songs"></p>
+    <p class="add_songs">합주곡 추가하기</p>
 
     <div class="group-user-area">
       <div class="group-user-area-span-box">

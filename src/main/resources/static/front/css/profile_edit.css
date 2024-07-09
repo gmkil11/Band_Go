@@ -469,7 +469,7 @@
   color: #2D3F51;
 }
 
-.invite_form {
+.popup_form {
   display: none;
   flex-direction: column;
   position: absolute;
@@ -484,7 +484,7 @@
   gap: 20px;
 }
 
-.invite_box {
+.popup_box {
   display: flex;
   flex-direction: column;
 }
@@ -583,7 +583,7 @@
   color: #76819C;
 }
 
-#invite_cancel_button {
+#popup_cancel_button {
   cursor: pointer;
 }
 
@@ -709,4 +709,7 @@ select option {
   color: #000;
 }
 
+/* 합주곡 추가 css */
+.song_info_box {
 
+}
