@@ -170,6 +170,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const songItem = document.createElement("div");
         songItem.classList.add(`song_list_item`);
         songItem.classList.add(`song_list_${songIndex}`);
+        songItem.dataset.index = songIndex; // 인덱스를 데이터 속성으로 추가
         songItem.innerHTML = `
         <p class="song_header"><strong>노래 제목:</strong> ${title} <button class="delete_song_button">삭제</button></p>
         <p><strong>아티스트:</strong> ${artist}</p>
@@ -193,6 +194,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         updateSongListMessage();
 
         songIndex++;
+        console.log(songsList);
       } else {
         alert("모든 필드를 입력해주세요.");
       }
@@ -209,15 +211,17 @@ document.addEventListener("DOMContentLoaded", async function () {
         // 클릭된 삭제 버튼의 부모 요소인 노래 아이템 찾기
         const songItem = event.target.closest(".song_list_item");
         if (songItem) {
-          // 삭제된 곡을 songsList 배열에서 제거
-          const songIndexToRemove = Array.from(
-            songItem.parentElement.children,
-          ).indexOf(songItem);
-          songsList.splice(songIndexToRemove, 1);
+          // 노래 아이템에서 인덱스를 추출
+          const songIndex = parseInt(songItem.dataset.index, 10);
+          console.log("Deleting song with index:", songIndex);
+
+          // 배열에서 해당 곡을 제거
+          songsList = songsList.filter((song, index) => index !== songIndex);
 
           // 노래 아이템 제거
           songItem.remove();
           updateSongListMessage(); // 삭제 후 메시지 업데이트
+          console.log(songsList);
         }
       }
     });
