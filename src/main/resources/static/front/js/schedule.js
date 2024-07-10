@@ -1,11 +1,15 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const groupId = document.getElementById("group_id_span").innerText;
+  const songPopup = document.querySelector(".popup_form");
+  let songIndex = 0;
+  let songsList = []; // 곡 목록을 저장할 배열
+
+  showSpinner();
 
   if (groupId) {
     renderScheduleMembers(await getUserList(groupId)); // 스케줄 멤버 렌더링 함수 호출
+    hideOverlay();
   }
-
-  hideSpinner();
 
   document
     .querySelector("form")
@@ -13,13 +17,21 @@ document.addEventListener("DOMContentLoaded", async function () {
       event.preventDefault();
 
       /* 시간 선택 파트 시작 */
-
       const start_time = document.getElementById("startTime").value;
       const end_time = document.getElementById("endTime").value;
-      const formatted_start_time = new Date(start_time).toISOString();
-      const formatted_end_time = new Date(end_time).toISOString();
 
-      /* 시간 선택 파트 끝 */
+      // 유효한 날짜와 시간인지 확인
+      const formatted_start_time = isValidDate(start_time)
+        ? new Date(start_time).toISOString()
+        : null;
+      const formatted_end_time = isValidDate(end_time)
+        ? new Date(end_time).toISOString()
+        : null;
+
+      if (!formatted_start_time || !formatted_end_time) {
+        alert("올바른 날짜와 시간을 입력해 주세요.");
+        return; // 날짜가 유효하지 않으면 함수 종료
+      }
 
       /* 유저 선택 파트 시작 */
       const selectedUserIds = Array.from(
@@ -27,20 +39,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       ).map((checkbox) => checkbox.value);
       console.log("Selected User IDs:", selectedUserIds);
 
-      /* 유저 선택 파트 끝 */
-
       /* 노래 선택 파트 시작 */
-      const songs = document.getElementById("schedule_songs").value;
-      /* 노래 선택 파트 끝 */
+      const songs = JSON.stringify(songsList); // JSON 객체를 문자열로 변환
+      console.log("Songs JSON:", songs);
 
       /* 장소 선택 파트 시작 */
       const place = document.getElementById("schedule_place").value;
-      /* 장소 선택 파트 끝 */
 
       /* update_at 파트 시작 */
       let today = new Date();
       const updateTime = today.getFullYear();
-      /* update_at 파트 끝 */
 
       const { data, error } = await client.from("group_schedule").insert([
         {
@@ -49,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           start_time: formatted_start_time,
           end_time: formatted_end_time,
           users: selectedUserIds,
-          songs: songs,
+          songs: songs, // JSON 문자열을 삽입
           update_at: formatted_start_time,
         },
       ]);
@@ -121,8 +129,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
 
+  function updateSongListMessage() {
+    const songList = document.getElementById("song_list");
+    const emptyMessage = document.getElementById("song_empty_message");
+
+    // song_list_item 클래스를 가진 자식 요소가 있는지 확인
+    const hasSongs = songList.querySelectorAll(".song_list_item").length > 0;
+
+    if (hasSongs) {
+      emptyMessage.style.display = "none";
+    } else {
+      emptyMessage.style.display = "block";
+    }
+  }
+
   document.querySelector(".add_songs").addEventListener("click", function () {
-    const songPopup = document.querySelector(".popup_form");
     showOverlay();
     songPopup.style.display = "block";
     const overlay = document.getElementById("overlay");
@@ -136,4 +157,74 @@ document.addEventListener("DOMContentLoaded", async function () {
       songPopup.style.display = "none";
     });
   });
+
+  document
+    .getElementById("addSongButton")
+    .addEventListener("click", function () {
+      const title = document.getElementById("songTitle").value;
+      const artist = document.getElementById("songArtist").value;
+      const details = document.getElementById("songDetails").value;
+      const songList = document.getElementById("song_list");
+
+      if (title && artist && details) {
+        const songItem = document.createElement("div");
+        songItem.classList.add(`song_list_item`);
+        songItem.classList.add(`song_list_${songIndex}`);
+        songItem.innerHTML = `
+        <p class="song_header"><strong>노래 제목:</strong> ${title} <button class="delete_song_button">삭제</button></p>
+        <p><strong>아티스트:</strong> ${artist}</p>
+        <p><strong>참고 사항:</strong> ${details}</p>
+      `;
+        songList.appendChild(songItem);
+
+        // 새로운 곡을 songsList 배열에 추가
+        songsList.push({
+          title: title,
+          artist: artist,
+          details: details,
+        });
+
+        document.getElementById("songTitle").value = "";
+        document.getElementById("songArtist").value = "";
+        document.getElementById("songDetails").value = "";
+        hideOverlay();
+        songPopup.style.display = "none";
+
+        updateSongListMessage();
+
+        songIndex++;
+      } else {
+        alert("모든 필드를 입력해주세요.");
+      }
+    });
+
+  document
+    .getElementById("song_list")
+    .addEventListener("click", function (event) {
+      // 클릭된 요소가 삭제 버튼인지 확인
+      if (
+        event.target &&
+        event.target.classList.contains("delete_song_button")
+      ) {
+        // 클릭된 삭제 버튼의 부모 요소인 노래 아이템 찾기
+        const songItem = event.target.closest(".song_list_item");
+        if (songItem) {
+          // 삭제된 곡을 songsList 배열에서 제거
+          const songIndexToRemove = Array.from(
+            songItem.parentElement.children,
+          ).indexOf(songItem);
+          songsList.splice(songIndexToRemove, 1);
+
+          // 노래 아이템 제거
+          songItem.remove();
+          updateSongListMessage(); // 삭제 후 메시지 업데이트
+        }
+      }
+    });
+
+  // 날짜가 유효한지 확인하는 함수
+  function isValidDate(dateString) {
+    const date = new Date(dateString);
+    return !isNaN(date.getTime()); // 유효한 날짜인지 확인
+  }
 });

@@ -711,5 +711,13 @@ select option {
 
 /* 합주곡 추가 css */
 .song_info_box {
+  display: flex;
+  flex-direction: column;
+}
 
+.song_list_item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: #CAD7E0 1px solid;
 }
