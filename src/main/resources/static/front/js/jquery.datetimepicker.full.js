@@ -11,6 +11,7 @@
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */ !(function (t, e) {
+
   "function" == typeof define && define.amd
     ? define([], e)
     : "object" == typeof module && module.exports
