@@ -17,3 +17,11 @@
   border: #d23123 solid 1px; !important;
   background-color: #ffebeb; !important;
 }
+
+.error_box {
+  display: none;
+}
+
+.error_box span {
+  color: #d23123; !important;
+}

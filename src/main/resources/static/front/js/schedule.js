@@ -50,21 +50,23 @@ document.addEventListener("DOMContentLoaded", async function () {
       let today = new Date();
       const updateTime = today.getFullYear();
 
-      const { data, error } = await client.from("group_schedule").insert([
-        {
-          group_id: groupId,
-          place: place,
-          start_time: formatted_start_time,
-          end_time: formatted_end_time,
-          users: selectedUserIds,
-          songs: songs, // JSON 문자열을 삽입
-          update_at: formatted_start_time,
-        },
-      ]);
-      if (error) {
-        console.error("Error insert schedule ", error);
-      } else {
-        console.log("insert schedule successfully:", data);
+      if (!document.querySelector(".popup_form").querySelector(".error")) {
+        const { data, error } = await client.from("group_schedule").insert([
+          {
+            group_id: groupId,
+            place: place,
+            start_time: formatted_start_time,
+            end_time: formatted_end_time,
+            users: selectedUserIds,
+            songs: songs, // JSON 문자열을 삽입
+            update_at: formatted_start_time,
+          },
+        ]);
+        if (error) {
+          console.error("Error insert schedule ", error);
+        } else {
+          console.log("insert schedule successfully:", data);
+        }
       }
     });
 
@@ -163,10 +165,26 @@ document.addEventListener("DOMContentLoaded", async function () {
     .addEventListener("click", function () {
       const title = document.getElementById("songTitle").value;
       const artist = document.getElementById("songArtist").value;
-      const details = document.getElementById("songDetails").value;
+      let details = document.getElementById("songDetails").value;
       const songList = document.getElementById("song_list");
 
-      if (title && artist && details) {
+      validateNullInput(
+        document.querySelector(".song_title_box"),
+        document.getElementById("songTitle"),
+        null,
+        document.querySelector(".song_title_error_box"),
+      );
+
+      validateNullInput(
+        document.querySelector(".song_artist_box"),
+        document.getElementById("songArtist"),
+        null,
+        document.querySelector(".song_artist_error_box"),
+      );
+
+      const sanitizedDetails = sanitizeInput(details);
+
+      if (!document.querySelector(".popup_form").querySelector(".error")) {
         const songItem = document.createElement("div");
         songItem.classList.add(`song_list_item`);
         songItem.classList.add(`song_list_${songIndex}`);
@@ -174,7 +192,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         songItem.innerHTML = `
         <p class="song_header"><strong>노래 제목:</strong> ${title} <button class="delete_song_button">삭제</button></p>
         <p><strong>아티스트:</strong> ${artist}</p>
-        <p><strong>참고 사항:</strong> ${details}</p>
+        <p><strong>참고 사항:</strong> ${sanitizedDetails}</p>
       `;
         songList.appendChild(songItem);
 
@@ -182,7 +200,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         songsList.push({
           title: title,
           artist: artist,
-          details: details,
+          details: sanitizedDetails,
         });
 
         document.getElementById("songTitle").value = "";
@@ -196,7 +214,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         songIndex++;
         console.log(songsList);
       } else {
-        alert("모든 필드를 입력해주세요.");
+        console.log("모든 필드를 입력해주세요.");
       }
     });
 

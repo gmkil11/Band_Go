@@ -143,10 +143,17 @@ async function checkDuplicateGroupName(
   }
 }
 
+function sanitizeInput(input) {
+  const regex = /[<>&"'\/`]/g; // 특수문자와 HTML 태그를 필터링하는 정규식
+  return input.replace(regex, "");
+}
+
 function validateNullInput(inputBox, input, inputIcon, inputError) {
-  if (input.value === "") {
+  const sanitizedValue = sanitizeInput(input.value);
+
+  if (sanitizedValue === "") {
     handleInputError(inputBox, input, inputIcon, inputError);
-    console.log("인풋 항목 입력안됨");
+    console.log("인풋 항목 입력안됨 또는 특수문자 포함");
   } else {
     console.log("인풋 항목 입력되었음!");
     resetInputError(inputBox, input, inputIcon, inputError);
@@ -156,7 +163,7 @@ function validateNullInput(inputBox, input, inputIcon, inputError) {
 function handleInputError(inputBox, inputElement, iconElement, errorBox) {
   inputBox.classList.add("error");
   inputElement.classList.add("error");
-  handleIconError(iconElement);
+  if (iconElement) handleIconError(iconElement);
   errorBox.style.display = "flex";
   errorBox.style.color = "#D23123";
   inputElement.classList.replace("placeholder", "error_placeholder");
@@ -165,21 +172,20 @@ function handleInputError(inputBox, inputElement, iconElement, errorBox) {
 function resetInputError(inputBox, inputElement, iconElement, errorBox) {
   inputBox.classList.remove("error");
   inputElement.classList.remove("error");
-  resetIconError(iconElement);
+  if (iconElement) resetIconError(iconElement);
   errorBox.style.display = "none";
   inputElement.classList.replace("error_placeholder", "placeholder");
 }
 
-function handleIconError(Icon) {
-  Icon.style.filter =
+function handleIconError(icon) {
+  icon.style.filter =
     "invert(20%) sepia(93%) saturate(3205%) hue-rotate(354deg) brightness(89%) contrast(83%)";
 }
 
-function resetIconError(Icon) {
-  Icon.style.filter =
+function resetIconError(icon) {
+  icon.style.filter =
     "invert(54%) sepia(12%) saturate(692%) hue-rotate(185deg) brightness(91%) contrast(89%)";
 }
-
 function showErrorBox(errorBox, errorBoxSpan) {
   console.log("showErrorBox 함수가 호출되었습니다.");
   errorBox.style.color = "black";

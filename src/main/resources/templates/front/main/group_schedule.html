@@ -28,9 +28,23 @@
     </div>
     <div class="popup_box">
       <div class="song_info_box">
-        <input id="songTitle" placeholder="노래 제목">
-        <input id="songArtist" placeholder="아티스트">
-        <input id="songDetails" placeholder="합주시 참고해야할 사항을 적어주세요!">
+        <div class="song_title_box">
+          <input id="songTitle" placeholder="노래 제목">
+        </div>
+        <div class="song_title_error_box error_box">
+          <img th:src="@{/img/icons/error.svg}">
+          <span>노래 제목이 입력되지 않았습니다.</span>
+        </div>
+        <div class="song_artist_box">
+          <input id="songArtist" placeholder="아티스트">
+        </div>
+        <div class="song_artist_error_box error_box">
+          <img th:src="@{/img/icons/error.svg}">
+          <span>노래 제목이 입력되지 않았습니다.</span>
+        </div>
+        <div class="song_details_box">
+          <input id="songDetails" placeholder="합주시 참고해야할 사항을 적어주세요!">
+        </div>
         <button id="addSongButton">추가하기</button>
       </div>
     </div>
