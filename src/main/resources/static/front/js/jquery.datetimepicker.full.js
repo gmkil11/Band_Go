@@ -16,6 +16,7 @@
     ? define([], e)
     : "object" == typeof module && module.exports
       ? (module.exports = e())
+
       : (t.DateFormatter = e());
 })("undefined" != typeof self ? self : this, function () {
   var t, e;
