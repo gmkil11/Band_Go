@@ -469,6 +469,60 @@
   color: #2D3F51;
 }
 
+#scheduleTable {
+  width: 100%;
+}
+
+.schedule-row{
+  display: flex;
+  border-top: 1px solid #CAD7E0;
+  align-items: center;
+  padding : 10px;
+  gap: 10px;
+}
+
+.schedule-text-field {
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+}
+
+.schedule_songs_value {
+  display: flex;
+}
+
+.songs_header {
+  display: flex;
+}
+
+.songs_index {
+  color: #2D3F51;
+  font-weight: bold;
+  font-size: 2rem;
+  width: 0;
+}
+
+.songs_title {
+  color: #2D3F51;
+  font-weight: bold;
+}
+
+.songs_body{
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.songs_artist {
+  color: #2D3F51;
+  font-weight: bold;
+}
+
+.songs_details {
+  color: #2D3F51;
+  font-weight: bold;
+}
+
 .popup_form {
   display: none;
   flex-direction: column;

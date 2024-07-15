@@ -78,6 +78,24 @@ async function getUserList(groupId) {
   }
 }
 
+async function getScheduleList(groupId) {
+  let { data: group_schedule_data, error } = await client
+    .from("group_schedule")
+    .select("*")
+    .eq("group_id", groupId);
+
+  if (error) {
+    console.log(
+      "group_schedule 테이블에서 일정 목록을 가져오는데 실패했습니다.",
+      error,
+    );
+  } else {
+    console.log("group에 해당 되는 일정:", group_schedule_data);
+
+    return group_schedule_data;
+  }
+}
+
 function renderUsers(users) {
   const tableBody = document.getElementById("userTableBody");
   if (!tableBody) return; // tableBody가 없으면 함수 종료
@@ -123,6 +141,76 @@ function renderUsers(users) {
 
     const sessionBox = createSessionBox(sessions); // 유저의 세션 정보에 맞는 박스 생성
     div.appendChild(sessionBox);
+
+    tableBody.appendChild(row);
+  });
+}
+
+function renderSchedules(schedules) {
+  const tableBody = document.getElementById("scheduleTableBody");
+  if (!tableBody) return; // scheduleTableBody가 없으면 함수 종료
+
+  tableBody.innerHTML = ""; // 기존 내용을 초기화
+
+  schedules.forEach((schedule) => {
+    console.log("group_id:", schedule.group_id);
+    const row = document.createElement("tr");
+    row.classList.add("schedule-row"); // 클래스 추가
+
+    row.addEventListener("click", () => {
+      /*window.location.href = `http://localhost:8080/group/${group.group_id}`;*/
+    });
+
+    const div = document.createElement("div");
+    div.classList.add("schedule-text-field");
+    row.appendChild(div);
+
+    const scheduleDateCell = document.createElement("td");
+    scheduleDateCell.textContent = `${schedule.start_time} ~ ${schedule.end_time}`;
+    scheduleDateCell.classList.add("schedule_time");
+    div.appendChild(scheduleDateCell);
+
+    const schedulePlaceCell = document.createElement("td");
+    scheduleDateCell.textContent = `${schedule.place}`;
+    scheduleDateCell.classList.add("schedule_place");
+    div.appendChild(schedulePlaceCell);
+
+    const scheduleSongsCell = document.createElement("td");
+    scheduleSongsCell.classList.add("schedule_songs");
+
+    // songs JSON 배열 파싱 및 포맷
+    const songs = JSON.parse(schedule.songs);
+    let songsHtml = "";
+    songs.forEach((song, index) => {
+      songsHtml += `
+        <div class="schedule_songs_value">
+          <div class="songs_header">
+            <span class="songs_index">${index + 1}</span>
+          </div>
+          <div class="songs_body">
+            <div class="songs_title_box">
+              <span class="songs_title">노래 제목</span>
+              <span class="songs_title_value">${song.title}</span>
+            </div>
+            <div class="songs_artist_box">
+              <span class="songs_artist">아티스트</span>
+              <span class="songs_artist_value">${song.artist}</span>
+            </div>
+            ${
+              song.details
+                ? `
+                  <div class="songs_details_box">
+                      <span class="songs_details">상세 항목</span>
+                      <span class="songs_details_value">${song.details}</span>
+                  </div>`
+                : ""
+            }
+          </div>
+        </div>
+      `;
+    });
+    scheduleSongsCell.innerHTML = songsHtml;
+    div.appendChild(scheduleSongsCell);
 
     tableBody.appendChild(row);
   });

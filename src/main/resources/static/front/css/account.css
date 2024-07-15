@@ -250,7 +250,6 @@ form .rows:nth-child(5) img {
   color: white;
   border-radius: 5px;
   text-align: center;
-  display: block;
   transition: 0.3s all;
 }
 
