@@ -17,21 +17,31 @@ document.addEventListener("DOMContentLoaded", async function () {
       event.preventDefault();
 
       /* 시간 선택 파트 시작 */
-      const start_time = document.getElementById("startTime").value;
-      const end_time = document.getElementById("endTime").value;
+      const start_time = document.getElementById("start-datetimepicker");
+      const end_time = document.getElementById("end-datetimepicker");
+
+      console.log(start_time.value, end_time.value);
 
       // 유효한 날짜와 시간인지 확인
-      const formatted_start_time = isValidDate(start_time)
-        ? new Date(start_time).toISOString()
+      const formatted_start_time = isValidDate(start_time.value)
+        ? new Date(start_time.value).toISOString()
         : null;
-      const formatted_end_time = isValidDate(end_time)
-        ? new Date(end_time).toISOString()
+      const formatted_end_time = isValidDate(end_time.value)
+        ? new Date(end_time.value).toISOString()
         : null;
 
-      if (!formatted_start_time || !formatted_end_time) {
-        alert("올바른 날짜와 시간을 입력해 주세요.");
-        return; // 날짜가 유효하지 않으면 함수 종료
-      }
+      validateNullInput(
+        document.getElementById("start-datetime-display"),
+        start_time,
+        null,
+        document.querySelector(".start_time_error_box"),
+      );
+      validateNullInput(
+        document.getElementById("end-datetime-display"),
+        end_time,
+        null,
+        document.querySelector(".end_time_error_box"),
+      );
 
       /* 유저 선택 파트 시작 */
       const selectedUserIds = Array.from(
@@ -50,7 +60,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       let today = new Date();
       const updateTime = today.getFullYear();
 
-      if (!document.querySelector(".popup_form").querySelector(".error")) {
+      if (
+        !document.querySelector(".popup_form").querySelector(".error") &&
+        !document.querySelector(".add_schedule_form").querySelector(".error")
+      ) {
         const { data, error } = await client.from("group_schedule").insert([
           {
             group_id: groupId,

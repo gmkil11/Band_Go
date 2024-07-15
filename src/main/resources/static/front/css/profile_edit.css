@@ -722,3 +722,14 @@ select option {
   border: #CAD7E0 1px solid;
 }
 
+.datetime-container {
+  display: flex;
+  align-items: center;
+}
+
+.datetime-input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+}

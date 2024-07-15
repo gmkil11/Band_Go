@@ -50,18 +50,30 @@
     </div>
   </div>
   <span th:text="${groupId}" id="group_id_span"></span>
-  <form>
+  <form class="add_schedule_form">
     <p>일정을 선택해주세요.</p>
     <div class="datetime-container">
-      <span class="datetimepicker">1234</span>
-      <input type="text" id="startTime" class="datetimepicker" placeholder="시작 시간" autocomplete="off">
-      <input type="text" id="endTime" class="datetimepicker" placeholder="종료 시간" autocomplete="off">
-
-      <span id="datetime-display">Select Date and Time</span>
-      <button id="datetimepicker-icon" class="datetime-icon" type="button">
+      <span id="start-datetime-display">시작 시간</span>
+      <button id="start-datetimepicker-icon" class="datetime-icon" type="button">
         <img th:src="@{/img/icons/calender.svg}" alt="Open DateTimePicker">
       </button>
-      <input type="text" id="datetimepicker" class="datetime-input" value="2024/10/10 10:00">
+      <input type="text" id="start-datetimepicker" class="datetime-input">
+      <div class="start_time_error_box error_box">
+        <img th:src="@{/img/icons/error.svg}">
+        <span>시작 시간이 입력되지 않았습니다.</span>
+      </div>
+    </div>
+
+    <div class="datetime-container">
+      <span id="end-datetime-display">종료 시간</span>
+      <button id="end-datetimepicker-icon" class="datetime-icon" type="button">
+        <img th:src="@{/img/icons/calender.svg}" alt="Open DateTimePicker">
+      </button>
+      <input type="text" id="end-datetimepicker" class="datetime-input">
+      <div class="end_time_error_box error_box">
+        <img th:src="@{/img/icons/error.svg}">
+        <span>종료 시간이 입력되지 않았습니다.</span>
+      </div>
     </div>
     <p>장소 <input type="text" id="schedule_place"></p>
     <p class="add_songs">합주곡 추가하기</p>
