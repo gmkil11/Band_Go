@@ -43,6 +43,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.querySelector(".end_time_error_box"),
       );
 
+      /* 일정 제목 시작 */
+      const title = document.getElementById("schedule-title").value;
+      validateNullInput(
+        document.querySelector(".schedule_title_box"),
+        document.getElementById("schedule-title"),
+        null,
+        document.querySelector(".schedule_title_error_box"),
+      );
+
       /* 유저 선택 파트 시작 */
       const selectedUserIds = Array.from(
         document.querySelectorAll(".user-checkbox:checked"),
@@ -68,6 +77,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           {
             group_id: groupId,
             place: place,
+            title: title,
             start_time: formatted_start_time,
             end_time: formatted_end_time,
             users: selectedUserIds,

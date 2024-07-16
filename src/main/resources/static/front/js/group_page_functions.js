@@ -165,14 +165,22 @@ function renderSchedules(schedules) {
     div.classList.add("schedule-text-field");
     row.appendChild(div);
 
+    // 시간 형식 변환 및 차이 계산
+    const startDate = new Date(schedule.start_time);
+    const endDate = new Date(schedule.end_time);
+    const duration = Math.abs(endDate - startDate) / 36e5; // 시간 차이 계산
+
+    const formattedStartDate = `${startDate.getFullYear()}년 ${String(startDate.getMonth() + 1).padStart(2, "0")}월 ${String(startDate.getDate()).padStart(2, "0")}일 ${String(startDate.getHours()).padStart(2, "0")}:${String(startDate.getMinutes()).padStart(2, "0")}`;
+    const formattedEndDate = `${endDate.getFullYear()}년 ${String(endDate.getMonth() + 1).padStart(2, "0")}월 ${String(endDate.getDate()).padStart(2, "0")}일 ${String(endDate.getHours()).padStart(2, "0")}:${String(endDate.getMinutes()).padStart(2, "0")}`;
+
     const scheduleDateCell = document.createElement("td");
-    scheduleDateCell.textContent = `${schedule.start_time} ~ ${schedule.end_time}`;
+    scheduleDateCell.textContent = `${formattedStartDate} ~ ${formattedEndDate} (${duration}시간)`;
     scheduleDateCell.classList.add("schedule_time");
     div.appendChild(scheduleDateCell);
 
     const schedulePlaceCell = document.createElement("td");
-    scheduleDateCell.textContent = `${schedule.place}`;
-    scheduleDateCell.classList.add("schedule_place");
+    schedulePlaceCell.textContent = `${schedule.place}`;
+    schedulePlaceCell.classList.add("schedule_place");
     div.appendChild(schedulePlaceCell);
 
     const scheduleSongsCell = document.createElement("td");

@@ -51,6 +51,13 @@
   </div>
   <span th:text="${groupId}" id="group_id_span"></span>
   <form class="add_schedule_form">
+    <div class="schedule_title_box">
+      <input id="schedule-title" placeholder="일정 제목을 입력해주세요">
+    </div>
+    <div class="schedule_title_error_box error_box">
+      <img th:src="@{/img/icons/error.svg}">
+      <span>제목이 입력되지 않았습니다.</span>
+    </div>
     <p>일정을 선택해주세요.</p>
     <div class="datetime-container">
       <span id="start-datetime-display">시작 시간</span>
