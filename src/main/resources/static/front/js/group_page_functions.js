@@ -165,6 +165,12 @@ function renderSchedules(schedules) {
     div.classList.add("schedule-text-field");
     row.appendChild(div);
 
+    // 일정 제목
+    const scheduleTitleCell = document.createElement("td");
+    scheduleTitleCell.textContent = `${schedule.title}`;
+    scheduleTitleCell.classList.add("schedule_title");
+    div.appendChild(scheduleTitleCell);
+
     // 시간 형식 변환 및 차이 계산
     const startDate = new Date(schedule.start_time);
     const endDate = new Date(schedule.end_time);
