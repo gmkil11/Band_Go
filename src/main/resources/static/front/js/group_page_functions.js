@@ -41,7 +41,7 @@ async function getUserList(groupId) {
 
   if (error) {
     console.log(
-      "user_groups 테이블에서 유저 목록을 가져오는데 실패했습니다.",
+      "user_groups 테이블에서 유저 목록을 가져오는데 실패했습니다",
       error,
     );
   } else {
