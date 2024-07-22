@@ -146,88 +146,145 @@ function renderUsers(users) {
   });
 }
 
-function renderSchedules(schedules) {
+async function getUserNames(userIds) {
+  const { data: userProfiles, error } = await client
+    .from("user_profile")
+    .select("user_name") // 필요한 필드만 선택
+    .in("id", userIds); // UID 배열로 쿼리
+
+  if (error) {
+    console.error("Error fetching user profiles", error);
+    return [];
+  }
+
+  return userProfiles.map((profile) => profile.user_name); // 유저 이름 배열 반환
+}
+
+async function renderSchedules(schedules) {
   const tableBody = document.getElementById("scheduleTableBody");
-  if (!tableBody) return; // scheduleTableBody가 없으면 함수 종료
+  if (!tableBody) return;
 
-  tableBody.innerHTML = ""; // 기존 내용을 초기화
+  tableBody.innerHTML = "";
 
-  schedules.forEach((schedule) => {
-    console.log("group_id:", schedule.group_id);
+  for (const schedule of schedules) {
     const row = document.createElement("tr");
-    row.classList.add("schedule-row"); // 클래스 추가
+    row.classList.add("schedule-row");
 
-    row.addEventListener("click", () => {
-      /*window.location.href = `http://localhost:8080/group/${group.group_id}`;*/
-    });
+    const headerDiv = document.createElement("div");
+    headerDiv.classList.add("schedule_header");
 
-    const div = document.createElement("div");
-    div.classList.add("schedule-text-field");
-    row.appendChild(div);
+    const titleCell = document.createElement("td");
+    titleCell.textContent = schedule.title;
+    titleCell.classList.add("schedule_title");
+    headerDiv.appendChild(titleCell);
 
-    // 일정 제목
-    const scheduleTitleCell = document.createElement("td");
-    scheduleTitleCell.textContent = `${schedule.title}`;
-    scheduleTitleCell.classList.add("schedule_title");
-    div.appendChild(scheduleTitleCell);
-
-    // 시간 형식 변환 및 차이 계산
+    const dateCell = document.createElement("td");
     const startDate = new Date(schedule.start_time);
     const endDate = new Date(schedule.end_time);
-    const duration = Math.abs(endDate - startDate) / 36e5; // 시간 차이 계산
-
+    const duration = Math.abs(endDate - startDate) / 36e5;
     const formattedStartDate = `${startDate.getFullYear()}년 ${String(startDate.getMonth() + 1).padStart(2, "0")}월 ${String(startDate.getDate()).padStart(2, "0")}일 ${String(startDate.getHours()).padStart(2, "0")}:${String(startDate.getMinutes()).padStart(2, "0")}`;
     const formattedEndDate = `${endDate.getFullYear()}년 ${String(endDate.getMonth() + 1).padStart(2, "0")}월 ${String(endDate.getDate()).padStart(2, "0")}일 ${String(endDate.getHours()).padStart(2, "0")}:${String(endDate.getMinutes()).padStart(2, "0")}`;
+    dateCell.textContent = `${formattedStartDate} ~ ${formattedEndDate} (${duration}시간)`;
+    dateCell.classList.add("schedule_time");
+    headerDiv.appendChild(dateCell);
 
-    const scheduleDateCell = document.createElement("td");
-    scheduleDateCell.textContent = `${formattedStartDate} ~ ${formattedEndDate} (${duration}시간)`;
-    scheduleDateCell.classList.add("schedule_time");
-    div.appendChild(scheduleDateCell);
+    const placeCell = document.createElement("td");
+    placeCell.textContent = schedule.place;
+    placeCell.classList.add("schedule_place");
+    headerDiv.appendChild(placeCell);
 
-    const schedulePlaceCell = document.createElement("td");
-    schedulePlaceCell.textContent = `${schedule.place}`;
-    schedulePlaceCell.classList.add("schedule_place");
-    div.appendChild(schedulePlaceCell);
+    const arrowCell = document.createElement("td");
+    const arrowIcon = document.createElement("span");
+    arrowIcon.textContent = "↓";
+    arrowIcon.classList.add("arrow-icon");
+    arrowCell.appendChild(arrowIcon);
 
-    const scheduleSongsCell = document.createElement("td");
-    scheduleSongsCell.classList.add("schedule_songs");
-
-    // songs JSON 배열 파싱 및 포맷
-    const songs = JSON.parse(schedule.songs);
-    let songsHtml = "";
-    songs.forEach((song, index) => {
-      songsHtml += `
-        <div class="schedule_songs_value">
-          <div class="songs_header">
-            <span class="songs_index">${index + 1}</span>
-          </div>
-          <div class="songs_body">
-            <div class="songs_title_box">
-              <span class="songs_title">노래 제목</span>
-              <span class="songs_title_value">${song.title}</span>
-            </div>
-            <div class="songs_artist_box">
-              <span class="songs_artist">아티스트</span>
-              <span class="songs_artist_value">${song.artist}</span>
-            </div>
-            ${
-              song.details
-                ? `
-                  <div class="songs_details_box">
-                      <span class="songs_details">상세 항목</span>
-                      <span class="songs_details_value">${song.details}</span>
-                  </div>`
-                : ""
-            }
-          </div>
-        </div>
-      `;
-    });
-    scheduleSongsCell.innerHTML = songsHtml;
-    div.appendChild(scheduleSongsCell);
-
+    // 행에 div와 화살표 추가
+    row.appendChild(headerDiv);
+    row.appendChild(arrowCell);
     tableBody.appendChild(row);
-  });
+
+    // 세부 사항 행 생성
+    const detailsRow = document.createElement("tr");
+    const detailsCell = document.createElement("td");
+    detailsCell.colSpan = 4;
+    const detailsDiv = document.createElement("div");
+    detailsDiv.classList.add("schedule-details");
+
+    // Songs
+    let songsHtml = "";
+    try {
+      const scheduleSongs = JSON.parse(schedule.songs);
+      scheduleSongs.forEach((song, index) => {
+        const youtubeIframe = song.youtube
+          ? `<div class="youtube-video-container">
+               <iframe src="https://www.youtube.com/embed/${getYouTubeVideoId(song.youtube)}" title="${song.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+             </div>`
+          : "";
+
+        songsHtml += `
+          <div class="schedule_songs_value">
+            <div class="songs_header">
+              <span class="songs_index">${index + 1}</span>
+            </div>
+            <div class="songs_body">
+              <div class="songs_title_box">
+                <span class="songs_title">노래 제목</span>
+                <span class="songs_title_value">${song.title}</span>
+              </div>
+              <div class="songs_artist_box">
+                <span class="songs_artist">아티스트</span>
+                <span class="songs_artist_value">${song.artist}</span>
+              </div>
+              ${
+                song.details
+                  ? `<div class="songs_details_box">
+                      <span class="songs_details">상세 항목: ${song.details}</span>
+                    </div>`
+                  : ""
+              }
+              ${youtubeIframe}
+            </div>
+          </div>`;
+      });
+    } catch (e) {
+      console.error("Parsing schedule songs failed:", e);
+    }
+
+    // Users
+    let userNamesText = "";
+    if (Array.isArray(schedule.users)) {
+      const userNames = await getUserNames(schedule.users);
+      userNamesText = userNames.join(", ");
+    }
+
+    detailsDiv.innerHTML = `
+      <div class="songs_container">${songsHtml}</div>
+      <div class="members_container">
+        <span class="members">참가 멤버: ${userNamesText}</span>
+      </div>`;
+    detailsCell.appendChild(detailsDiv);
+    detailsRow.appendChild(detailsCell);
+    tableBody.appendChild(detailsRow);
+
+    // 클릭 이벤트 리스너는 schedule-details가 생성된 후에 추가
+    row.addEventListener("click", () => {
+      const details = detailsDiv;
+      const arrow = arrowIcon;
+      if (details.classList.contains("open")) {
+        details.classList.remove("open");
+        arrow.classList.remove("open");
+      } else {
+        details.classList.add("open");
+        arrow.classList.add("open");
+      }
+    });
+  }
+}
+
+function getYouTubeVideoId(url) {
+  const match = url.match(/[?&]v=([^&]+)/);
+  return match ? match[1] : "";
 }
 
 function createSessionBox(sessions) {

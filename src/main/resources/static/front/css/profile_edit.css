@@ -473,12 +473,36 @@
   width: 100%;
 }
 
+.schedule-details {
+  display: none;
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+  padding: 10px;
+}
+.schedule-details.open {
+  display: block;
+}
+.arrow-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.arrow-icon.open {
+  transform: rotate(180deg);
+}
+
 .schedule-row{
   display: flex;
+  justify-content: space-between;
   border-top: 1px solid #CAD7E0;
   align-items: center;
   padding : 10px;
   gap: 10px;
+  cursor: pointer;
+}
+
+.schedule_header {
+  display: flex;
+  flex-direction: column;
 }
 
 .schedule-text-field {
@@ -489,7 +513,28 @@
 
 .schedule_songs_value {
   display: flex;
+
 }
+
+
+.youtube-video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 비율 */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  background: #000;
+  margin-bottom: 15px; /* 비디오 아래 여백 추가 */
+}
+
+.youtube-video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 
 .songs_header {
   display: flex;
@@ -511,6 +556,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 2rem;
+  width: 100%;
 }
 
 .songs_artist {
@@ -787,3 +833,4 @@ select option {
   opacity: 0;
   position: absolute;
 }
+

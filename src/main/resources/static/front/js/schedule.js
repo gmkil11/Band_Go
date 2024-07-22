@@ -189,6 +189,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       const title = document.getElementById("songTitle").value;
       const artist = document.getElementById("songArtist").value;
       let details = document.getElementById("songDetails").value;
+      const youtubeLink = document.getElementById("youtubeLink").value;
       const songList = document.getElementById("song_list");
 
       validateNullInput(
@@ -224,6 +225,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           title: title,
           artist: artist,
           details: sanitizedDetails,
+          youtube: youtubeLink,
         });
 
         document.getElementById("songTitle").value = "";
