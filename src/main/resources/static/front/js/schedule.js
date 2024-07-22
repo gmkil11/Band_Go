@@ -52,6 +52,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.querySelector(".schedule_title_error_box"),
       );
 
+      validateNullInput(
+        document.querySelector(".schedule_place_box"),
+        document.getElementById("schedule_place"),
+        null,
+        document.querySelector(".place_error_box"),
+      );
+
       /* 유저 선택 파트 시작 */
       const selectedUserIds = Array.from(
         document.querySelectorAll(".user-checkbox:checked"),

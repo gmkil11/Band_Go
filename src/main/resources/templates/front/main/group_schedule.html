@@ -85,7 +85,15 @@
         <span>종료 시간이 입력되지 않았습니다.</span>
       </div>
     </div>
-    <p>장소 <input type="text" id="schedule_place"></p>
+
+    <div class="schedule_place_box">
+      <input type="text" id="schedule_place" placeholder="장소">
+    </div>
+    <div class="place_error_box error_box">
+      <img th:src="@{/img/icons/error.svg}">
+      <span>장소가 입력되지 않았습니다.</span>
+    </div>
+
     <p class="add_songs">합주곡 추가하기</p>
     <div id="song_list">
       <span id="song_empty_message">합주곡을 추가해보세요</span>

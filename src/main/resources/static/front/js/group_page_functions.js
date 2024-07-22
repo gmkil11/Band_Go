@@ -173,26 +173,31 @@ async function renderSchedules(schedules) {
     const headerDiv = document.createElement("div");
     headerDiv.classList.add("schedule_header");
 
+    // 제목 셀
     const titleCell = document.createElement("td");
     titleCell.textContent = schedule.title;
     titleCell.classList.add("schedule_title");
     headerDiv.appendChild(titleCell);
 
+    // 날짜 셀
     const dateCell = document.createElement("td");
-    const startDate = new Date(schedule.start_time);
-    const endDate = new Date(schedule.end_time);
-    const duration = Math.abs(endDate - startDate) / 36e5;
-    const formattedStartDate = `${startDate.getFullYear()}년 ${String(startDate.getMonth() + 1).padStart(2, "0")}월 ${String(startDate.getDate()).padStart(2, "0")}일 ${String(startDate.getHours()).padStart(2, "0")}:${String(startDate.getMinutes()).padStart(2, "0")}`;
-    const formattedEndDate = `${endDate.getFullYear()}년 ${String(endDate.getMonth() + 1).padStart(2, "0")}월 ${String(endDate.getDate()).padStart(2, "0")}일 ${String(endDate.getHours()).padStart(2, "0")}:${String(endDate.getMinutes()).padStart(2, "0")}`;
-    dateCell.textContent = `${formattedStartDate} ~ ${formattedEndDate} (${duration}시간)`;
     dateCell.classList.add("schedule_time");
+    dateCell.innerHTML = `
+      <img src="/img/icons/calender.svg" class="schedule_icon" alt="Calendar Icon">
+      ${formatDate(schedule.start_time)} ~ ${formatDate(schedule.end_time)} (${calculateDuration(schedule.start_time, schedule.end_time)}시간)
+    `;
     headerDiv.appendChild(dateCell);
 
+    // 장소 셀
     const placeCell = document.createElement("td");
-    placeCell.textContent = schedule.place;
     placeCell.classList.add("schedule_place");
+    placeCell.innerHTML = `
+      <img src="/img/icons/location.svg" class="schedule_icon" alt="Location Icon">
+      ${schedule.place}
+    `;
     headerDiv.appendChild(placeCell);
 
+    // 화살표 셀
     const arrowCell = document.createElement("td");
     const arrowIcon = document.createElement("span");
     arrowIcon.textContent = "↓";
@@ -280,6 +285,17 @@ async function renderSchedules(schedules) {
       }
     });
   }
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return `${date.getFullYear()}년 ${String(date.getMonth() + 1).padStart(2, "0")}월 ${String(date.getDate()).padStart(2, "0")}일 ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+}
+
+function calculateDuration(startTime, endTime) {
+  const startDate = new Date(startTime);
+  const endDate = new Date(endTime);
+  return Math.abs(endDate - startDate) / 36e5;
 }
 
 function getYouTubeVideoId(url) {

@@ -536,6 +536,18 @@
 }
 
 
+.schedule_title, .schedule_time, .schedule_place {
+  margin-right: 10px;
+  display: flex;
+}
+
+.schedule_icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px; /* 아이콘과 텍스트 사이에 여백 추가 */
+  fill: #76819c;
+}
+
 .songs_header {
   display: flex;
 }

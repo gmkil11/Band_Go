@@ -144,8 +144,10 @@ async function checkDuplicateGroupName(
 }
 
 function sanitizeInput(input) {
-  const regex = /[<>&"'\/`]/g; // 특수문자와 HTML 태그를 필터링하는 정규식
-  return input.replace(regex, "");
+  // 특수문자와 HTML 태그를 필터링하고, 모든 공백을 제거
+  const regex = /[<>&"'\/`]/g;
+  const sanitized = input.replace(regex, "");
+  return sanitized.trim(); // 공백을 제거
 }
 
 function validateNullInput(inputBox, input, inputIcon, inputError) {
