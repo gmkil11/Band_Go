@@ -160,7 +160,7 @@ async function getUserNames(userIds) {
   return userProfiles.map((profile) => profile.user_name); // 유저 이름 배열 반환
 }
 
-async function renderSchedules(schedules) {
+async function renderSchedules(schedules, groupId) {
   const tableBody = document.getElementById("scheduleTableBody");
   if (!tableBody) return;
 
@@ -172,6 +172,13 @@ async function renderSchedules(schedules) {
 
     const headerDiv = document.createElement("div");
     headerDiv.classList.add("schedule_header");
+
+    // uuid
+    const scheduleUuid = document.createElement("td");
+    scheduleUuid.textContent = schedule.schedule_uuid;
+    scheduleUuid.classList.add("schedule_uuid");
+    scheduleUuid.style.display = "none";
+    headerDiv.appendChild(scheduleUuid);
 
     // 제목 셀
     const titleCell = document.createElement("td");
@@ -212,7 +219,7 @@ async function renderSchedules(schedules) {
     // 세부 사항 행 생성
     const detailsRow = document.createElement("tr");
     const detailsCell = document.createElement("td");
-    detailsCell.colSpan = 4;
+    detailsCell.colSpan = 4; // 수정: 5에서 4로 변경
     const detailsDiv = document.createElement("div");
     detailsDiv.classList.add("schedule-details");
 
@@ -223,8 +230,8 @@ async function renderSchedules(schedules) {
       scheduleSongs.forEach((song, index) => {
         const youtubeIframe = song.youtube
           ? `<div class="youtube-video-container">
-               <iframe src="https://www.youtube.com/embed/${getYouTubeVideoId(song.youtube)}" title="${song.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-             </div>`
+              <iframe src="https://www.youtube.com/embed/${getYouTubeVideoId(song.youtube)}" title="${song.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>`
           : "";
 
         songsHtml += `
@@ -244,8 +251,8 @@ async function renderSchedules(schedules) {
               ${
                 song.details
                   ? `<div class="songs_details_box">
-                      <span class="songs_details">상세 항목: ${song.details}</span>
-                    </div>`
+                <span class="songs_details">상세 항목: ${song.details}</span>
+              </div>`
                   : ""
               }
               ${youtubeIframe}
@@ -263,11 +270,31 @@ async function renderSchedules(schedules) {
       userNamesText = userNames.join(", ");
     }
 
+    // 수정 버튼 생성
+    const editButton = document.createElement("button");
+    editButton.textContent = "수정";
+    editButton.classList.add("edit-button");
+
+    // 수정 버튼 클릭 이벤트 리스너 추가
+    editButton.addEventListener("click", (event) => {
+      event.stopPropagation(); // 클릭 이벤트가 행으로 전달되지 않도록 방지
+      const uuid = schedule.schedule_uuid;
+      window.location.href = `http://localhost:8080/group/schedule?groupId=${groupId}&uuid=${uuid}`;
+    });
+
+    // 버튼을 detailsDiv에 추가
+    const editButtonContainer = document.createElement("div");
+    editButtonContainer.classList.add("edit_button_container");
+    editButtonContainer.appendChild(editButton);
+
     detailsDiv.innerHTML = `
       <div class="songs_container">${songsHtml}</div>
       <div class="members_container">
         <span class="members">참가 멤버: ${userNamesText}</span>
-      </div>`;
+      </div>
+    `;
+    detailsDiv.appendChild(editButtonContainer);
+
     detailsCell.appendChild(detailsDiv);
     detailsRow.appendChild(detailsCell);
     tableBody.appendChild(detailsRow);

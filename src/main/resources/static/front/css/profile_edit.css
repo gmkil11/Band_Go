@@ -97,6 +97,7 @@
 
 .public_checked {
   border: #cad7e0 1px solid;
+/*  background: #2d3f51;*/
   background: linear-gradient(
     90deg,
     rgba(56, 160, 247, 1) 0%,
@@ -135,6 +136,7 @@
 }
 
 .session_checked {
+/*  background: #2d3f51;*/
   background: linear-gradient(
     90deg,
     rgba(56, 160, 247, 1) 0%,
@@ -145,6 +147,7 @@
 
 .submit_button {
   margin-top: 30px;
+/*  background: #2d3f51;*/
   background: linear-gradient(
     90deg,
     rgba(56, 160, 247, 1) 0%,
@@ -227,6 +230,7 @@
 .profile_edit_button {
   width: 90%;
   cursor: pointer;
+/*  background: #2d3f51;*/
   background: linear-gradient(
     90deg,
     rgba(56, 160, 247, 1) 0%,

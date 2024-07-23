@@ -159,6 +159,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: calc(100% / 40);
+  width: 85%;
 }
 
 .header-link {

@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   sideMenuButton.addEventListener("click", function () {
     console.log("사이드 메뉴 버튼 클릭됨");
     showOverlay();
-    sideMenu.style.width = "25%";
+    sideMenu.style.width = "20%";
     setTimeout(() => {
       sideMenuContent.style.display = "flex";
     }, 100);

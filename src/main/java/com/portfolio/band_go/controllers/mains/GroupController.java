@@ -54,9 +54,15 @@ public class GroupController {
     }
 
     @GetMapping("/schedule")
-    public String addSchedule(@RequestParam("groupId") String groupId, Model model) {
+    public String addOrEditSchedule(@RequestParam("groupId") String groupId,
+                                    @RequestParam(value = "uuid", required = false) String uuid,
+                                    Model model) {
         model.addAttribute("groupId", groupId);
+        if (uuid != null) {
+            model.addAttribute("uuid", uuid);
+        }
         return "front/main/group_schedule";
     }
+
 
 }
