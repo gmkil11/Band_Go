@@ -1,0 +1,156 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.chat_member_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.group_container {
+  display: flex;
+  flex-direction: column;
+  border-right: #f2f2f3 1px solid;
+  padding: 20px 50px;
+  background: #ffff;
+  gap: 30px;
+}
+
+.chat_container {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#chat_messages {
+  width: 80%;
+  flex-grow: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  max-height: calc(
+    100vh - 300px
+  ); /* 전체 높이에서 헤더와 입력 창 높이를 뺀 값 */
+}
+
+.sidebar {
+  width: 25%;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+}
+
+.user_list {
+  margin-top: 20px;
+}
+
+.user_item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user_item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.chat_area {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat_header {
+  background-color: #eee;
+  padding: 10px;
+  text-align: center;
+}
+
+.chat_messages {
+  flex-grow: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.message img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.message_self {
+  flex-direction: row-reverse;
+}
+
+.message_content {
+  max-width: 60%;
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.message_content .user_name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.message_content .message_text {
+  margin: 0;
+}
+
+.message_content .message_time {
+  font-size: 0.8em;
+  color: #666;
+  position: absolute;
+  bottom: -20px;
+  right: 10px;
+  white-space: nowrap;
+}
+
+.send_chat_container {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.send_message_container {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+}
+
+#send_chat_input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+#send_chat_button {
+  background-color: #f26b6b;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#send_chat_button:hover {
+  background-color: #e65b5b;
+}

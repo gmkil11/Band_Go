@@ -33,51 +33,6 @@ function setupEventListeners(groupId, userId) {
   }
 }
 
-async function getUserList(groupId) {
-  let { data: user_groups, error } = await client
-    .from("user_groups")
-    .select("*")
-    .eq("group_id", groupId);
-
-  if (error) {
-    console.log(
-      "user_groups 테이블에서 유저 목록을 가져오는데 실패했습니다",
-      error,
-    );
-  } else {
-    console.log("user_groups 해당 되는 유저id:", user_groups);
-
-    // user_id 목록을 수집
-    const userIds = user_groups.map((userGroup) => userGroup.user_id);
-
-    let { data: user_profiles, error: profileError } = await client
-      .from("user_profile")
-      .select("*")
-      .in("id", userIds);
-
-    if (profileError) {
-      console.log(
-        "user_profile 테이블에서 유저 프로필을 가져오는데 실패했습니다.",
-        profileError,
-      );
-      return;
-    }
-
-    console.log("user_profiles:", user_profiles);
-
-    // user_profiles 배열을 정렬하여 master 역할이 있는 유저를 먼저 오게 함
-    user_profiles.sort((a, b) => {
-      const userA = user_groups.find((userGroup) => userGroup.user_id === a.id);
-      const userB = user_groups.find((userGroup) => userGroup.user_id === b.id);
-      if (userA.role === "master") return -1;
-      if (userB.role === "master") return 1;
-      return 0;
-    });
-
-    return user_profiles;
-  }
-}
-
 async function getScheduleList(groupId) {
   let { data: group_schedule_data, error } = await client
     .from("group_schedule")

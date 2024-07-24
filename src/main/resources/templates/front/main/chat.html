@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="addCss">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/chat.css}">
+</th:block>
+
+<th:block layout:fragment="addJs">
+  <script type="module" th:src="@{/front/js/chat.js}"></script>
+</th:block>
+
+<!--Body 영역-->
+<th:block layout:fragment="content">
+  <div class="chat_member_container">
+    <div class="group_container">
+      <div id="group_name_span"></div>
+      <div id="member_list"></div>
+    </div>
+    <div class="chat_container">
+      <div id="chat_messages"></div>
+      <div class="send_chat_container">
+        <input type="text" id="send_chat_input">
+        <button type="button" id="send_chat_button">전송</button>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>

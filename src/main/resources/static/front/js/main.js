@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   /*document.querySelector("#loggedIn").style.display = "none";
   document.querySelector("#NotLoggedIn").style.display = "none";
 
-  if (await checkLogin()) {
+  if (await user_group_functions()) {
     document.querySelector("#loggedIn").style.display = "flex";
   } else {
     document.querySelector("#NotLoggedIn").style.display = "inline";
