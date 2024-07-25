@@ -76,4 +76,9 @@ public class MainController {
         return "front/main/my_page";
     }
 
+    @GetMapping("/region")
+    public String regieon(Model model) {
+        return "front/main/region";
+    }
+
 }

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <div id="region_selection_container">
+      <div id="sido_container" class="region_container">
+        <h3>시/도 선택</h3>
+        <ul id="sido_list" class="region_list"></ul>
+      </div>
+
+      <div id="gugun_container" class="region_container">
+        <h3>구/군 선택</h3>
+        <ul id="gugun_list" class="region_list"></ul>
+      </div>
+
+      <div id="dong_container" class="region_container">
+        <h3>동/읍/면 선택</h3>
+        <ul id="dong_list" class="region_list"></ul>
+      </div>
+    </div>
+    <div id="selected_address" class="selected_address"></div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sidoList = document.getElementById("sido_list");
+      const gugunList = document.getElementById("gugun_list");
+      const dongList = document.getElementById("dong_list");
+      const selectedAddress = document.getElementById("selected_address");
+
+      const regions = {
+        서울특별시: {
+          강남구: ["삼성동", "역삼동", "논현동"],
+          강동구: ["천호동", "길동", "둔촌동"],
+        },
+        경기도: {
+          수원시: ["영통구", "장안구", "팔달구"],
+          고양시: ["덕양구", "일산동구", "일산서구"],
+        },
+      };
+
+      function populateList(listElement, items) {
+        listElement.innerHTML = "";
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          li.classList.add("list_item");
+          listElement.appendChild(li);
+        });
+      }
+
+      function clearSelected(listElement) {
+        const selected = listElement.querySelector(".selected");
+        if (selected) {
+          selected.classList.remove("selected");
+        }
+      }
+
+      sidoList.addEventListener("click", (event) => {
+        if (event.target.classList.contains("list_item")) {
+          clearSelected(sidoList);
+          event.target.classList.add("selected");
+          const selectedSido = event.target.textContent;
+          if (regions[selectedSido]) {
+            populateList(gugunList, Object.keys(regions[selectedSido]));
+            gugunList.style.display = "block";
+            dongList.style.display = "none";
+            selectedAddress.textContent = "";
+          }
+        }
+      });
+
+      gugunList.addEventListener("click", (event) => {
+        if (event.target.classList.contains("list_item")) {
+          clearSelected(gugunList);
+          event.target.classList.add("selected");
+          const selectedSidoElement = sidoList.querySelector(".selected");
+          if (selectedSidoElement) {
+            const selectedSido = selectedSidoElement.textContent;
+            const selectedGugun = event.target.textContent;
+            if (regions[selectedSido] && regions[selectedSido][selectedGugun]) {
+              populateList(dongList, regions[selectedSido][selectedGugun]);
+              dongList.style.display = "block";
+              selectedAddress.textContent = "";
+            }
+          }
+        }
+      });
+
+      dongList.addEventListener("click", (event) => {
+        if (event.target.classList.contains("list_item")) {
+          clearSelected(dongList);
+          event.target.classList.add("selected");
+          const selectedSidoElement = sidoList.querySelector(".selected");
+          const selectedGugunElement = gugunList.querySelector(".selected");
+          if (selectedSidoElement && selectedGugunElement) {
+            const selectedSido = selectedSidoElement.textContent;
+            const selectedGugun = selectedGugunElement.textContent;
+            const selectedDong = event.target.textContent;
+            selectedAddress.textContent = `${selectedSido} ${selectedGugun} ${selectedDong}`;
+          }
+        }
+      });
+
+      // 초기 시/도 데이터 추가
+      const sidoOptions = Object.keys(regions);
+      populateList(sidoList, sidoOptions);
+    });
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #f26b6b;
+      padding: 10px;
+      text-align: center;
+      color: white;
+    }
+
+    #region_selection_container {
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .region_container {
+      width: 30%;
+    }
+
+    .region_container h3 {
+      margin: 0;
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .region_list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 150px; /* 최대 높이를 설정하여 스크롤 가능하게 함 */
+      overflow-y: auto;
+    }
+
+    .region_list li {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .region_list li:hover {
+      background-color: #f0f0f0;
+    }
+
+    .region_list .selected {
+      font-weight: bold;
+    }
+
+    .selected_address {
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+      border-top: 1px solid #ccc;
+    }
+
+    .selected_address {
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+      border-top: 1px solid #ccc;
+    }
+  </style>
+</html>
