@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const locationInput = document.getElementById("location_input");
   const sidoList = document.getElementById("sido_list");
   const gugunList = document.getElementById("gugun_list");
-  const selectedAddress = document.getElementById("selected_address");
 
   let { data: regions, error } = await client.from("regions").select("*");
 
@@ -71,8 +70,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       event.target.classList.add("selected");
       const selectedSido = sidoList.querySelector(".selected").textContent;
       const selectedGugun = event.target.textContent;
-      console.log("Selected Sido and Gugun:", selectedSido, selectedGugun); // 선택된 시/도 및 구/군 콘솔 출력
-      selectedAddress.textContent = `${selectedSido} ${selectedGugun}`;
+      document.querySelector(".popup_form").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
       locationInput.value = `${selectedSido} ${selectedGugun}`;
     }
   });
