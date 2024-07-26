@@ -5,16 +5,36 @@
 
 <th:block layout:fragment="addCss">
   <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/region.css}">
 </th:block>
 
 <th:block layout:fragment="addJs">
   <script th:src="@{front/js/profile_edit.js}"></script>
   <script th:src="@{front/js/image_functions.js}"></script>
+  <script th:src="@{front/js/regieon.js}"></script>
 </th:block>
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
   <div class="profile_edit_box">
+    <div id="region_selection_container" class="popup_form region_popup popup">
+      <div class="invite_title_box">
+        <span>거주 지역</span>
+        <img th:src="@{/img/icons/cancel.svg}" id="popup_cancel_button">
+      </div>
+      <div class="region_select_box">
+        <div id="sido_container" class="region_container">
+          <h3>시/도 선택</h3>
+          <ul id="sido_list" class="region_list"></ul>
+        </div>
+
+        <div id="gugun_container" class="region_container" style="display: none;">
+          <h3>시/군/구 선택</h3>
+          <ul id="gugun_list" class="region_list"></ul>
+        </div>
+      </div>
+    </div>
+    <div id="selected_address" class="selected_address"></div>
     <span>프로필 설정</span>
     <div class="profile_form_box">
       <div class="profile_picture">
@@ -37,7 +57,7 @@
           <span>거주지역</span>
           <div class="rows location_input_box">
             <img th:src="@{/img/icons/location.svg}" alt="location_icon" id="location_icon">
-            <input placeholder="거주지역" id="location_input" class="placeholder">
+            <input placeholder="거주지역" id="location_input" class="placeholder" readonly>
           </div>
           <div class="location_error_box">
             <img th:src="@{/img/icons/error.svg}">

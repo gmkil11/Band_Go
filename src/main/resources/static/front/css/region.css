@@ -1,0 +1,50 @@
+#popup_cancel_button {
+  height: 15px;
+}
+
+.region_container {
+  width: 45%; /* Width adjustment for better spacing */
+}
+
+.region_select_box {
+  flex-direction: row;
+  display: flex;
+}
+
+.region_container h3 {
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+.region_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px; /* 최대 높이를 설정하여 스크롤 가능하게 함 */
+  overflow-y: auto;
+}
+
+.region_list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.region_list li:hover {
+  background-color: #f0f0f0;
+}
+
+.region_list .selected {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+.selected_address {
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ccc;
+}

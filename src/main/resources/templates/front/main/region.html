@@ -24,22 +24,17 @@
     <div id="selected_address" class="selected_address"></div>
   </body>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       const sidoList = document.getElementById("sido_list");
       const gugunList = document.getElementById("gugun_list");
       const dongList = document.getElementById("dong_list");
       const selectedAddress = document.getElementById("selected_address");
 
-      const regions = {
-        서울특별시: {
-          강남구: ["삼성동", "역삼동", "논현동"],
-          강동구: ["천호동", "길동", "둔촌동"],
-        },
-        경기도: {
-          수원시: ["영통구", "장안구", "팔달구"],
-          고양시: ["덕양구", "일산동구", "일산서구"],
-        },
-      };
+      let { data: regions, error } = await client.from("regions").select("*");
+
+      if (error) {
+        console.log("지역 정보를 불러오는데 오류가 발생했습니다:");
+      }
 
       function populateList(listElement, items) {
         listElement.innerHTML = "";
