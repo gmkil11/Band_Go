@@ -14,10 +14,10 @@
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
-    <div class="popup_form popup">
+    <div class="invite_form popup popup_form">
         <div class="invite_title_box">
             <span>그룹 맴버 초대</span>
-            <img th:src="@{/img/icons/cancel.svg}" id="popup_cancel_button">
+            <img th:src="@{/img/icons/cancel.svg}" class="popup_cancel_button">
         </div>
         <div class="popup_box">
             <div class="invite_link_box">
@@ -35,6 +35,15 @@
                     <img th:src="@{/img/icons/email.svg}" class="invite_icon">
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="expired_schedule_form popup popup_form">
+        <div class="invite_title_box">
+            <span>완료된 일정</span>
+            <img th:src="@{/img/icons/cancel.svg}" class="popup_cancel_button">
+        </div>
+        <div id="expired_schedule_table_body">
+
         </div>
     </div>
     <span id="group_id_span" th:text="${group_id}"></span>
@@ -78,7 +87,10 @@
 
         <div class="group-user-area">
             <div class="group-user-area-span-box">
-                <span class="group-user-area-span">일정 목록</span>
+                <div>
+                    <span class="group-user-area-span">일정 목록</span>
+                    <img id="expired_schedule_icon" th:src="@{/img/icons/plus.svg}">
+                </div>
                 <div id="add_schedule">
                     <img th:src="@{/img/icons/plus.svg}">
                     <span id="add_schedule_span">추가하기</span>

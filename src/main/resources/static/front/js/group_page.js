@@ -12,7 +12,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       groupId,
       userId,
     );
-    renderSchedules(await getScheduleList(groupId), groupId);
+    renderSchedules(
+      await getScheduleList(groupId),
+      groupId,
+      document.getElementById("scheduleTableBody"),
+      false,
+    );
   }
 
   hideSpinner();

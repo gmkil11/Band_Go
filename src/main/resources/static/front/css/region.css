@@ -1,4 +1,4 @@
-#popup_cancel_button {
+.popup_cancel_button {
   height: 15px;
 }
 
@@ -47,4 +47,8 @@
   margin-top: 20px;
   background-color: #f9f9f9;
   border-top: 1px solid #ccc;
+}
+
+#gugun_list {
+  border-left: #cad7e0 1px solid;
 }

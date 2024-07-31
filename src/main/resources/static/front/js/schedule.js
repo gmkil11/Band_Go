@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   const addSongsButton = document.querySelector(".add_songs");
-  const closeSongPopupButton = document.getElementById("popup_cancel_button");
+  const closeSongPopupButton = document.querySelector(".popup_cancel_button");
   const addSongButton = document.getElementById("addSongButton");
 
   if (addSongsButton) {

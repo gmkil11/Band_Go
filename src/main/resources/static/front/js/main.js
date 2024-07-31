@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const sideMenuCloseButton = document.querySelector(".side-nav-close-button");
   const overlay = document.getElementById("overlay");
   const popup = document.querySelectorAll(".popup");
+  const popupCancelButton = document.querySelectorAll(".popup_cancel_button");
 
   sideMenuButton.addEventListener("click", function () {
     console.log("사이드 메뉴 버튼 클릭됨");
@@ -62,5 +63,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         popup.style.display = "none";
       });
     }, 100);
+  });
+
+  popupCancelButton.forEach((button) => {
+    button.addEventListener("click", function () {
+      const popup = button.closest(".popup");
+      if (popup) {
+        popup.style.display = "none";
+        hideOverlay();
+      }
+    });
   });
 });

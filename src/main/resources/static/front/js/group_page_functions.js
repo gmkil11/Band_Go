@@ -20,9 +20,9 @@ function setupEventListeners(groupId, userId) {
     inviteButton.addEventListener("click", renderInviteUser);
   }
 
-  const inviteCancelButton = document.getElementById("invite_cancel_button");
-  if (inviteCancelButton) {
-    inviteCancelButton.addEventListener("click", hideInviteUser);
+  const expiredScheduleIcon = document.getElementById("expired_schedule_icon");
+  if (expiredScheduleIcon) {
+    expiredScheduleIcon.addEventListener("click", renderExpiredSchedule);
   }
 
   const copyIcon = document.querySelector(".copy_icon");
@@ -115,81 +115,80 @@ async function getUserNames(userIds) {
   return userProfiles.map((profile) => profile.user_name); // 유저 이름 배열 반환
 }
 
-async function renderSchedules(schedules, groupId) {
-  const tableBody = document.getElementById("scheduleTableBody");
+async function renderSchedules(schedules, groupId, tableBody, isExpired) {
   if (!tableBody) return;
 
   tableBody.innerHTML = "";
 
   for (const schedule of schedules) {
-    const row = document.createElement("tr");
-    row.classList.add("schedule-row");
+    if (schedule.is_done === isExpired) {
+      const row = document.createElement("tr");
+      row.classList.add("schedule-row");
 
-    const headerDiv = document.createElement("div");
-    headerDiv.classList.add("schedule_header");
+      const headerDiv = document.createElement("div");
+      headerDiv.classList.add("schedule_header");
 
-    // uuid
-    const scheduleUuid = document.createElement("td");
-    scheduleUuid.textContent = schedule.schedule_uuid;
-    scheduleUuid.classList.add("schedule_uuid");
-    scheduleUuid.style.display = "none";
-    headerDiv.appendChild(scheduleUuid);
+      // uuid
+      const scheduleUuid = document.createElement("td");
+      scheduleUuid.textContent = schedule.schedule_uuid;
+      scheduleUuid.classList.add("schedule_uuid");
+      scheduleUuid.style.display = "none";
+      headerDiv.appendChild(scheduleUuid);
 
-    // 제목 셀
-    const titleCell = document.createElement("td");
-    titleCell.textContent = schedule.title;
-    titleCell.classList.add("schedule_title");
-    headerDiv.appendChild(titleCell);
+      // 제목 셀
+      const titleCell = document.createElement("td");
+      titleCell.textContent = schedule.title;
+      titleCell.classList.add("schedule_title");
+      headerDiv.appendChild(titleCell);
 
-    // 날짜 셀
-    const dateCell = document.createElement("td");
-    dateCell.classList.add("schedule_time");
-    dateCell.innerHTML = `
+      // 날짜 셀
+      const dateCell = document.createElement("td");
+      dateCell.classList.add("schedule_time");
+      dateCell.innerHTML = `
       <img src="/img/icons/calender.svg" class="schedule_icon" alt="Calendar Icon">
-      ${formatDate(schedule.start_time)} ~ ${formatDate(schedule.end_time)} (${calculateDuration(schedule.start_time, schedule.end_time)}시간)
-    `;
-    headerDiv.appendChild(dateCell);
+      ${formatDate(schedule.start_time)} ~ ${formatDate(schedule.end_time)} (${calculateDuration(schedule.start_time, schedule.end_time)}시간)`;
+      headerDiv.appendChild(dateCell);
 
-    // 장소 셀
-    const placeCell = document.createElement("td");
-    placeCell.classList.add("schedule_place");
-    placeCell.innerHTML = `
+      // 장소 셀
+      const placeCell = document.createElement("td");
+      placeCell.classList.add("schedule_place");
+      placeCell.innerHTML = `
       <img src="/img/icons/location.svg" class="schedule_icon" alt="Location Icon">
       ${schedule.place}
     `;
-    headerDiv.appendChild(placeCell);
+      headerDiv.appendChild(placeCell);
 
-    // 화살표 셀
-    const arrowCell = document.createElement("td");
-    const arrowIcon = document.createElement("span");
-    arrowIcon.textContent = "↓";
-    arrowIcon.classList.add("arrow-icon");
-    arrowCell.appendChild(arrowIcon);
+      // 화살표 셀
+      const arrowCell = document.createElement("td");
+      const arrowIcon = document.createElement("span");
+      arrowIcon.textContent = "↓";
+      arrowIcon.classList.add("arrow-icon");
+      arrowCell.appendChild(arrowIcon);
 
-    // 행에 div와 화살표 추가
-    row.appendChild(headerDiv);
-    row.appendChild(arrowCell);
-    tableBody.appendChild(row);
+      // 행에 div와 화살표 추가
+      row.appendChild(headerDiv);
+      row.appendChild(arrowCell);
+      tableBody.appendChild(row);
 
-    // 세부 사항 행 생성
-    const detailsRow = document.createElement("tr");
-    const detailsCell = document.createElement("td");
-    detailsCell.colSpan = 4; // 수정: 5에서 4로 변경
-    const detailsDiv = document.createElement("div");
-    detailsDiv.classList.add("schedule-details");
+      // 세부 사항 행 생성
+      const detailsRow = document.createElement("tr");
+      const detailsCell = document.createElement("td");
+      detailsCell.colSpan = 4; // 수정: 5에서 4로 변경
+      const detailsDiv = document.createElement("div");
+      detailsDiv.classList.add("schedule-details");
 
-    // Songs
-    let songsHtml = "";
-    try {
-      const scheduleSongs = JSON.parse(schedule.songs);
-      scheduleSongs.forEach((song, index) => {
-        const youtubeIframe = song.youtube
-          ? `<div class="youtube-video-container">
+      // Songs
+      let songsHtml = "";
+      try {
+        const scheduleSongs = JSON.parse(schedule.songs);
+        scheduleSongs.forEach((song, index) => {
+          const youtubeIframe = song.youtube
+            ? `<div class="youtube-video-container">
               <iframe src="https://www.youtube.com/embed/${getYouTubeVideoId(song.youtube)}" title="${song.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>`
-          : "";
+            : "";
 
-        songsHtml += `
+          songsHtml += `
           <div class="schedule_songs_value">
             <div class="songs_header">
               <span class="songs_index">${index + 1}</span>
@@ -213,59 +212,60 @@ async function renderSchedules(schedules, groupId) {
               ${youtubeIframe}
             </div>
           </div>`;
+        });
+      } catch (e) {
+        console.error("Parsing schedule songs failed:", e);
+      }
+
+      // Users
+      let userNamesText = "";
+      if (Array.isArray(schedule.users)) {
+        const userNames = await getUserNames(schedule.users);
+        userNamesText = userNames.join(", ");
+      }
+
+      // 수정 버튼 생성
+      const editButton = document.createElement("button");
+      editButton.textContent = "수정";
+      editButton.classList.add("edit-button");
+
+      // 수정 버튼 클릭 이벤트 리스너 추가
+      editButton.addEventListener("click", (event) => {
+        event.stopPropagation(); // 클릭 이벤트가 행으로 전달되지 않도록 방지
+        const uuid = schedule.schedule_uuid;
+        window.location.href = `http://localhost:8080/group/schedule?groupId=${groupId}&uuid=${uuid}`;
       });
-    } catch (e) {
-      console.error("Parsing schedule songs failed:", e);
-    }
 
-    // Users
-    let userNamesText = "";
-    if (Array.isArray(schedule.users)) {
-      const userNames = await getUserNames(schedule.users);
-      userNamesText = userNames.join(", ");
-    }
+      // 버튼을 detailsDiv에 추가
+      const editButtonContainer = document.createElement("div");
+      editButtonContainer.classList.add("edit_button_container");
+      editButtonContainer.appendChild(editButton);
 
-    // 수정 버튼 생성
-    const editButton = document.createElement("button");
-    editButton.textContent = "수정";
-    editButton.classList.add("edit-button");
-
-    // 수정 버튼 클릭 이벤트 리스너 추가
-    editButton.addEventListener("click", (event) => {
-      event.stopPropagation(); // 클릭 이벤트가 행으로 전달되지 않도록 방지
-      const uuid = schedule.schedule_uuid;
-      window.location.href = `http://localhost:8080/group/schedule?groupId=${groupId}&uuid=${uuid}`;
-    });
-
-    // 버튼을 detailsDiv에 추가
-    const editButtonContainer = document.createElement("div");
-    editButtonContainer.classList.add("edit_button_container");
-    editButtonContainer.appendChild(editButton);
-
-    detailsDiv.innerHTML = `
+      detailsDiv.innerHTML = `
       <div class="songs_container">${songsHtml}</div>
       <div class="members_container">
         <span class="members">참가 멤버: ${userNamesText}</span>
       </div>
     `;
-    detailsDiv.appendChild(editButtonContainer);
+      detailsDiv.appendChild(editButtonContainer);
 
-    detailsCell.appendChild(detailsDiv);
-    detailsRow.appendChild(detailsCell);
-    tableBody.appendChild(detailsRow);
+      detailsCell.appendChild(detailsDiv);
+      detailsRow.appendChild(detailsCell);
+      tableBody.appendChild(detailsRow);
 
-    // 클릭 이벤트 리스너는 schedule-details가 생성된 후에 추가
-    row.addEventListener("click", () => {
-      const details = detailsDiv;
-      const arrow = arrowIcon;
-      if (details.classList.contains("open")) {
-        details.classList.remove("open");
-        arrow.classList.remove("open");
-      } else {
-        details.classList.add("open");
-        arrow.classList.add("open");
-      }
-    });
+      // 클릭 이벤트 리스너는 schedule-details가 생성된 후에 추가
+      row.addEventListener("click", () => {
+        const details = detailsDiv;
+        const arrow = arrowIcon;
+        if (details.classList.contains("open")) {
+          details.classList.remove("open");
+          arrow.classList.remove("open");
+        } else {
+          details.classList.add("open");
+          arrow.classList.add("open");
+        }
+      });
+    }
   }
 }
 
@@ -371,6 +371,26 @@ function renderInviteUser() {
   if (inviteForm) {
     inviteForm.style.display = "flex";
   }
+}
+
+async function renderExpiredSchedule() {
+  const overlay = document.getElementById("overlay");
+  const groupId = document.getElementById("group_id_span")?.innerText;
+  if (overlay) {
+    overlay.style.display = "block";
+    overlay.style.opacity = "1";
+  }
+
+  const expiredScheduleForm = document.querySelector(".expired_schedule_form");
+  if (expiredScheduleForm) {
+    expiredScheduleForm.style.display = "flex";
+  }
+  renderSchedules(
+    await getScheduleList(groupId),
+    groupId,
+    document.getElementById("expired_schedule_table_body"),
+    true,
+  );
 }
 
 function hideInviteUser() {

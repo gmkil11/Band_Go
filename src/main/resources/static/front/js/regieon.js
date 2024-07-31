@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   document
-    .getElementById("popup_cancel_button")
+    .querySelector(".popup_cancel_button")
     .addEventListener("click", function () {
       hideOverlay();
       regionSelectPopUp.style.display = "none";
