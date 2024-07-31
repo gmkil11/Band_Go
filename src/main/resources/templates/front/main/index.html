@@ -34,7 +34,7 @@
         async function signOut() {
             const { error } = await client.auth.signOut();
             sessionStorage.removeItem("user_id");
-            user_group_functions();
+            await user_group_functions();
         }
         document.querySelector("#logout").addEventListener("click", signOut);
     </script>

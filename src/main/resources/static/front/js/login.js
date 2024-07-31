@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const authInfo = await client.auth.getSession();
   const session = authInfo.data.session;
   if (session != null) {
+    console.log(session);
     window.location.href = "http://localhost:8080";
   }
 
