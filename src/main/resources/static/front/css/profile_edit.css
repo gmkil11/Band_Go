@@ -206,7 +206,7 @@
 .profile_picture {
   width: 10rem; /* 고정된 비율을 유지하기 위한 너비 */
   aspect-ratio: 1/1; /* 가로 세로 비율을 1:1로 설정하여 원 형태 유지 */
-  border-radius: 50%;
+  border-radius: 10%;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -217,7 +217,7 @@
   width: 100%;
   height: 100%; /* 가로 세로 비율을 유지 */
   object-fit: cover; /* 이미지가 컨테이너에 맞게 잘려서 들어가도록 합니다 */
-  border-radius: 50%;
+  border-radius: 10%;
 }
 
 
