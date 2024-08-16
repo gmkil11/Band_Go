@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     format: "Y-m-d H:i", // 원하는 날짜 및 시간 형식 설정
     step: 30, // 시간 간격 설정 (예: 30분 간격)
     onChangeDateTime: function (dp, $input) {
-      // input 값이 변경될 때 span의 innerHTML 업데이트
+      // input 값이 변경될 때 span의 innerHTML 업데이트!
       const selectedDate = $input.val();
       $("#end-datetime-display").text(selectedDate);
     },
