@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   function updateSongList() {
     const songList = document.getElementById("song_list");
     if (!songList) {
-      console.error("Element with id 'song_list' not found.");
+      console.error("Element with id 'song_list' not found!");
       return;
     }
     songsList.forEach((song, index) => {
