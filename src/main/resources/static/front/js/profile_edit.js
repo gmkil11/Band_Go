@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   // 프로필 이미지 함수 시작
   const imgInput = document.getElementById("profile_image");
   imgInput.addEventListener("change", async function (event) {
-    renderImage(event);
+    renderImage(event, "profile_picture_img");
     showSpinner();
-    await uploadImage(event, loggedInUserId);
+    await uploadProfileImage(event, loggedInUserId);
     hideSpinner();
   });
 

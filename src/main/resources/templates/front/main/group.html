@@ -8,6 +8,7 @@
 </th:block>
 
 <th:block layout:fragment="addJs">
+    <script th:src="@{~/front/js/image_functions.js}"></script>
     <script th:src="@{~/front/js/group_page_functions.js}"></script>
     <script th:src="@{~/front/js/group_page.js}"></script>
 </th:block>
@@ -50,7 +51,7 @@
     <div class="profile_box body-content">
         <div class="profile_img_span_box">
             <div class="profile_picture">
-                <img th:src="@{~/img/icons/my_profile.svg}" alt="profile_picture">
+                <img th:src="@{~/img/icons/my_profile.svg}" alt="profile_picture" id="group_picture_img">
             </div>
             <div class="profile_value" id="profile_value">
                 <div class="user_name_span_and_edit_buttons">

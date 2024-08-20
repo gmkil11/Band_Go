@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="addCss">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+</th:block>
+
+<th:block layout:fragment="addJs">
+  <script th:src="@{~/front/js/image_functions.js}"></script>
+  <script type="module"  th:src="@{/front/js/group_edit.js}"></script>
+
+</th:block>
+
+<!--Body 영역-->
+<th:block layout:fragment="content">
+
+
+  <span id="group_id_span" th:text="${groupId}"></span>
+  <div class="profile_edit_box">
+    <span>그룹 생성</span>
+    <div class="profile_form_box">
+      <div class="group_image_box">
+        <div class="group_profile_picture">
+          <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture" id="group_picture_img">
+        </div>
+        <input type="file" accept="image/*" id="group_image">
+      </div>
+        <form class="profile_edit_input" id="group_edit_form">
+        <div>
+          <span>그룹명</span>
+          <div class="rows group_input_box">
+            <img th:src="@{/img/icons/people.svg}" alt="group_name_icon" id="group_name_icon">
+            <input placeholder="그룹명" id="group_name_input">
+          </div>
+          <div class="group_name_error_box">
+            <img th:src="@{/img/icons/error.svg}">
+            <span class="name_error_span">그룹명이 입력되지 않았습니다.</span>
+          </div>
+        </div>
+        <div>
+          <span>소개글</span>
+          <div class="rows">
+            <img th:src="@{/img/icons/write.svg}" alt="write_icon">
+            <input placeholder="소개글" id="introduce_input">
+          </div>
+        </div>
+        <div>
+          <span>그룹 공개 상태</span>
+          <div class="rows public_button_box">
+            <label for="public" class="profile_public_buttons public_button public_checked">
+              <input type="radio" value=true id="public" name="is_public" checked="checked">
+              그룹 공개
+            </label>
+            <label class="profile_public_buttons no_public_button public_no_checked" for="no_public">
+              <input type="radio" value=false id="no_public" name="is_public">
+              그룹 비공개
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="submit_button">저장하기</button>
+        <button type="button" class="cancel_button">돌아가기</button>
+
+      </form>
+    </div>
+  </div>
+</th:block>
+</html>

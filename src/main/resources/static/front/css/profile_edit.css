@@ -177,6 +177,7 @@
   font-size: 1.9rem;
   font-weight: 500;
   color: #2d3f51;
+  align-items: center;
 }
 
 .location_span_box {
@@ -211,6 +212,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .profile_picture img {
@@ -220,6 +222,25 @@
   border-radius: 10%;
 }
 
+.group_image_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.group_profile_picture {
+  width: 15rem;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  height: 50%;
+  border-radius: 10%;
+}
+
+.group_profile_picture img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10%;
+}
 
 .profile_value {
   display: flex;
@@ -231,28 +252,23 @@
 .profile_session_box {
   display: flex;
   flex-direction: row;
-  margin-top: 50px;
+  gap: 10px;
 }
 
 .public_buttons {
   display: flex;
-  width: 45%;
+  width: 40%;
   gap: 15px;
 }
 
 .profile_edit_button {
-  width: 90%;
+  width: 80%;
   cursor: pointer;
-/*  background: #2d3f51;*/
-  background: linear-gradient(
-    90deg,
-    rgba(56, 160, 247, 1) 0%,
-    rgba(50, 128, 251, 1) 100%
-  );
+  background: #383838;
   color: #ffffff;
-  border-radius: 15px;
+  border-radius: 5px;
   border: none;
-  height: 40px;
+  height: 30px;
   font-size: 1rem;
   display: flex;
   align-items: center;
@@ -261,11 +277,11 @@
 }
 
 .is_public {
-  width: 90%;
-  border: #cad7e0 1px solid;
-  color: #8e98ae;
-  border-radius: 15px;
-  height: 40px;
+  width: 80%;
+  background: #9E9E9E;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 30px;
   font-size: 1rem;
   display: flex;
   align-items: center;
@@ -352,28 +368,67 @@
 }
 
 
-#groupTableBody {
-  display: flex;
-  flex-direction: column;
-  border-top: 2px solid #CAD7E0;
+/* 그룹 목록을 2열 그리드로 표시 */
+.group-list-container {
+  border-top: 1px solid #F2F2F3;
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2개의 열로 구성 */
+  gap: 20px; /* 카드 간격 */
+  justify-items: center; /* 카드 가운데 정렬 */
 }
 
-.group-row {
+/* 그룹 카드 스타일 */
+.group-card {
   display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid #CAD7E0;
-  color: #76819C;
-  font-size: 1rem;
-  font-weight: lighter;
-  height: 150px;
   align-items: center;
-  gap: 3%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%; /* 카드가 그리드 셀을 다 채우도록 */
+  max-width: 100%; /* 카드가 그리드 셀의 전체 너비를 채우도록 설정 */
+  height: auto; /* 카드 높이는 내용에 맞게 조정 */
   cursor: pointer;
 }
-
-.group-row img {
-  height: 100px;
+/* 그룹 카드 이미지 */
+.group-card-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 10%;
+  margin-right: 20px;
 }
+
+/* 그룹 카드 내용 */
+.group-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-card-title {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #333;
+}
+
+.group-card-intro {
+  font-size: 0.875rem;
+  color: #76819c;
+  margin-top: 5px;
+}
+
+.group-card-members {
+  margin-top: 5px;
+  display: flex;
+  color: #76819c;
+  font-size: 0.875rem;
+}
+
+.group_session_label {
+  font-size: 0.772rem;
+}
+
 
 .group-text-field {
   display: flex;
@@ -436,9 +491,12 @@
 }
 
 #userTableBody {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border-top: 1px solid #F2F2F3;
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2개의 열로 구성 */
+  gap: 20px; /* 카드 간격 */
+  justify-items: center; /* 카드 가운데 정렬 */
 }
 
 .user-row {
@@ -461,6 +519,7 @@
   gap: 5px;
 }
 
+
 .group_page_session_box {
   margin: 0;
 }
@@ -471,8 +530,7 @@
 }
 
 .session_label {
-  width: calc(100%/3);
-  height: 40px;
+  color: #F0913C;
 }
 
 .session_label img {

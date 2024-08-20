@@ -46,11 +46,7 @@ public class MainController {
         return "front/main/group";
     }
 
-    @GetMapping("/group-create")
-    public String groupCreate( Model model) {
-        model.addAttribute("uuid",CreateUuidService.generateUUID());
-        return "front/main/group_create";
-    }
+
 
     @PostMapping("/check-login")
     public ResponseEntity<?> checkLogin(@RequestBody Object session) {

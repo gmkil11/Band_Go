@@ -4,7 +4,7 @@ function setupEventListeners(groupId, userId) {
   const profileEditButton = document.querySelector(".profile_edit_button");
   if (profileEditButton) {
     profileEditButton.addEventListener("click", function () {
-      window.location.href = "http://localhost:8080/group/edit"; // 수정해야함
+      window.location.href = `http://localhost:8080/group/edit?groupId=${groupId}`;
     });
   }
 
@@ -58,46 +58,61 @@ function renderUsers(users) {
   tableBody.innerHTML = ""; // 기존 내용을 초기화
 
   users.forEach((user) => {
-    console.log("group_id:", user.group_id);
-    const row = document.createElement("tr");
-    row.classList.add("user-row"); // 클래스 추가
-
-    row.addEventListener("click", () => {
-      /*window.location.href = `http://localhost:8080/group/${group.group_id}`;*/
-    });
+    const card = document.createElement("div");
+    card.classList.add("group-card"); // 유저 카드 클래스 추가
 
     const img = document.createElement("img");
     img.src = "/img/icons/my_profile.svg";
-    row.appendChild(img);
+    img.classList.add("group-card-image"); // 유저 이미지 클래스 추가
+    card.appendChild(img);
 
-    const div = document.createElement("div");
-    div.classList.add("user-text-field");
-    row.appendChild(div);
+    const content = document.createElement("div");
+    content.classList.add("group-card-content");
 
-    const nameCell = document.createElement("td");
+    const nameCell = document.createElement("div");
     nameCell.textContent = user.user_name;
-    nameCell.classList.add("user_name_cell");
-    div.appendChild(nameCell);
+    nameCell.classList.add("group-card-title"); // 유저 이름 클래스 추가
+    content.appendChild(nameCell);
 
-    const introduceCell = document.createElement("td");
+    const introduceCell = document.createElement("div");
     introduceCell.textContent = user.introduce;
-    introduceCell.classList.add("introduce_cell");
-    div.appendChild(introduceCell);
+    introduceCell.classList.add("group-card-intro"); // 유저 소개 클래스 추가
+    content.appendChild(introduceCell);
 
     let sessions = [];
     try {
       if (user.session) {
-        sessions = JSON.parse(user.session);
+        sessions = JSON.parse(user.session); // 세션 정보가 JSON 형식일 경우 파싱
         console.log(user.user_name, sessions);
       }
     } catch (e) {
       console.error("세션 정보를 파싱하는데 실패했습니다:", e);
     }
 
-    const sessionBox = createSessionBox(sessions); // 유저의 세션 정보에 맞는 박스 생성
-    div.appendChild(sessionBox);
+    const sessionMap = {
+      vocal: "#보컬",
+      guitar: "#기타",
+      bass: "#베이스",
+      drum: "#드럼",
+      keyboard: "#건반",
+      brass: "#관악",
+    };
 
-    tableBody.appendChild(row);
+    // 세션 정보 #형식으로 변환
+    const sessionLabels = sessions
+      .map((session) => {
+        return `${sessionMap[session]}`;
+      })
+      .join(" "); // ' '로 구분하여 세션 라벨들을 결합
+
+    const sessionCell = document.createElement("div");
+    sessionCell.textContent = sessionLabels;
+    sessionCell.classList.add("session_label"); // 세션 클래스 추가
+    sessionCell.classList.add("group_session_label");
+    content.appendChild(sessionCell);
+
+    card.appendChild(content);
+    tableBody.appendChild(card);
   });
 }
 

@@ -14,13 +14,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         .select("*")
         .eq("id", loggedInUserId)
         .limit(1)
-        .single(); // 단일 레코드를 가져오도록 설정
+        .single();
 
       if (error) {
         console.error("Error fetching user profile:", error);
-        // 오류 처리
       } else {
-        // user_profile 데이터를 사용하여 프로필 설정 등의 작업 수행
         console.log("User profile:", user_profile);
 
         const userNameSpan = document.getElementById("user_name");
@@ -31,16 +29,38 @@ document.addEventListener("DOMContentLoaded", async function () {
         locationSpan.innerHTML = user_profile.location;
         introduceSpan.innerHTML = user_profile.introduce;
 
-        console.log("세션 항목", user_profile.session);
-        const sessionButtons = document.querySelectorAll(".session_buttons");
-        const userSessions = user_profile.session;
+        const sessionBox = document.querySelector(".profile_session_box");
 
-        if (user_profile.session) {
-          sessionButtons.forEach((button) => {
-            const sessionName = button.querySelector("img").alt;
-            if (userSessions.includes(sessionName)) {
-              button.classList.remove("session_no_checked");
-              button.classList.add("session_checked");
+        const sessionMap = {
+          vocal: "#보컬",
+          guitar: "#기타",
+          bass: "#베이스",
+          drum: "#드럼",
+          keyboard: "#건반",
+          brass: "#관악",
+        };
+
+        let userSessions = user_profile.session
+          ? user_profile.session.split(",").map((s) => s.trim())
+          : [];
+
+        try {
+          userSessions = JSON.parse(user_profile.session);
+        } catch (error) {
+          userSessions = user_profile.session
+            .split(",")
+            .map((s) => s.trim().toLowerCase());
+        }
+
+        if (Array.isArray(userSessions) && userSessions.length > 0) {
+          sessionBox.innerHTML = "";
+          userSessions.forEach((session) => {
+            const normalizedSession = session.trim().toLowerCase();
+            if (sessionMap[normalizedSession]) {
+              const sessionLabel = document.createElement("span");
+              sessionLabel.className = "session_label";
+              sessionLabel.textContent = sessionMap[normalizedSession];
+              sessionBox.appendChild(sessionLabel);
             }
           });
         }
@@ -62,7 +82,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     } catch (error) {
       console.error("Error getting user profile:", error);
-      // 오류 처리
     }
     await getUserImg(loggedInUserId);
   }
@@ -76,80 +95,128 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       if (error) {
         console.error("Error fetching user-group profile:", error);
-        // 오류 처리
       } else {
-        // user_profile 데이터를 사용하여 프로필 설정 등의 작업 수행
         console.log("유저가 소속되어 있는 그룹:", user_group_profile);
 
-        // user_group_profile은 배열 형태이므로 각 요소의 group_id를 사용하여 groups 테이블에서 조회
         let groupProfiles = [];
 
         for (const userGroup of user_group_profile) {
           try {
-            let { data: group_profile, error } = await client
+            let { data: group_profile, error: groupError } = await client
               .from("groups")
               .select("*")
               .eq("group_id", userGroup.group_id);
 
-            if (error) {
-              console.error("Error fetching group profile:", error);
-              // 오류 처리
+            if (groupError) {
+              console.error("Error fetching group profile:", groupError);
             } else {
-              console.log("그룹목록:", group_profile);
-              groupProfiles.push(...group_profile); // 여러 개의 그룹이 반환될 수 있으므로 배열 병합
+              let { data: group_members, error: memberError } = await client
+                .from("user_groups")
+                .select("user_id")
+                .eq("group_id", userGroup.group_id);
+
+              if (memberError) {
+                console.error("Error fetching group members:", memberError);
+              } else {
+                console.log("그룹 멤버 목록:", group_members);
+                groupProfiles.push({
+                  ...group_profile[0],
+                  members: group_members,
+                });
+              }
             }
           } catch (error) {
             console.error("Error getting group profile:", error);
-            // 오류 처리
           }
         }
 
-        // 최종 그룹 목록
         console.log("최종 그룹 목록:", groupProfiles);
-        renderGroups(groupProfiles);
 
-        // groupProfiles 배열을 사용하여 추가 작업 수행 가능
-        // 예: groupProfiles 데이터를 화면에 렌더링하거나 다른 로직 처리
+        // 모든 이미지가 로드될 때까지 기다림
+        await renderGroups(groupProfiles);
       }
     } catch (error) {
       console.error("Error getting user profile:", error);
-      // 오류 처리
     } finally {
-      hideSpinner();
+      hideSpinner(); // 그룹 렌더링과 이미지 로드가 완료된 후 스피너 숨김
     }
   }
 
-  function renderGroups(groups) {
+  async function renderGroups(groups) {
     const tableBody = document.getElementById("groupTableBody");
     tableBody.innerHTML = ""; // 기존 내용을 초기화
 
-    groups.forEach((group) => {
-      console.log("group_id:", group.group_id);
-      const row = document.createElement("tr");
-      row.classList.add("group-row"); // 클래스 추가
+    // 모든 그룹 카드의 이미지 로드가 완료될 때까지 기다림
+    await Promise.all(
+      groups.map(async (group) => {
+        const card = document.createElement("div");
+        card.classList.add("group-card");
 
-      row.addEventListener("click", () => {
-        window.location.href = `http://localhost:8080/group/${group.group_id}`;
-      });
+        card.addEventListener("click", () => {
+          window.location.href = `http://localhost:8080/group/${group.group_id}`;
+        });
 
-      const img = document.createElement("img");
-      img.src = "/img/icons/my_profile.svg";
-      row.appendChild(img);
+        const img = document.createElement("img");
+        img.classList.add("group-card-image");
 
-      const div = document.createElement("div");
-      div.classList.add("group-text-field");
+        // 그룹 이미지 가져오기
+        const { data: imgData } = await client.storage
+          .from("group_profile_images")
+          .download(`public/${group.group_id}`);
 
-      row.appendChild(div);
+        if (imgData) {
+          img.src = URL.createObjectURL(imgData);
+        } else {
+          img.src = "/img/icons/my_profile.svg"; // 이미지가 없거나 오류가 발생할 경우 기본 이미지 설정
+        }
 
-      const nameCell = document.createElement("td");
-      nameCell.textContent = group.group_name;
-      div.appendChild(nameCell);
+        card.appendChild(img);
 
-      const introduceCell = document.createElement("td");
-      introduceCell.textContent = group.group_introduce;
-      div.appendChild(introduceCell);
+        const content = document.createElement("div");
+        content.classList.add("group-card-content");
 
-      tableBody.appendChild(row);
-    });
+        const title = document.createElement("div");
+        title.classList.add("group-card-title");
+        title.textContent = group.group_name;
+        content.appendChild(title);
+
+        const intro = document.createElement("div");
+        intro.classList.add("group-card-intro");
+        intro.textContent = group.group_introduce;
+        content.appendChild(intro);
+
+        // 멤버 리스트 추가
+        const memberList = document.createElement("div");
+        memberList.classList.add("group-card-members");
+
+        const memberNames = await Promise.all(
+          group.members.map(async (member) => {
+            let { data: user, error } = await client
+              .from("user_profile")
+              .select("user_name")
+              .eq("id", member.user_id)
+              .single();
+
+            if (error) {
+              console.error("Error fetching user name:", error);
+              return "알 수 없는 사용자";
+            } else {
+              return user.user_name;
+            }
+          }),
+        );
+
+        let memberNamesText = memberNames.join(", ");
+        if (memberNamesText.length > 25) {
+          memberNamesText = memberNamesText.slice(0, 22) + "...";
+        }
+
+        memberList.textContent = memberNamesText;
+        content.appendChild(memberList);
+
+        card.appendChild(content);
+        tableBody.appendChild(card);
+      }),
+    );
   }
 });

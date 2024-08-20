@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       document.getElementById("scheduleTableBody"),
       false,
     );
+    getGroupImg(groupId);
   }
 
   hideSpinner();

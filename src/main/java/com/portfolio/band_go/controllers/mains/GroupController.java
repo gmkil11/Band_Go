@@ -1,5 +1,6 @@
 package com.portfolio.band_go.controllers.mains;
 
+import com.portfolio.band_go.services.CreateUuidService;
 import com.portfolio.band_go.services.SupabaseService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -64,5 +65,16 @@ public class GroupController {
         return "front/main/group_schedule";
     }
 
+    @GetMapping("/edit")
+    public String groupEdit(Model model, @RequestParam("groupId") String groupId) {
+        model.addAttribute("groupId", groupId);
+        return "front/main/group_edit";
+    }
+
+    @GetMapping("/create")
+    public String groupCreate( Model model) {
+        model.addAttribute("uuid", CreateUuidService.generateUUID());
+        return "front/main/group_create";
+    }
 
 }
