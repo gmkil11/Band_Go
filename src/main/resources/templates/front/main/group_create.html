@@ -8,8 +8,9 @@
 </th:block>
 
 <th:block layout:fragment="addJs">
-    <script type="module"  th:src="@{front/js/create_group.js}"></script>
-
+    <script th:src="@{~/front/js/image_functions.js}"></script>
+    <script th:src="@{~/front/js/group_page_functions.js}"></script>
+    <script type="module"  th:src="@{~/front/js/create_group.js}"></script>
 </th:block>
 
 <!--Body 영역-->
@@ -20,8 +21,11 @@
     <div class="profile_edit_box">
         <span>그룹 생성</span>
         <div class="profile_form_box">
-            <div class="profile_picture">
-                <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture">
+            <div class="group_image_box">
+                <div class="group_profile_picture">
+                    <img th:src="@{/img/icons/my_profile.svg}" alt="profile_picture" id="group_picture_img">
+                </div>
+                <input type="file" accept="image/*" id="group_image">
             </div>
             <form class="profile_edit_input" id="group_edit_form">
                 <div>

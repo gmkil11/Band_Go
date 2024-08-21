@@ -2,10 +2,17 @@ document.addEventListener("DOMContentLoaded", async function () {
   showSpinner();
 
   const authInfo = await client.auth.getSession();
+  console.log(authInfo.data);
   const loggedInUserId = authInfo.data.session.user.id;
 
   await putSpanValue();
   await getGroups();
+
+  document
+    .querySelector(".create_group_button")
+    .addEventListener("click", function () {
+      window.location.href = `http://localhost:8080/group/create`;
+    });
 
   async function putSpanValue() {
     try {

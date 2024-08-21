@@ -46,7 +46,13 @@
 
     <!-- 그룹 목록 영역 -->
     <div class="group-list-area">
-      <span class="group-list-area-span">내 그룹 목록</span>
+      <div class="group_spans">
+        <span class="group-list-area-span">내 그룹 목록</span>
+        <div class="create_group_button">
+          <img th:src="@{/img/icons/plus.svg}">
+          <span>그룹 만들기</span>
+        </div>
+      </div>
       <div id="groupTableBody" class="group-list-container">
         <!-- 그룹 카드가 여기에 추가됩니다 -->
       </div>

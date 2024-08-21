@@ -362,6 +362,19 @@
   font-weight: 500;
 }
 
+.group_spans {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create_group_button{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #2D3F51;
+}
+
 #groupTable {
   width: 100%;
 
@@ -475,6 +488,57 @@
   font-size: 1.5rem;
   font-weight: 500;
   color: #2D3F51;
+}
+
+.group_list_history{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.expired_schedule_message_area{
+  display: flex;
+  align-items: center;
+}
+
+.expired_schedule_message_area:hover .expired_schedule_message {
+  width: 240px;
+  transition: all 0.3s;
+  opacity: 1;
+}
+
+.expired_schedule_message {
+  display: flex;
+  position: absolute;
+  width: 0;
+  height: 40px;
+  left: 444px;
+  bottom: 106px;
+  background: #484848;
+  color: white;
+  border-radius: 5px;
+  opacity: 0;
+  align-items: center;
+  padding: 12px 12.8px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.expired_schedule_message:after{
+  border-top: 13px solid #484848;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 0px solid transparent;
+  content: "";
+  position: absolute;
+  transform: rotate(90deg);
+  top: 14px;
+  left: -16px;
+}
+
+#add_schedule {
+  display: flex;
+  align-items: center;
 }
 
 #invite_user {

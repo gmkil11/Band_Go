@@ -88,9 +88,14 @@
 
         <div class="group-user-area">
             <div class="group-user-area-span-box">
-                <div>
+                <div class="group_list_history">
                     <span class="group-user-area-span">일정 목록</span>
-                    <img id="expired_schedule_icon" th:src="@{/img/icons/plus.svg}">
+                    <div class="expired_schedule_message_area">
+                        <img id="expired_schedule_icon" th:src="@{/img/icons/history.svg}">
+                        <div class="expired_schedule_message">
+                            <span>완료된 일정들을 확인할 수 있어요!</span>
+                        </div>
+                    </div>
                 </div>
                 <div id="add_schedule">
                     <img th:src="@{/img/icons/plus.svg}">

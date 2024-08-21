@@ -6,8 +6,18 @@ document.addEventListener("DOMContentLoaded", async function () {
   const groupEditForm = document.getElementById("group_edit_form");
   const authInfo = await client.auth.getSession();
   const loggedInUserId = authInfo.data.session.user.id;
+  const groupId = document.querySelector(".group_uuid").innerText;
 
   console.log("로그인 되어있는 유저:", loggedInUserId);
+
+  // 그룹 이미지 함수 시작
+  const imgInput = document.getElementById("group_image");
+  imgInput.addEventListener("change", async function (event) {
+    renderImage(event, "group_picture_img");
+    showSpinner();
+    await uploadGroupImage(event, groupId);
+    hideSpinner();
+  });
 
   const publicButtonBox = document.querySelector(".public_button_box");
 
@@ -91,7 +101,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("User name updated successfully:", userGroupData);
         console.log("User profile updated successfully:", userProfileData);
 
-        /*window.location.href = "http://localhost:8080/mypage";*/
+        window.location.href = `http://localhost:8080/group/${groupId}`;
         // 업데이트가 성공한 후에 작업 수행.
       }
     }

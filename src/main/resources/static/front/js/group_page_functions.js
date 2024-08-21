@@ -87,13 +87,27 @@ function renderUsers(users) {
 
   tableBody.innerHTML = ""; // 기존 내용을 초기화
 
-  users.forEach((user) => {
+  users.forEach(async (user) => {
     const card = document.createElement("div");
     card.classList.add("group-card"); // 유저 카드 클래스 추가
 
     const img = document.createElement("img");
-    img.src = "/img/icons/my_profile.svg";
     img.classList.add("group-card-image"); // 유저 이미지 클래스 추가
+
+    // 유저 이미지 가져오기
+    const { data: imgData, error } = await client.storage
+      .from("user_profile_images")
+      .download(`public/${user.id}`); // 각 사용자의 ID에 맞는 이미지 가져오기
+
+    if (error || !imgData) {
+      console.log("유저id", user.id, "이미지 데이타", imgData, "없음");
+      console.error("Error fetching user image:", error);
+      img.src = "/img/icons/my_profile.svg"; // 이미지가 없거나 오류가 발생할 경우 기본 이미지 설정
+    } else {
+      console.log("유저id", user.id, "이미지 데이타", imgData);
+      img.src = URL.createObjectURL(imgData); // 사용자 이미지 설정
+    }
+
     card.appendChild(img);
 
     const content = document.createElement("div");
