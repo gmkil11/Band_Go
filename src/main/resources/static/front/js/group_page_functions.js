@@ -1,11 +1,20 @@
-// group_page_functions.js
-
-function setupEventListeners(groupId, userId) {
+async function setupEventListeners(groupId, userId) {
   const profileEditButton = document.querySelector(".profile_edit_button");
-  if (profileEditButton) {
-    profileEditButton.addEventListener("click", function () {
-      window.location.href = `http://localhost:8080/group/edit?groupId=${groupId}`;
-    });
+
+  const isMaster = await checkMasterPermission(groupId, userId); // 함수 호출 시 await 추가
+
+  if (!isMaster) {
+    console.log("마스터 권한이 없음으로 버튼 안 보이게 설정");
+    // 마스터 권한이 없을 경우 버튼 안 보이게 설정
+    if (profileEditButton) {
+      profileEditButton.style.display = "none";
+    }
+  } else {
+    if (profileEditButton) {
+      profileEditButton.addEventListener("click", function () {
+        window.location.href = `http://localhost:8080/group/edit?groupId=${groupId}`;
+      });
+    }
   }
 
   const addScheduleButton = document.getElementById("add_schedule_span");
@@ -30,6 +39,27 @@ function setupEventListeners(groupId, userId) {
     copyIcon.addEventListener("click", function () {
       copyInviteLink();
     });
+  }
+}
+
+async function checkMasterPermission(groupId, userId) {
+  try {
+    const { data, error } = await client
+      .from("user_groups")
+      .select("role")
+      .eq("group_id", groupId)
+      .eq("user_id", userId)
+      .single();
+
+    if (error) {
+      console.error("Error checking master permission:", error);
+      return false;
+    }
+
+    return data.role === "master";
+  } catch (error) {
+    console.error("Error checking master permission:", error);
+    return false;
   }
 }
 

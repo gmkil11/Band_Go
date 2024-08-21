@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const groupId = document.getElementById("group_id_span").textContent.trim();
+  const userId = await getLoggedInUserId();
+
+  const isMaster = await checkMasterPermission(groupId, userId);
+
+  if (!isMaster) {
+    alert("수정 권한이 없습니다.");
+    window.history.back(); // 이전 페이지로 돌아갑니다.
+    return;
+  }
 
   if (groupId) {
     // 그룹 정보 불러오기

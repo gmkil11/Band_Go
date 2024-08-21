@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   setupEventListeners(groupId, userId);
 
+  await getGroupImg(groupId);
+
   if (groupId) {
     renderUsers(await getUserList(groupId));
     generateInviteLink(
@@ -12,13 +14,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       groupId,
       userId,
     );
-    renderSchedules(
+    await renderSchedules(
       await getScheduleList(groupId),
       groupId,
       document.getElementById("scheduleTableBody"),
       false,
     );
-    getGroupImg(groupId);
   }
 
   hideSpinner();
