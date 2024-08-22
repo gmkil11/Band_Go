@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="addCss">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/trade.css}">
+</th:block>
+
+<th:block layout:fragment="addJs">
+  <script th:src="@{~/front/js/image_functions.js}"></script>
+  <script th:src="@{~/front/js/trade_functions.js}"></script>
+</th:block>
+
+<!--Body 영역-->
+<th:block layout:fragment="content">
+  <div class="trade-content-box">
+    <section class="banner">
+      <div class="banner-content">
+        광고 배너
+      </div>
+      <div class="banner-pagination">
+        1 / 4
+      </div>
+    </section>
+
+    <section class="filter-button-section">
+      <button id="filter-btn">필터 설정</button>
+    </section>
+
+    <section class="trade-category">
+      <div class="trade-category-header">
+        <h2>기타</h2>
+        <button class="see-more-btn">더보기</button>
+      </div>
+      <div class="trade-offers">
+
+      </div>
+    </section>
+  </div>
+
+
+</th:block>
+</html>
