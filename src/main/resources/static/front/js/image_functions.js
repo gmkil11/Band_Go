@@ -128,3 +128,20 @@ async function getGroupImg(groupId) {
     console.error("Error fetching group image:", error);
   }
 }
+
+async function getProductThumbImg(product) {
+  const { data, error } = await client.storage
+    .from("trade_thumbnails")
+    .download(`public/${product.thumbnail_image}`);
+
+  console.log(
+    `Requesting thumbnail image from: public/${product.thumbnail_image}`,
+  );
+
+  if (data) {
+    return URL.createObjectURL(data);
+  } else {
+    console.error("썸네일 이미지를 가져오는데 에러가 발생했습니다:", error);
+    return null;
+  }
+}
