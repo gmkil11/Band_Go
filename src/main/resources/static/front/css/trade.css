@@ -29,6 +29,39 @@
   width: 100%;
 }
 
+.locator {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  padding: 30px 20px;
+}
+
+.locator button {
+  color: #2d3f51;
+  border: none;
+}
+
+.trade-buttons-area {
+  display: flex;
+  gap: 10px;
+}
+
+.product_buttons {
+  background-color: #e9e9e9;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+}
+
+.is_filter_on {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: #e86363;
+}
+
 .product-item-area {
   display: flex;
   justify-content: space-between;

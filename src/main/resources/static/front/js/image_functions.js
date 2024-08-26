@@ -134,9 +134,9 @@ async function getProductThumbImg(product) {
     .from("trade_thumbnails")
     .download(`public/${product.thumbnail_image}`);
 
-  console.log(
+  /*console.log(
     `Requesting thumbnail image from: public/${product.thumbnail_image}`,
-  );
+  );*/
 
   if (data) {
     return URL.createObjectURL(data);

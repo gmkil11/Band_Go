@@ -25,8 +25,21 @@
       </div>
     </section>
 
-    <section class="filter-button-section">
-      <button id="filter-btn">필터 설정</button>
+    <section class="locator">
+      <div>
+        <span>Home</span>
+      </div>
+      <div class="trade-buttons-area">
+        <div class="product_buttons">
+          <img th:src="@{/img/icons/plus.svg}">
+          <button>상품 등록하기</button>
+        </div>
+        <div class="product_buttons">
+          <img th:src="@{/img/icons/filter.svg}">
+          <button>필터 설정</button>
+          <div class="is_filter_on"></div>
+        </div>
+      </div>
     </section>
 
     <section class="trade-category">

@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
   // 상품들을 렌더링하는 함수
   function renderCategory(categoryName, products) {
+    console.log("renderCategory called with:", categoryName); // 여기서 categoryName이 undefined 인지 확인
     const tradeOffers = document.querySelector(".trade-offers");
 
     const categorySection = document.createElement("div");
@@ -18,8 +19,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // 더보기 버튼 클릭 시 해당 카테고리 페이지로 이동
     const categorySlug = convertToSlug(categoryName);
+    console.log("Category Slug generated:", categorySlug); // 여기서 slug 확인
+
     moreButton.addEventListener("click", () => {
-      window.location.href = `http://localhost:8080/trade?category=${categorySlug}`;
+      if (categorySlug) {
+        window.location.href = `http://localhost:8080/trade?category=${categorySlug}`;
+      } else {
+        console.error("Category slug is empty or undefined");
+      }
     });
 
     header.appendChild(categoryTitle);
@@ -39,16 +46,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       const imgSrc = await getProductThumbImg(product);
 
       productElement.innerHTML = `
-        <div class="product-thumbnail-image-area">
-          <img class="product-thumbnail-image" src="${imgSrc}" alt="${product.name}">
-        </div>
-        <div class="product-info">
-          <h3>${product.name}</h3>
-          <p>${product.description}</p>
-          <p class="product-price">${product.price.toLocaleString()}원</p>
-          <p class="product-status">상태: ${product.status}</p>
-        </div>
-      `;
+      <div class="product-thumbnail-image-area">
+        <img class="product-thumbnail-image" src="${imgSrc}" alt="${product.name}">
+      </div>
+      <div class="product-info">
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+        <p class="product-price">${product.price.toLocaleString()}원</p>
+        <p class="product-status">상태: ${product.status}</p>
+      </div>
+    `;
 
       productElementArea.appendChild(productElement); // product-item을 product-item-area에 추가
     });
@@ -115,8 +122,28 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
+  const categorySlugs = {
+    기타: "guitar",
+    어쿠스틱: "acoustic",
+    베이스: "bass",
+    이펙터: "effect",
+    앰프: "amplifier",
+    레코딩: "recording",
+    드럼: "drum",
+    클래식: "classical",
+    // 필요한 다른 카테고리 추가
+  };
+
   function convertToSlug(text) {
-    return text
+    if (!text) {
+      console.error("No text provided for slug conversion");
+      return null;
+    }
+
+    // 한글 카테고리 이름을 영어로 변환
+    const englishText = categorySlugs[text] || text;
+
+    return englishText
       .toLowerCase()
       .replace(/ /g, "-")
       .replace(/[^\w-]+/g, "");
@@ -139,11 +166,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   };
 
   for (let [categoryName, parentCategoryId] of Object.entries(categories)) {
-    // 해당 대분류에 속한 모든 중분류 ID를 가져옴
-    const categoryIds = await getCategoryIds(parentCategoryId);
-    categoryIds.push(parentCategoryId); // 대분류 ID도 포함
+    console.log(
+      "Category Name:",
+      categoryName,
+      "Parent Category ID:",
+      parentCategoryId,
+    ); // 여기서 categoryName과 parentCategoryId 확인
 
-    // 해당 대분류 및 하위 중분류에 속한 상품들을 가져옴
+    const categoryIds = await getCategoryIds(parentCategoryId);
+    categoryIds.push(parentCategoryId);
+
     const products = await fetchProducts(limit, { categoryIds: categoryIds });
     renderCategory(categoryName, products);
   }
