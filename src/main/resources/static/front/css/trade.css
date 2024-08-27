@@ -36,6 +36,19 @@
   padding: 30px 20px;
 }
 
+.locator_span {
+  display: flex;
+}
+
+.locator_span a {
+  text-decoration: none;
+  color: #2d3f51;
+}
+
+.locator_span a:hover {
+  text-decoration: underline;
+}
+
 .locator button {
   color: #2d3f51;
   border: none;
@@ -165,4 +178,77 @@
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* 필터 팝업 스타일 */
+#filterPopup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  z-index: 1000;
+  padding: 20px;
+}
+
+#filterPopup h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+#filterPopup label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#filterPopup input,
+#filterPopup select {
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#filterPopup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#filterPopup button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#filterPopup button:hover {
+  background-color: #0056b3;
+}
+
+/* 레이아웃 조정 */
+@media (max-width: 768px) {
+  .product-item-area .product-item {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-item-area .product-item {
+    flex: 1 1 calc(100% - 20px);
+  }
 }

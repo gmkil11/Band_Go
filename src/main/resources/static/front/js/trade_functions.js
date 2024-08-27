@@ -1,7 +1,15 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  // URL에서 categorySlug 가져오기
+  const urlParams = new URLSearchParams(window.location.search);
+  const categorySlug = urlParams.get("category");
+  const mCategorySlug = urlParams.get("mcategory");
+  const minPrice = urlParams.get("minprice");
+  const maxPrice = urlParams.get("maxprice");
+  const status = urlParams.get("status");
+
   // 상품들을 렌더링하는 함수
   function renderCategory(categoryName, products) {
-    console.log("renderCategory called with:", categoryName); // 여기서 categoryName이 undefined 인지 확인
+    console.log("renderCategory called with:", categoryName);
     const tradeOffers = document.querySelector(".trade-offers");
 
     const categorySection = document.createElement("div");
@@ -19,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // 더보기 버튼 클릭 시 해당 카테고리 페이지로 이동
     const categorySlug = convertToSlug(categoryName);
-    console.log("Category Slug generated:", categorySlug); // 여기서 slug 확인
+    console.log("Category Slug generated:", categorySlug);
 
     moreButton.addEventListener("click", () => {
       if (categorySlug) {
@@ -54,36 +62,37 @@ document.addEventListener("DOMContentLoaded", async function () {
         <p>${product.description}</p>
         <p class="product-price">${product.price.toLocaleString()}원</p>
         <p class="product-status">상태: ${product.status}</p>
-      </div>
-    `;
+      </div>`;
 
-      productElementArea.appendChild(productElement); // product-item을 product-item-area에 추가
+      productElementArea.appendChild(productElement);
     });
 
     categorySection.appendChild(productElementArea);
     tradeOffers.appendChild(categorySection);
   }
 
-  // Supabase에서 상품 데이터를 가져오는 함수
   async function fetchProducts(limit = 5, filter = {}) {
     try {
-      // Supabase 쿼리 시작
       let query = client.from("product").select("*");
 
-      // 필터 조건이 있으면 쿼리에 추가
       if (filter.categoryIds && filter.categoryIds.length > 0) {
         query = query.in("category_id", filter.categoryIds);
       }
 
-      // 필터 조건이 있다면, 필터에 맞게 데이터 가져옴
       if (filter.status) {
         query = query.eq("status", filter.status);
       }
 
-      // 최신순으로 정렬
+      if (filter.minPrice) {
+        query = query.gte("price", filter.minPrice);
+      }
+
+      if (filter.maxPrice) {
+        query = query.lte("price", filter.maxPrice);
+      }
+
       query = query.order("created_at", { ascending: false });
 
-      // 각 카테고리별로 제한된 수의 데이터만 가져오기 위해 동적 쿼리 수행
       if (limit) {
         query = query.limit(limit);
       }
@@ -102,7 +111,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  // 해당 대분류에 속하는 모든 중분류 ID 가져오기
   async function getCategoryIds(parentId) {
     try {
       let { data: categories, error } = await client
@@ -122,7 +130,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  const categorySlugs = {
+  const categoryNames = {
     기타: "guitar",
     어쿠스틱: "acoustic",
     베이스: "bass",
@@ -131,7 +139,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     레코딩: "recording",
     드럼: "drum",
     클래식: "classical",
-    // 필요한 다른 카테고리 추가
+  };
+
+  const categorySlugs = {
+    guitar: "기타",
+    acoustic: "어쿠스틱",
+    bass: "베이스",
+    effect: "이펙터",
+    amplifier: "앰프",
+    recording: "레코딩",
+    drum: "드럼",
+    classical: "클래식",
   };
 
   function convertToSlug(text) {
@@ -140,8 +158,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       return null;
     }
 
-    // 한글 카테고리 이름을 영어로 변환
-    const englishText = categorySlugs[text] || text;
+    const englishText = categoryNames[text] || text;
 
     return englishText
       .toLowerCase()
@@ -149,10 +166,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       .replace(/[^\w-]+/g, "");
   }
 
-  // 대분류별로 5개씩만 가져오도록 설정
-  const limit = 5;
-
-  // 대분류별로 데이터를 가져와서 렌더링
   const categories = {
     기타: 1,
     어쿠스틱: 2,
@@ -162,21 +175,83 @@ document.addEventListener("DOMContentLoaded", async function () {
     레코딩: 6,
     드럼: 7,
     클래식: 8,
-    // 필요한 다른 카테고리 추가
   };
 
-  for (let [categoryName, parentCategoryId] of Object.entries(categories)) {
-    console.log(
-      "Category Name:",
-      categoryName,
-      "Parent Category ID:",
-      parentCategoryId,
-    ); // 여기서 categoryName과 parentCategoryId 확인
+  const limit = 5;
 
-    const categoryIds = await getCategoryIds(parentCategoryId);
-    categoryIds.push(parentCategoryId);
+  if (categorySlug) {
+    // 특정 카테고리 필터링된 결과 가져오기
+    const categoryName = categorySlugs[categorySlug];
+    const locatorSpan = document.querySelector(".locator_span");
 
-    const products = await fetchProducts(limit, { categoryIds: categoryIds });
-    renderCategory(categoryName, products);
+    if (categoryName) {
+      const locationElement = document.createElement("span");
+      locationElement.innerHTML = " &nbsp;>&nbsp; ";
+
+      const categoryLink = document.createElement("a");
+      categoryLink.textContent = categoryName;
+      categoryLink.href = `http://localhost:8080/trade?category=${categorySlug}`;
+
+      locatorSpan.appendChild(locationElement); // " > " 추가
+      locatorSpan.appendChild(categoryLink); // 카테고리 링크 추가
+
+      const parentCategoryId = categories[categoryName];
+      const categoryIds = await getCategoryIds(parentCategoryId);
+      categoryIds.push(parentCategoryId);
+
+      const filter = {
+        categoryIds: categoryIds,
+        minPrice: minPrice ? parseInt(minPrice) : null,
+        maxPrice: maxPrice ? parseInt(maxPrice) : null,
+        status: status,
+      };
+
+      const products = await fetchProducts(limit, filter);
+      renderCategory(categoryName, products);
+    } else {
+      console.error("Invalid category slug provided:", categorySlug);
+    }
+  } else {
+    // 카테고리가 없으면, 모든 대분류에 대해 각 5개씩 가져오기
+    for (let [categoryName, parentCategoryId] of Object.entries(categories)) {
+      const categoryIds = await getCategoryIds(parentCategoryId);
+      categoryIds.push(parentCategoryId);
+
+      const products = await fetchProducts(limit, { categoryIds: categoryIds });
+      renderCategory(categoryName, products);
+    }
   }
+
+  // 필터링 팝업과 필터 기능
+  const filterPopup = document.getElementById("filterPopup");
+  const filterBtn = document.getElementById("filterBtn");
+  const closeBtn = document.querySelector(".close-btn");
+
+  filterBtn.addEventListener("click", function () {
+    filterPopup.style.display = "block";
+  });
+
+  closeBtn.addEventListener("click", function () {
+    filterPopup.style.display = "none";
+  });
+
+  document
+    .getElementById("applyFilter")
+    .addEventListener("click", async function () {
+      const category = document.getElementById("category").value;
+      /*      const mCategory = document.getElementById("mCategory").value;*/
+      const minPrice = document.getElementById("minPrice").value;
+      const maxPrice = document.getElementById("maxPrice").value;
+      const status = document.getElementById("status").value;
+
+      const queryString = new URLSearchParams({
+        category: category || "",
+        /*        mcategory: mCategory || "",*/
+        minprice: minPrice || "",
+        maxprice: maxPrice || "",
+        status: status || "",
+      }).toString();
+
+      window.location.href = `http://localhost:8080/trade?${queryString}`;
+    });
 });
