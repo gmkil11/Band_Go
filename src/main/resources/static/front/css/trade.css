@@ -77,9 +77,10 @@
 
 .product-item-area {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* 왼쪽부터 정렬되도록 설정 */
   gap: 10px;
   padding: 0;
+  flex-wrap: wrap; /* 줄 바꿈이 필요할 때 다음 줄로 넘어가도록 설정 */
 }
 
 .product-item {
