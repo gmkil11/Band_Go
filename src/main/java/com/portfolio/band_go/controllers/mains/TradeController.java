@@ -31,4 +31,9 @@ public class TradeController {
 
         return "front/main/trade_page";
     }
+
+    @GetMapping("/add")
+    public String TradeAdd() {
+        return "front/main/trade_add";
+    }
 }

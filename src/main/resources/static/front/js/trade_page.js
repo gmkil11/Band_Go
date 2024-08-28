@@ -167,6 +167,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
+  // 상품 추가 페이지 리다이랙션 기능
+  const tradeAddBtn = document.querySelector(".add-trade-area");
+  tradeAddBtn.addEventListener("click", function () {
+    window.location.href = `http://localhost:8080/trade/add`;
+  });
+
   // 필터링 팝업과 필터 기능
   const filterPopup = document.getElementById("filterPopup");
   const filterBtn = document.querySelector(".filter-btn-area");
