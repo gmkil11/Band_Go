@@ -105,6 +105,10 @@ async function fetchProducts(limit = 5, filter = {}) {
       query = query.gte("price", filter.minPrice);
     }
 
+    if (filter.subCategoryIds && filter.subCategoryIds.length > 0) {
+      query = query.in("category_id", filter.subCategoryIds);
+    }
+
     if (filter.maxPrice) {
       query = query.lte("price", filter.maxPrice);
     }
@@ -125,6 +129,46 @@ async function fetchProducts(limit = 5, filter = {}) {
     return products;
   } catch (error) {
     console.error("Unexpected error fetching products:", error);
+    return [];
+  }
+}
+
+// 중분류 옵션을 가져오는 함수 (이름과 ID 모두 필요)
+async function getSubCategories(parentId) {
+  try {
+    const { data: categories, error } = await client
+      .from("category")
+      .select("id, name")
+      .eq("parent_id", parentId);
+
+    if (error) {
+      console.error("Error fetching subcategories:", error);
+      return [];
+    }
+
+    return categories; // id와 name을 함께 반환
+  } catch (error) {
+    console.error("Unexpected error fetching subcategories:", error);
+    return [];
+  }
+}
+
+// 중분류 ID만 가져오는 함수 (쿼리 필터링에 사용)
+async function getSubCategoryIds(parentId) {
+  try {
+    const { data: categories, error } = await client
+      .from("category")
+      .select("id")
+      .eq("parent_id", parentId);
+
+    if (error) {
+      console.error("Error fetching category IDs:", error);
+      return [];
+    }
+
+    return categories.map((category) => category.id); // id만 반환
+  } catch (error) {
+    console.error("Unexpected error fetching category IDs:", error);
     return [];
   }
 }
@@ -164,4 +208,13 @@ function formatPriceInput(inputElement) {
     // 포맷팅된 값에 "원"을 추가
     inputElement.value = formattedValue + "원";
   }
+}
+
+// 가격 값을 포맷팅하는 함수
+function formatPriceValue(value) {
+  // 숫자 형식에 맞게 포맷팅
+  const formattedValue = new Intl.NumberFormat().format(value);
+
+  // 포맷팅된 값에 "원"을 추가
+  return formattedValue + "원";
 }

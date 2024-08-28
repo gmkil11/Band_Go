@@ -1,36 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  // URL에서 필터 정보 가져오기
-  const urlParams = new URLSearchParams(window.location.search);
-  const categorySlug = urlParams.get("category");
-  const mCategorySlug = urlParams.get("mcategory");
-  const minPrice = urlParams.get("minprice");
-  const maxPrice = urlParams.get("maxprice");
-  const status = urlParams.get("status");
-
-  // 필터가 적용되었는지 확인
-  const filterApplied =
-    categorySlug || mCategorySlug || minPrice || maxPrice || status;
-
-  // 필터가 적용된 경우 인디케이터 색상을 변경
-  if (filterApplied) {
-    const filterIndicator = document.querySelector(".is_filter_on");
-    if (filterIndicator) {
-      filterIndicator.style.backgroundColor = "#ADE863";
-    }
-
-    // 필터 인풋 필드에 URL 파라미터 값을 적용
-    if (categorySlug) document.getElementById("category").value = categorySlug;
-    if (mCategorySlug)
-      document.getElementById("mCategory").value = mCategorySlug;
-    if (minPrice) {
-      document.getElementById("minPrice").value = formatPriceValue(minPrice);
-    }
-    if (maxPrice) {
-      document.getElementById("maxPrice").value = formatPriceValue(maxPrice);
-    }
-    if (status) document.getElementById("status").value = status;
-  }
-
   const categorySlugs = {
     guitar: "기타",
     acoustic: "어쿠스틱",
@@ -53,6 +21,99 @@ document.addEventListener("DOMContentLoaded", async function () {
     클래식: 8,
   };
 
+  // URL에서 필터 정보 가져오기
+  const urlParams = new URLSearchParams(window.location.search);
+  const categorySlug = urlParams.get("category");
+  const mCategorySlug = urlParams.get("mcategory");
+  const minPrice = urlParams.get("minprice");
+  const maxPrice = urlParams.get("maxprice");
+  const status = urlParams.get("status");
+
+  // 대분류 변경 시 중분류를 업데이트하는 코드
+  document
+    .getElementById("category")
+    .addEventListener("change", async function () {
+      const categorySlug = this.value;
+      console.log("Selected Category Slug:", categorySlug); // 슬러그 확인용 로그
+      const categoryName = categorySlugs[categorySlug];
+      console.log("Selected Category Name:", categoryName); // 대분류 이름 확인용 로그
+      const parentCategoryId = categories[categoryName];
+      console.log("Selected Category ID:", parentCategoryId); // ID 확인용 로그
+      const mCategorySelect = document.getElementById("mCategory");
+
+      console.log("Selected Category ID:", parentCategoryId); // 확인용 로그
+
+      if (parentCategoryId) {
+        // 중분류를 가져오기 위해 API 호출
+        const subCategories = await getSubCategories(parentCategoryId);
+
+        console.log("Fetched Subcategories:", subCategories); // 확인용 로그
+
+        // 중분류 옵션 초기화
+        mCategorySelect.innerHTML = '<option value="">전체</option>';
+
+        // 새로운 중분류 옵션 추가
+        subCategories.forEach((subCategory) => {
+          const option = document.createElement("option");
+          option.value = subCategory.id;
+          option.textContent = subCategory.name;
+          mCategorySelect.appendChild(option);
+        });
+      } else {
+        mCategorySelect.innerHTML = '<option value="">전체</option>';
+      }
+    });
+
+  // 필터가 적용되었는지 확인
+  const filterApplied =
+    categorySlug || mCategorySlug || minPrice || maxPrice || status;
+
+  // 필터가 적용된 경우 인디케이터 색상을 변경
+  if (filterApplied) {
+    const filterIndicator = document.querySelector(".is_filter_on");
+    if (filterIndicator) {
+      filterIndicator.style.backgroundColor = "#ADE863";
+    }
+
+    // 필터 인풋 필드에 URL 파라미터 값을 적용
+    if (categorySlug) {
+      document.getElementById("category").value = categorySlug;
+
+      // 대분류가 선택되었을 때 중분류 옵션을 로드
+      const categoryName = categorySlugs[categorySlug];
+      const parentCategoryId = categories[categoryName];
+
+      if (parentCategoryId) {
+        // 중분류를 가져오기 위해 API 호출
+        const subCategories = await getSubCategories(parentCategoryId);
+
+        const mCategorySelect = document.getElementById("mCategory");
+        mCategorySelect.innerHTML = '<option value="">전체</option>';
+
+        // 중분류 옵션 추가
+        subCategories.forEach((subCategory) => {
+          const option = document.createElement("option");
+          option.value = subCategory.id;
+          option.textContent = subCategory.name;
+          mCategorySelect.appendChild(option);
+        });
+
+        // 중분류 값 설정 (중분류가 로드된 후에 설정해야 함)
+        if (mCategorySlug) {
+          document.getElementById("mCategory").value = mCategorySlug;
+        }
+      }
+    }
+
+    if (minPrice) {
+      document.getElementById("minPrice").value = formatPriceValue(minPrice);
+    }
+    if (maxPrice) {
+      document.getElementById("maxPrice").value = formatPriceValue(maxPrice);
+    }
+    if (status) document.getElementById("status").value = status;
+  }
+
   const limit = 5;
 
   // URL 파라미터에 따라 필터링된 결과 가져오기
@@ -72,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       locatorSpan.appendChild(categoryLink); // 카테고리 링크 추가
 
       const parentCategoryId = categories[categoryName];
-      const categoryIds = await getCategoryIds(parentCategoryId);
+      const categoryIds = await getSubCategoryIds(parentCategoryId); // ID 배열만 사용
       categoryIds.push(parentCategoryId);
 
       const filter = {
@@ -80,6 +141,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         minPrice: minPrice ? parseInt(minPrice) : null,
         maxPrice: maxPrice ? parseInt(maxPrice) : null,
         status: status,
+        subCategoryIds: mCategorySlug ? [parseInt(mCategorySlug)] : [], // 중분류 필터 추가
       };
 
       const products = await fetchProducts(limit, filter);
@@ -88,7 +150,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.error("Invalid category slug provided:", categorySlug);
     }
   } else {
-    // 카테고리가 없으면, 모든 대분류에 대해 각 5개씩 가져오기
     const filter = {
       minPrice: minPrice ? parseInt(minPrice) : null,
       maxPrice: maxPrice ? parseInt(maxPrice) : null,
@@ -96,7 +157,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
 
     for (let [categoryName, parentCategoryId] of Object.entries(categories)) {
-      const categoryIds = await getCategoryIds(parentCategoryId);
+      const categoryIds = await getSubCategoryIds(parentCategoryId); // ID 배열만 사용
       categoryIds.push(parentCategoryId);
 
       filter.categoryIds = categoryIds;
@@ -168,16 +229,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   document.getElementById("applyFilter").addEventListener("click", function () {
     const category = document.getElementById("category").value;
+    const mCategory = document.getElementById("mCategory").value;
     let minPrice = document
       .getElementById("minPrice")
-      .value.replace(/[^0-9]/g, ""); // 숫자만 남기기
+      .value.replace(/[^0-9]/g, "");
     let maxPrice = document
       .getElementById("maxPrice")
-      .value.replace(/[^0-9]/g, ""); // 숫자만 남기기
+      .value.replace(/[^0-9]/g, "");
     const status = document.getElementById("status").value;
 
     const queryString = new URLSearchParams({
       category: category || "",
+      mcategory: mCategory || "", // 중분류 파라미터 추가
       minprice: minPrice || "",
       maxprice: maxPrice || "",
       status: status || "",
