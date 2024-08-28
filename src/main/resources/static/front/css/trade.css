@@ -68,6 +68,11 @@
   display: flex;
 }
 
+.product_buttons button {
+  background-color: #e9e9e9;
+  cursor: pointer;
+}
+
 .is_filter_on {
   width: 10px;
   height: 10px;
