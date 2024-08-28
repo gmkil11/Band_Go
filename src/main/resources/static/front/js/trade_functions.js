@@ -218,3 +218,39 @@ function formatPriceValue(value) {
   // 포맷팅된 값에 "원"을 추가
   return formattedValue + "원";
 }
+
+
+async function insertProduct(productData) {
+  try {
+    // 개별 필드의 값 확인
+    console.log("Inserting product with ID:", productData.id);
+    console.log("User Profile ID:", productData.user_profile_id);
+
+    const { data, error } = await client
+        .from("product")
+        .insert([
+          {
+            id: productData.id,  // UUID 형식의 ID
+            name: productData.name,
+            description: productData.description,
+            price: productData.price,
+            category_id: productData.category_id,
+            thumbnail_image: productData.thumbnail_image,
+            detail_images: productData.detail_images,
+            status: productData.status,
+            user_profile_id: productData.user_profile_id,  // UUID 형식의 사용자 프로필 ID
+            trade_methods: productData.trade_methods
+          }
+        ]);
+
+    if (error) {
+      console.error("Error inserting product:", error.message);
+      throw error;
+    }
+
+    return data;
+  } catch (err) {
+    console.error("Failed to insert product:", err.message);
+    throw err;
+  }
+}

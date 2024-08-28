@@ -1,5 +1,6 @@
 package com.portfolio.band_go.controllers.mains;
 
+import com.portfolio.band_go.services.CreateUuidService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,8 @@ public class TradeController {
     }
 
     @GetMapping("/add")
-    public String TradeAdd() {
+    public String TradeAdd(Model model) {
+        model.addAttribute("uuid", CreateUuidService.generateUUID());
         return "front/main/trade_add";
     }
 }

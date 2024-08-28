@@ -13,6 +13,13 @@ async function user_group_functions() {
 async function getLoggedInUserId() {
   const authInfo = await client.auth.getSession();
   const session = authInfo.data.session;
+
+  if (!session || !session.user) {
+    // 세션이 없거나 사용자가 로그인되어 있지 않다면 로그인 페이지로 리다이렉트
+    window.location.href = '/login';
+    throw new Error("User is not logged in"); // 이후 코드가 실행되지 않도록 에러를 던짐
+  }
+
   const userId = session.user.id;
   console.log("userId:", userId);
   return userId;

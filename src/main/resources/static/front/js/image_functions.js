@@ -145,3 +145,70 @@ async function getProductThumbImg(product) {
     return null;
   }
 }
+
+async function uploadProductThumbnail(event, productId) {
+  const filePath = `public/${productId}_1`;  // 썸네일 파일 이름에 _1을 추가
+  const file = event.target.files[0];
+
+  // 파일 존재 여부 확인
+  const { data: existingFile, error: fetchError } = await client.storage
+      .from("trade_thumbnails")
+      .list("", { search: filePath });
+
+  if (fetchError) {
+    console.error("Error checking file existence:", fetchError);
+    return;
+  }
+
+  if (existingFile && existingFile.length > 0) {
+    console.log("파일이 존재함으로 업데이트 합니다");
+    // 파일이 존재하면 업데이트
+    const { data, error } = await client.storage
+        .from("trade_thumbnails")
+        .update(filePath, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+    if (error) {
+      console.error("Error updating thumbnail image:", error);
+    } else {
+      console.log("Thumbnail image updated successfully:", data);
+    }
+  } else {
+    // 파일이 존재하지 않으면 업로드
+    console.log("파일이 존재하지 않으므로 업로드 합니다");
+    const { data, error } = await client.storage
+        .from("trade_thumbnails")
+        .upload(filePath, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+    if (error) {
+      console.error("Error uploading thumbnail image:", error);
+    } else {
+      console.log("Thumbnail image uploaded successfully:", data);
+    }
+  }
+}
+
+async function uploadProductDetailImages(event, productId, index) {
+  const file = event.target.files[0];
+  const fileName = `${productId}_${index}`;
+
+  // 파일을 항상 새로운 이름으로 업로드하도록 처리
+  const { data, error } = await client.storage
+      .from("trade_detail_images")
+      .upload(`public/${fileName}`, file, {
+        cacheControl: "3600",
+        upsert: false,  // 덮어쓰지 않도록 설정
+      });
+
+  if (error) {
+    console.error(`Error uploading detail image (${index}):`, error);
+  } else {
+    console.log(`Detail image (${index}) uploaded successfully:`, data);
+  }
+}
+

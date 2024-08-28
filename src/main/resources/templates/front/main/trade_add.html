@@ -11,11 +11,13 @@
 <th:block layout:fragment="addJs">
   <script th:src="@{~/front/js/image_functions.js}"></script>
   <script th:src="@{~/front/js/trade_functions.js}"></script>
+  <script th:src="@{~/front/js/trade_add.js}"></script>
 </th:block>
 
 <!--Body 영역-->
 <th:block layout:fragment="content">
-  <div class="product-upload-form">
+  <span class="group_uuid" th:text="${uuid}"></span>
+  <form  class="product-upload-form" id="productUploadForm">
     <h2>상품 올리기</h2>
 
     <!-- 썸네일 이미지 파일 추가란 -->
@@ -91,6 +93,6 @@
     <div class="form-group">
       <button type="submit" class="btn btn-primary">상품 올리기</button>
     </div>
-  </div>
+  </form >
 </th:block>
 </html>

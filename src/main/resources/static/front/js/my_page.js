@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", async function () {
   showSpinner();
 
-  const authInfo = await client.auth.getSession();
-  console.log(authInfo.data);
-  const loggedInUserId = authInfo.data.session.user.id;
+
+  console.log(getLoggedInUserId());
+  const loggedInUserId = getLoggedInUserId()
 
   await putSpanValue();
   await getGroups();
