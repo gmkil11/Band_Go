@@ -163,20 +163,22 @@ function validateNullInput(inputBox, input, inputIcon, inputError) {
 }
 
 function handleInputError(inputBox, inputElement, iconElement, errorBox) {
-  inputBox.classList.add("error");
-  inputElement.classList.add("error");
+  if (inputBox) inputBox.classList.add("error");
+  if (inputElement) inputElement.classList.add("error");
   if (iconElement) handleIconError(iconElement);
   errorBox.style.display = "flex";
   errorBox.style.color = "#D23123";
-  inputElement.classList.replace("placeholder", "error_placeholder");
+  if (inputElement)
+    inputElement.classList.replace("placeholder", "error_placeholder");
 }
 
 function resetInputError(inputBox, inputElement, iconElement, errorBox) {
-  inputBox.classList.remove("error");
-  inputElement.classList.remove("error");
+  if (inputBox) inputBox.classList.remove("error");
+  if (inputElement) inputElement.classList.remove("error");
   if (iconElement) resetIconError(iconElement);
   errorBox.style.display = "none";
-  inputElement.classList.replace("error_placeholder", "placeholder");
+  if (inputElement)
+    inputElement.classList.replace("error_placeholder", "placeholder");
 }
 
 function handleIconError(icon) {

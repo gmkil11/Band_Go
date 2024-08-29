@@ -20,6 +20,7 @@
 
 .error_box {
   display: none;
+  gap: 5px;
 }
 
 .error_box span {

@@ -114,7 +114,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (status) document.getElementById("status").value = status;
   }
 
-  const limit = 5;
+  // 필터링된 결과를 모두 불러오기
+  const limit = filterApplied ? null : 5;
 
   // URL 파라미터에 따라 필터링된 결과 가져오기
   if (categorySlug) {
@@ -144,7 +145,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         subCategoryIds: mCategorySlug ? [parseInt(mCategorySlug)] : [], // 중분류 필터 추가
       };
 
-      const products = await fetchProducts(limit, filter);
+      // 필터가 적용된 경우 limit을 null로 설정하여 모든 상품을 가져오도록 함
+      const products = await fetchProducts(filterApplied ? null : 5, filter);
       renderCategory(categoryName, products);
     } else {
       console.error("Invalid category slug provided:", categorySlug);
@@ -162,7 +164,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       filter.categoryIds = categoryIds;
 
-      const products = await fetchProducts(limit, filter);
+      // 필터가 적용된 경우 limit을 null로 설정하여 모든 상품을 가져오도록 함
+      const products = await fetchProducts(filterApplied ? null : 5, filter);
       renderCategory(categoryName, products);
     }
   }

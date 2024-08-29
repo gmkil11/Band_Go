@@ -258,3 +258,168 @@
     flex: 1 1 calc(100% - 20px);
   }
 }
+
+/* 상품 등록 페이지 */
+.product-upload-form {
+  width: 70%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.product-upload-form h2 {
+  text-align: left;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #000 !important;
+}
+
+.image-upload-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-content: center;
+}
+
+.image-upload-box {
+  width: 150px;
+  height: 150px;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.upload-text {
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+}
+
+.image-preview-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.image-preview {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.image-preview .remove-btn {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.remove-btn img {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(169deg)
+    brightness(104%) contrast(106%);
+  width: 40%;
+}
+
+.image-preview .representative-label {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 2px 5px;
+  font-size: 12px;
+  border-radius: 4px;
+  display: none; /* 첫 번째 이미지만 표시할 예정 */
+}
+
+.image-preview:first-child .representative-label {
+  display: block; /* 첫 번째 이미지에만 "대표 이미지" 표시 */
+}
+
+.form-group .upload_button {
+  width: 100%;
+  padding: 20px;
+  background-color: #f08c34;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.trade-method-container {
+  display: flex;
+  gap: 10px; /* 버튼 사이의 간격을 조정 */
+}
+
+.trade-method-button {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  font-size: 16px;
+}
+
+.trade-method-button.active {
+  background-color: #f08c34; /* 선택된 버튼의 배경 색상 */
+  color: white; /* 선택된 버튼의 글자 색상 */
+}
