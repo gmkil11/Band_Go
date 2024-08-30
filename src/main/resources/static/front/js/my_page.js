@@ -1,12 +1,19 @@
 document.addEventListener("DOMContentLoaded", async function () {
   showSpinner();
 
-
   console.log(getLoggedInUserId());
-  const loggedInUserId = getLoggedInUserId()
+  const loggedInUserId = await getLoggedInUserId();
+  const pageUserId = new URLSearchParams(window.location.search).get("userId");
 
   await putSpanValue();
   await getGroups();
+
+  // 로그인된 유저와 페이지 유저가 같다면, 프로필 수정 버튼을 보이게 한다
+  if (loggedInUserId === pageUserId) {
+    document.querySelector(".public_buttons").style.display = "flex";
+  } else {
+    document.querySelector(".public_buttons").style.display = "none";
+  }
 
   document
     .querySelector(".create_group_button")
@@ -19,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       let { data: user_profile, error } = await client
         .from("user_profile")
         .select("*")
-        .eq("id", loggedInUserId)
+        .eq("id", pageUserId)
         .limit(1)
         .single();
 
@@ -90,7 +97,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
       console.error("Error getting user profile:", error);
     }
-    await getUserImg(loggedInUserId);
+    await getUserImg(pageUserId);
   }
 
   async function getGroups() {
@@ -98,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       let { data: user_group_profile, error } = await client
         .from("user_groups")
         .select("*")
-        .eq("user_id", loggedInUserId);
+        .eq("user_id", pageUserId);
 
       if (error) {
         console.error("Error fetching user-group profile:", error);

@@ -28,7 +28,10 @@
       </div>
       <div class="product-detail-spans">
         <div class="product-detail-first-child">
-          <span class="user-name"></span>
+          <div class="user-name-container">
+            <a class="user-name"></a>
+            <img th:src="@{/img/icons/crown.svg}">
+          </div>
           <span class="product-detail-status"></span>
         </div>
         <div class="product-detail-second-child">
@@ -70,12 +73,15 @@
     </div>
 
     <section class="similar-products">
-      <span class="similar-product-item-span">비슷한 상품</span>
+      <span class="similar-product-item-header">비슷한 상품</span>
       <div class="similar-products-list">
       </div>
     </section>
 
-    <span class="product-detail-description"></span>
+    <section class="product-detail-description-container">
+      <span class="product-detail-description-header">상품 설명</span>
+      <span class="product-detail-description"></span>
+    </section>
   </div>
 </th:block>
 </html>

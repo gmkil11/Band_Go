@@ -33,12 +33,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     // 판매자 정보 가져오기
     const user = await getUserById(product.user_profile_id);
+    const userNameLink = document.querySelector(".user-name");
     if (user.user_name) {
-      document.querySelector(".user-name").textContent = `${user.user_name}`;
+      userNameLink.textContent = `${user.user_name}`;
     } else {
       document.querySelector(".user-name").textContent =
         "판매자 정보를 가져올 수 없습니다.";
     }
+    userNameLink.parentNode.addEventListener("click", function () {
+      window.location.href = `http://localhost:8080/mypage?userId=${user.id}`;
+    });
 
     // 상태 변환
     const statusMapping = {
@@ -99,6 +103,22 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const formattedDate = `${year}년 ${month}월 ${day}일 (${weekday}) ${hours}시 ${minutes}분`;
     document.querySelector(".product-detail-date").textContent = formattedDate;
+
+    // 현재 시간과 상품 등록 시간의 차이를 계산
+    const currentTime = new Date();
+    const timeDiff = currentTime - localDate; // 밀리초 단위 차이
+    const hoursDiff = timeDiff / (1000 * 60 * 60); // 시간 단위로 변환
+
+    if (hoursDiff <= 24) {
+      const timeAgoSpan = document.createElement("span");
+      timeAgoSpan.className = "time-ago";
+      const timeAgoText =
+        hoursDiff >= 1
+          ? `(${Math.floor(hoursDiff)}시간 전)`
+          : `(${Math.floor(hoursDiff * 60)}분 전)`;
+      timeAgoSpan.textContent = timeAgoText;
+      document.querySelector(".product-detail-date").appendChild(timeAgoSpan);
+    }
   } catch (error) {
     console.error("Failed to load product details:", error);
   }
