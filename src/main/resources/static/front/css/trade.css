@@ -83,7 +83,7 @@
 .product-item-area {
   display: flex;
   justify-content: flex-start; /* 왼쪽부터 정렬되도록 설정 */
-  gap: 10px;
+  gap: 20px;
   padding: 0;
   flex-wrap: wrap; /* 줄 바꿈이 필요할 때 다음 줄로 넘어가도록 설정 */
 }
@@ -422,4 +422,219 @@
 .trade-method-button.active {
   background-color: #f08c34; /* 선택된 버튼의 배경 색상 */
   color: white; /* 선택된 버튼의 글자 색상 */
+}
+
+/* 상품 상세보기 페이지 */
+
+/* 상품 상세 컨테이너 */
+.product-detail-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 70%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* 상품 상세 정보 */
+.product-detail {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  align-items: stretch; /* 컨테이너 내의 아이템들이 같은 높이를 가지도록 */
+  justify-content: space-around;
+}
+
+.product-detail-thumbnail-container {
+  flex: 1; /* flex를 사용해 크기를 유동적으로 조정 */
+  max-width: 40%;
+  aspect-ratio: 1 / 1; /* 1:1 비율 유지 */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; /* 이미지가 없을 때 배경색 설정 */
+}
+
+.product-detail-thumbnail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: white; /* 여백 부분을 흰색으로 채움 */
+}
+
+.product-detail-spans {
+  flex: 1; /* flex를 사용해 크기를 유동적으로 조정 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 상하 요소가 동일하게 배치되도록 */
+}
+
+.product-detail-first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: #2d3f51 1px solid;
+}
+
+.user-name {
+  font-size: 1.5vw;
+}
+
+.product-detail-second-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-detail-name {
+  font-size: 2.5vw;
+  font-weight: 400;
+}
+
+.product-detail-price {
+  font-size: 3vw;
+  font-weight: 500;
+  color: #f08c34;
+}
+
+.product-detail-third-child {
+  font-size: 1.4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.product-detail-view-btn {
+  border-top: #2d3f51 1px solid;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-detail-view-info {
+  display: flex;
+  gap: 20px;
+}
+
+.product-detail-btn-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.wish-count-container,
+.chat-count-container,
+.view-count-container {
+  display: flex;
+  gap: 10px;
+}
+
+.wish-svg,
+.chat-svg,
+.view-svg {
+  filter: invert(22%) sepia(29%) saturate(580%) hue-rotate(169deg)
+    brightness(93%) contrast(94%);
+  height: 1.5vw;
+}
+
+.wish-btn,
+.chat-btn {
+  display: flex;
+  flex: 1; /* 버튼 크기를 균등하게 나눔 */
+  background-color: #8e98ae;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.wish-btn img,
+.chat-btn img {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(54deg)
+    brightness(107%) contrast(101%);
+}
+
+.product-detail-btn-container span {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.product-breadcrumb a {
+  text-decoration: none;
+  color: #2d3f51;
+}
+
+.product-breadcrumb a:hover {
+  text-decoration: underline;
+  color: #2d3f51;
+}
+
+.product-breadcrumb {
+  margin-bottom: 20px;
+}
+
+.similar-products {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.similar-products-list {
+  display: flex;
+  gap: 15px;
+}
+
+.similar-product-item {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 150px;
+  flex: 1;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.similar-product-item img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1; /* 1:1 비율 유지 */
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.similar-product-item-span {
+  font-weight: 400;
+  font-size: 1.5vw;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  border-top: #2d3f51 1px solid;
+}
+
+.similar-product-item-name {
+  margin: 10px 0;
+  font-size: 1vw;
+  font-weight: 400;
+}
+
+.similar-product-item-price {
+  font-size: 0.9vw;
+  margin-bottom: 5px;
+  font-weight: 300;
+}
+
+.similar-product-item:hover {
+  transform: scale(1.05);
 }

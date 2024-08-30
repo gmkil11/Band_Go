@@ -145,15 +145,58 @@ async function getProductThumbImg(product) {
     return null;
   }
 }
+async function cropImageToSquare(imageFile) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+        const size = Math.min(img.width, img.height);
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+
+        // 중앙에서 1:1 비율로 잘라내기
+        ctx.drawImage(
+          img,
+          (img.width - size) / 2,
+          (img.height - size) / 2,
+          size,
+          size,
+          0,
+          0,
+          size,
+          size,
+        );
+
+        canvas.toBlob((blob) => {
+          resolve(blob);
+        }, imageFile.type || "image/png");
+      };
+      img.src = event.target.result;
+    };
+
+    reader.onerror = function (error) {
+      reject(error);
+    };
+
+    reader.readAsDataURL(imageFile);
+  });
+}
 
 async function uploadProductThumbnail(event, productId) {
-  const filePath = `public/${productId}_1`;  // 썸네일 파일 이름에 _1을 추가
-  const file = event.target.files[0];
+  const filePath = `public/${productId}_1`; // 썸네일 파일 이름에 _1을 추가
+  const originalFile = event.target.files[0];
+
+  // 이미지를 1:1로 자르기
+  const croppedBlob = await cropImageToSquare(originalFile);
 
   // 파일 존재 여부 확인
   const { data: existingFile, error: fetchError } = await client.storage
-      .from("trade_thumbnails")
-      .list("", { search: filePath });
+    .from("trade_thumbnails")
+    .list("", { search: filePath });
 
   if (fetchError) {
     console.error("Error checking file existence:", fetchError);
@@ -164,11 +207,11 @@ async function uploadProductThumbnail(event, productId) {
     console.log("파일이 존재함으로 업데이트 합니다");
     // 파일이 존재하면 업데이트
     const { data, error } = await client.storage
-        .from("trade_thumbnails")
-        .update(filePath, file, {
-          cacheControl: "3600",
-          upsert: false,
-        });
+      .from("trade_thumbnails")
+      .update(filePath, croppedBlob, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
     if (error) {
       console.error("Error updating thumbnail image:", error);
@@ -179,11 +222,11 @@ async function uploadProductThumbnail(event, productId) {
     // 파일이 존재하지 않으면 업로드
     console.log("파일이 존재하지 않으므로 업로드 합니다");
     const { data, error } = await client.storage
-        .from("trade_thumbnails")
-        .upload(filePath, file, {
-          cacheControl: "3600",
-          upsert: false,
-        });
+      .from("trade_thumbnails")
+      .upload(filePath, croppedBlob, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
     if (error) {
       console.error("Error uploading thumbnail image:", error);
@@ -194,16 +237,19 @@ async function uploadProductThumbnail(event, productId) {
 }
 
 async function uploadProductDetailImages(event, productId, index) {
-  const file = event.target.files[0];
+  const originalFile = event.target.files[0];
   const fileName = `${productId}_${index}`;
+
+  // 이미지를 1:1로 자르기
+  const croppedBlob = await cropImageToSquare(originalFile);
 
   // 파일을 항상 새로운 이름으로 업로드하도록 처리
   const { data, error } = await client.storage
-      .from("trade_detail_images")
-      .upload(`public/${fileName}`, file, {
-        cacheControl: "3600",
-        upsert: false,  // 덮어쓰지 않도록 설정
-      });
+    .from("trade_detail_images")
+    .upload(`public/${fileName}`, croppedBlob, {
+      cacheControl: "3600",
+      upsert: false, // 덮어쓰지 않도록 설정
+    });
 
   if (error) {
     console.error(`Error uploading detail image (${index}):`, error);
@@ -211,4 +257,3 @@ async function uploadProductDetailImages(event, productId, index) {
     console.log(`Detail image (${index}) uploaded successfully:`, data);
   }
 }
-

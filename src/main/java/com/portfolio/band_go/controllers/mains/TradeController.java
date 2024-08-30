@@ -38,4 +38,10 @@ public class TradeController {
         model.addAttribute("uuid", CreateUuidService.generateUUID());
         return "front/main/trade_add";
     }
+
+    @GetMapping("/detail")
+    public String TradeDetail(@RequestParam("productId") String productId ,Model model) {
+        model.addAttribute("productId", productId);
+        return "front/main/trade_detail";
+    }
 }

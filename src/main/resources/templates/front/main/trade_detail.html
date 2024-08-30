@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/default_layout}">
+
+<th:block layout:fragment="addCss">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/profile_edit.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/front/css/trade.css}">
+</th:block>
+
+<th:block layout:fragment="addJs">
+  <script th:src="@{~/front/js/image_functions.js}"></script>
+  <script th:src="@{~/front/js/trade_functions.js}"></script>
+  <script th:src="@{~/front/js/trade_detail.js}"></script>
+</th:block>
+
+<!--Body 영역-->
+<th:block layout:fragment="content">
+  <div id="product_id" th:text="${productId}" style="display: none"></div>
+  <div class="product-detail-container">
+    <div class="product-breadcrumb">
+      <!-- 카테고리 경로가 동적으로 추가될 위치 -->
+    </div>
+
+    <div class="product-detail">
+      <div class="product-detail-thumbnail-container">
+        <img class="product-detail-thumbnail-image" src="/img/default-thumbnail.png" alt="Product Thumbnail">
+      </div>
+      <div class="product-detail-spans">
+        <div class="product-detail-first-child">
+          <span class="user-name"></span>
+          <span class="product-detail-status"></span>
+        </div>
+        <div class="product-detail-second-child">
+          <span class="product-detail-name"></span>
+          <span class="product-detail-price"></span>
+        </div>
+        <div class="product-detail-third-child">
+          <span class="product-detail-date"></span>
+          <span class="product-detail-location"></span>
+          <span class="trade-detail-methods"></span>
+        </div>
+        <div class="product-detail-view-btn">
+          <div class="product-detail-view-info">
+            <div class="wish-count-container">
+              <img class="wish-svg" th:src="@{/img/icons/heart.svg}">
+              <span class="wish-count"></span>
+            </div>
+            <div class="view-count-container">
+              <img class="view-svg" th:src="@{/img/icons/view.svg}">
+              <span class="view-count"></span>
+            </div>
+            <div class="chat-count-container">
+              <img class="chat-svg" th:src="@{/img/icons/chat.svg}">
+              <span class="chat-count"></span>
+            </div>
+          </div>
+          <div class="product-detail-btn-container">
+            <div class="wish-btn">
+              <img th:src="@{/img/icons/heart.svg}">
+              <span>찜하기</span>
+            </div>
+            <div class="chat-btn">
+              <img th:src="@{/img/icons/chat.svg}">
+              <span>채팅 보내기</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="similar-products">
+      <span class="similar-product-item-span">비슷한 상품</span>
+      <div class="similar-products-list">
+      </div>
+    </section>
+
+    <span class="product-detail-description"></span>
+  </div>
+</th:block>
+</html>

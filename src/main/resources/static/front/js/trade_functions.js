@@ -82,13 +82,19 @@ function renderCategory(categoryName, products) {
           <p class="product-status">상태: ${product.status}</p>
         </div>`;
 
+    // 상품 클릭 시 리다이렉션
+    productElement.addEventListener("click", () => {
+      window.location.href = `http://localhost:8080/trade/detail?productId=${product.id}`;
+    });
+
     productElementArea.appendChild(productElement);
   });
 
   categorySection.appendChild(productElementArea);
   tradeOffers.appendChild(categorySection);
 }
-// 상품 데이터 가져오는 함수
+
+// 상품 데이터들을 가져오는 함수
 async function fetchProducts(limit = 5, filter = {}) {
   try {
     let query = client.from("product").select("*");
@@ -133,6 +139,27 @@ async function fetchProducts(limit = 5, filter = {}) {
   }
 }
 
+// 상품 ID로 상품 정보를 가져오는 함수
+async function fetchProductById(productId) {
+  try {
+    const { data: product, error } = await client
+      .from("product")
+      .select("*")
+      .eq("id", productId)
+      .single();
+
+    if (error) {
+      console.error("Error fetching product:", error.message);
+      return null;
+    }
+
+    return product;
+  } catch (error) {
+    console.error("Unexpected error fetching product:", error);
+    return null;
+  }
+}
+
 // 중분류 옵션을 가져오는 함수 (이름과 ID 모두 필요)
 async function getSubCategories(parentId) {
   try {
@@ -173,26 +200,6 @@ async function getSubCategoryIds(parentId) {
   }
 }
 
-// 특정 카테고리의 모든 하위 카테고리 ID를 가져오는 함수
-async function getCategoryIds(parentId) {
-  try {
-    const { data: categories, error } = await client
-      .from("category")
-      .select("id")
-      .eq("parent_id", parentId);
-
-    if (error) {
-      console.error("Error fetching categories:", error);
-      return [];
-    }
-
-    return categories.map((category) => category.id);
-  } catch (error) {
-    console.error("Unexpected error fetching category IDs:", error);
-    return [];
-  }
-}
-
 function formatPriceInput(inputElement) {
   // 사용자가 입력한 값 가져오기
   let inputValue = inputElement.value;
@@ -219,29 +226,26 @@ function formatPriceValue(value) {
   return formattedValue + "원";
 }
 
-
 async function insertProduct(productData) {
   try {
     // 개별 필드의 값 확인
     console.log("Inserting product with ID:", productData.id);
     console.log("User Profile ID:", productData.user_profile_id);
 
-    const { data, error } = await client
-        .from("product")
-        .insert([
-          {
-            id: productData.id,  // UUID 형식의 ID
-            name: productData.name,
-            description: productData.description,
-            price: productData.price,
-            category_id: productData.category_id,
-            thumbnail_image: productData.thumbnail_image,
-            detail_images: productData.detail_images,
-            status: productData.status,
-            user_profile_id: productData.user_profile_id,  // UUID 형식의 사용자 프로필 ID
-            trade_methods: productData.trade_methods
-          }
-        ]);
+    const { data, error } = await client.from("product").insert([
+      {
+        id: productData.id, // UUID 형식의 ID
+        name: productData.name,
+        description: productData.description,
+        price: productData.price,
+        category_id: productData.category_id,
+        thumbnail_image: productData.thumbnail_image,
+        detail_images: productData.detail_images,
+        status: productData.status,
+        user_profile_id: productData.user_profile_id, // UUID 형식의 사용자 프로필 ID
+        trade_methods: productData.trade_methods,
+      },
+    ]);
 
     if (error) {
       console.error("Error inserting product:", error.message);
@@ -253,4 +257,127 @@ async function insertProduct(productData) {
     console.error("Failed to insert product:", err.message);
     throw err;
   }
+}
+
+// 카테고리 경로를 렌더링하는 함수
+function renderCategoryPath(categoryPath) {
+  const breadcrumbContainer = document.querySelector(".product-breadcrumb");
+
+  // 경로를 HTML로 렌더링합니다.
+  categoryPath.forEach((category, index) => {
+    const categoryLink = document.createElement("a");
+    categoryLink.href = category.slug;
+    categoryLink.textContent = category.name;
+
+    breadcrumbContainer.appendChild(categoryLink);
+
+    // 마지막 요소가 아니면 ' > '를 추가합니다.
+    if (index < categoryPath.length - 1) {
+      breadcrumbContainer.appendChild(document.createTextNode(" > "));
+    }
+  });
+}
+
+// 카테고리 경로를 생성하는 함수
+async function generateCategoryPath(categoryId) {
+  const categoryPath = [];
+
+  try {
+    // 대분류 이름 가져오기
+    const { data: mainCategory, error: mainCategoryError } = await client
+      .from("category")
+      .select("id, name, parent_id")
+      .eq("id", categoryId)
+      .single();
+
+    if (mainCategoryError) {
+      console.error("Error fetching main category:", mainCategoryError.message);
+      return categoryPath;
+    }
+
+    categoryPath.push({ name: "Home", slug: "/trade" });
+
+    if (mainCategory.parent_id) {
+      // 중분류가 있는 경우
+      const { data: parentCategory, error: parentCategoryError } = await client
+        .from("category")
+        .select("id, name")
+        .eq("id", mainCategory.parent_id)
+        .single();
+
+      if (parentCategoryError) {
+        console.error(
+          "Error fetching parent category:",
+          parentCategoryError.message,
+        );
+        return categoryPath;
+      }
+
+      categoryPath.push({
+        name: parentCategory.name,
+        slug: `/trade?category=${convertToSlug(parentCategory.name)}`,
+      });
+      categoryPath.push({
+        name: mainCategory.name,
+        slug: `/trade?category=${convertToSlug(mainCategory.name)}`,
+      });
+    } else {
+      // 중분류가 없는 경우 대분류만 추가
+      categoryPath.push({
+        name: mainCategory.name,
+        slug: `/trade?category=${convertToSlug(mainCategory.name)}`,
+      });
+    }
+  } catch (error) {
+    console.error("Error generating category path:", error);
+  }
+
+  return categoryPath;
+}
+
+// 같은 카테고리에서 판매 중인 상품을 가져오는 함수
+async function fetchSimilarProducts(categoryId, excludeProductId) {
+  try {
+    const { data: products, error } = await client
+      .from("product")
+      .select("*")
+      .eq("category_id", categoryId)
+      .neq("id", excludeProductId) // 현재 보고 있는 상품은 제외
+      .eq("status", "available") // 판매중인 상품만
+      .limit(5); // 5개의 상품만 가져오기
+
+    if (error) {
+      console.error("Error fetching similar products:", error.message);
+      return [];
+    }
+
+    return products;
+  } catch (error) {
+    console.error("Unexpected error fetching similar products:", error);
+    return [];
+  }
+}
+
+// 비슷한 상품들을 렌더링하는 함수
+function renderSimilarProducts(products) {
+  const similarProductsList = document.querySelector(".similar-products-list");
+
+  products.forEach(async (product) => {
+    const productElement = document.createElement("div");
+    productElement.classList.add("similar-product-item");
+
+    const imgSrc = await getProductThumbImg(product);
+
+    productElement.innerHTML = `
+      <img src="${imgSrc}" alt="${product.name}">
+      <span class="similar-product-item-name">${product.name}</span>
+      <span class="similar-product-item-price">${formatPriceValue(product.price)}</span>
+    `;
+
+    productElement.addEventListener("click", () => {
+      window.location.href = `http://localhost:8080/trade/detail?productId=${product.id}`;
+    });
+
+    similarProductsList.appendChild(productElement);
+  });
 }

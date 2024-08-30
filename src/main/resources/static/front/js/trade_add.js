@@ -107,9 +107,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       try {
         // 사용자가 입력한 값 수집
-        const productName = document.getElementById("productName").value;
-        const categoryId = document.getElementById("category").value;
+
+        // 사용자가 선택한 대분류 및 중분류
+        const categorySlug = document.getElementById("category").value;
         const subCategoryId = document.getElementById("subCategory").value;
+        // 대분류의 슬러그를 한글로 변환 후 categories 객체에서 category_id 추출
+        const categoryName = categorySlugs[categorySlug];
+        const categoryId = subCategoryId || categories[categoryName];
+        if (!categoryId) {
+          console.log("카테고리를 올바르게 입력해주세요");
+        }
+        const productName = document.getElementById("productName").value;
         const productPrice = parseFloat(
           document.getElementById("productPrice").value.replace(/[^0-9]/g, ""),
         );
@@ -165,7 +173,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           name: productName,
           description: productDescription,
           price: productPrice,
-          category_id: subCategoryId || categoryId,
+          category_id: categoryId,
           thumbnail_image: `${productId}_1`,
           detail_images: detailImagesString,
           status: "available",
@@ -232,16 +240,18 @@ function validateProductForm() {
   // 가격 유효성 검사
   const productPriceInput = document.getElementById("productPrice");
   const productPriceErrorSpan = document.querySelector(".price_error_box");
-  if (
-    sanitizeInput(productPriceInput.value) === "" ||
-    isNaN(productPriceInput.value)
-  ) {
+
+  // 숫자만 추출한 뒤 정수로 변환
+  const priceValue = parseFloat(productPriceInput.value.replace(/[^0-9]/g, ""));
+
+  if (isNaN(priceValue) || priceValue <= 0) {
     handleInputError(
       productPriceInput.parentElement,
       productPriceInput,
       null,
       productPriceErrorSpan,
     );
+    productPriceErrorSpan.innerHTML = "가격을 올바르게 입력해 주세요.";
     isValid = false;
   } else {
     resetInputError(
@@ -337,10 +347,14 @@ function dataURLtoFile(dataurl, filename) {
   return new File([u8arr], filename, { type: mime });
 }
 
-function handleImageUpload(event) {
+async function handleImageUpload(event) {
   const files = Array.from(event.target.files); // 파일 리스트를 배열로 변환
   const imagePreviewArea = document.getElementById("image-preview-area");
-  files.forEach((file, index) => {
+
+  for (const [index, file] of files.entries()) {
+    // 1:1 비율로 이미지 크롭
+    const croppedBlob = await cropImageToSquare(file);
+
     const reader = new FileReader();
 
     reader.onload = function (e) {
@@ -363,8 +377,9 @@ function handleImageUpload(event) {
       div.addEventListener("drop", handleDrop);
     };
 
-    reader.readAsDataURL(file);
-  });
+    // 1:1 비율로 자른 Blob을 Data URL로 읽어들임
+    reader.readAsDataURL(croppedBlob);
+  }
 
   updateRepresentativeLabel(); // 새로 추가된 이미지에 대해 대표 이미지 레이블 업데이트
 }
