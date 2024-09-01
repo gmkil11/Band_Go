@@ -381,3 +381,74 @@ function renderSimilarProducts(products) {
     similarProductsList.appendChild(productElement);
   });
 }
+
+// productId를 기반으로 찜 갯수 조회하는 함수
+async function getWishCountByProductId(productId) {
+  try {
+    const { count, error } = await client
+      .from("wish")
+      .select("wish_uuid", { count: "exact" }) // "exact" 옵션을 사용해 정확한 카운트를 반환
+      .eq("product_id", productId);
+
+    if (error) {
+      console.error("Error fetching wish count:", error.message);
+      return 0; // 에러가 발생하면 0으로 반환
+    }
+
+    return count || 0; // count 값이 null이면 0 반환
+  } catch (error) {
+    console.error("Unexpected error fetching wish count:", error);
+    return 0; // 에러 발생 시 0 반환
+  }
+}
+
+// 이미 찜한 상품인지 확인하는 함수
+async function isProductWishedByUser(userId, productId) {
+  try {
+    const { data, error } = await client
+      .from("wish")
+      .select("wish_uuid")
+      .eq("user_id", userId)
+      .eq("product_id", productId)
+      .maybeSingle(); // 쿼리 결과가 없을 경우 null 반환
+
+    if (error) {
+      console.error("Error checking wish status:", error.message);
+      return false; // 에러 발생 시 중복 찜이 아니라고 간주
+    }
+
+    return !!data; // 데이터가 있으면 true, 없으면 false 반환
+  } catch (error) {
+    console.error("Unexpected error checking wish status:", error);
+    return false;
+  }
+}
+
+// 찜 추가하기 함수
+async function addWish(userId, productId) {
+  try {
+    // 이미 찜했는지 확인
+    const alreadyWished = await isProductWishedByUser(userId, productId);
+
+    if (alreadyWished) {
+      alert("이미 찜한 상품입니다.");
+      return; // 이미 찜한 상품이면 함수 종료
+    }
+
+    // 찜 추가
+    const { data, error } = await client.from("wish").insert([
+      {
+        user_id: userId,
+        product_id: productId,
+      },
+    ]);
+
+    if (error) {
+      console.error("Error adding wish:", error.message);
+    } else {
+      console.log("찜이 성공적으로 추가되었습니다.");
+    }
+  } catch (error) {
+    console.error("Unexpected error adding wish:", error);
+  }
+}

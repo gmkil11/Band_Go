@@ -2,6 +2,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   const productId = new URLSearchParams(window.location.search).get(
     "productId",
   );
+
+  // 로그인된 유저 아이디 가져오기 (로그인하지 않은 경우 null 반환)
+  let loggedInUserId = null;
+  try {
+    loggedInUserId = await getLoggedInUserId();
+  } catch (error) {
+    console.warn("User is not logged in.");
+  }
+
   if (!productId) {
     console.error("Product ID not found in the URL.");
     return;
@@ -43,6 +52,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     userNameLink.parentNode.addEventListener("click", function () {
       window.location.href = `http://localhost:8080/mypage?userId=${user.id}`;
     });
+
+    // 찜 갯수 렌더링
+    const wishCount = document.querySelector(".wish-count");
+    wishCount.innerHTML = await getWishCountByProductId(productId);
 
     // 상태 변환
     const statusMapping = {
@@ -121,5 +134,27 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   } catch (error) {
     console.error("Failed to load product details:", error);
+  }
+
+  // 로그인된 유저만 찜하기 버튼에 이벤트 리스너 추가
+  if (loggedInUserId) {
+    document
+      .querySelector(".wish-btn")
+      .addEventListener("click", async function () {
+        await addWish(loggedInUserId, productId);
+
+        // 찜 카운트를 업데이트
+        const wishCount = await getWishCountByProductId(productId);
+        document.querySelector(".wish-count").textContent = wishCount;
+      });
+  } else {
+    // 로그인하지 않은 경우 찜하기 버튼 비활성화
+    const wishBtn = document.querySelector(".wish-btn");
+    if (wishBtn) {
+      wishBtn.classList.add("disabled");
+      wishBtn.addEventListener("click", function () {
+        alert("로그인 후 이용 가능한 기능입니다.");
+      });
+    }
   }
 });
